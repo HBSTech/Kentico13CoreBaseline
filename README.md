@@ -1,5 +1,6 @@
 
 
+
 # Kentico13CoreBaseline
 Our Kentico 13 Baseline for MVC .Net Core 5.0 Site, the perfect starting point for your Kentico 13 Site to get up and running right away.
 
@@ -137,11 +138,11 @@ The next piece is a clone of the normal [\_Layout.cshtml](https://github.com/HBS
 
 #### 3\. Special Views
 
-For each page type, we have a view to render it, and what is key is in the layout declaration, we are using the `PWPHelper.LayoutIfEditMode` method, which means that the content around it will only render if it's being edited by the CMS.  Otherwise, it will only render the view itself (which is just the PageBuilder content).  In this way, when we pull the content into the header/footer areas, it is just that area's HTML.  Here’s the [Header](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Views/Shared/PageTypes/Header.cshtml) and Here’s the [Footer](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Views/Shared/PageTypes/Footer.cshtml).
+For each page type, we have a view to render it, and what is key is in the layout declaration, we are using the `PWPHelper.LayoutIfEditMode` method, which means that the content around it will only render if it's being edited by the CMS.  Otherwise, it will only render the view itself (which is just the PageBuilder content).  In this way, when we pull the content into the header/footer areas, it is just that area's HTML.  Here’s the [Header](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Views/Shared/Components/PartialHeader/Default.cshtml) and Here’s the [Footer](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Views/Shared/Components/PartialFooter/Default.cshtml).
 
 #### 4\. Routing
 
-Since the rendering of these sections are very simple, we are going to just add two simple Controllers and routes for the [Header](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/PageTypes/Header.cs) and [Footer](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/PageTypes/Footer.cs).  These render out a View that only contains the Layout Toggle and a View Component call (`<vc:partial-header/>` or `<vc:partial-footer/>`).
+Since the rendering of these sections are very simple, we are going to just add two simple Controllers and routes for the [Header](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Models/PageTypes/Header.cs) and [Footer](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Models/PageTypes/Footer.cs).  These render out a View that only contains the Layout Toggle and a View Component call (`<vc:partial-header/>` or `<vc:partial-footer/>`).
 
 Lastly, on the actual Layout, we use the Partial Widget Page Tag Helper to alter the rendering context and display:
 
@@ -175,11 +176,11 @@ The next item is in the Additional Configuration if it is a `Mega Menu`.  If thi
 
 The last section, the `Dynamic` Section, allows the children to be Dynamically generated, this is like a repeater so you should be familiar with selecting your `Path`, `Page Types`, and other settings.  `NodeLevel, NodeOrder` for the `Order by` will mimic the tree structure.
 
-Lastly, if you add `Node Categories` to the navigation items, you can filter what Navigation Elements are pulled in by the category code name (see the [INavigationRepository.GetNavItems()](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Repositories/Interfaces/INavigationRepository.cs)).  This can be useful if you have some elements that you wish to display on the Mobile navigation only vs. the Desktop, you can assign different categories to them and display.
+Lastly, if you add `Node Categories` to the navigation items, you can filter what Navigation Elements are pulled in by the category code name (see the [INavigationRepository.GetNavItems()](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/RepositoryLibrary/Interfaces/INavigationRepository.cs)).  This can be useful if you have some elements that you wish to display on the Mobile navigation only vs. the Desktop, you can assign different categories to them and display.
 
-#### [INavigationRepository](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Repositories/Interfaces/INavigationRepository.cs)
+#### [INavigationRepository](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/RepositoryLibrary/Interfaces/INavigationRepository.cs)
 
-The `[INavigationRepository](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Repositories/Interfaces/INavigationRepository.cs)` is the interface that does all the heavy lifting, this is used in the `[HeaderController](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Controllers/Structure/HeaderController.cs)` to render the navigation but be aware you can use this for other things.  It has methods to convert any list of Nodes into a `[HierarchyTreeNode](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Models/Generic/HierarchyTreeNode.cs)`, and has logic for getting Side Navigations (more on those later).
+The `[INavigationRepository](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/RepositoryLibrary/Interfaces/INavigationRepository.cs)` is the interface that does all the heavy lifting, this is used in the `[HeaderController](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Controllers/Structure/HeaderController.cs)` to render the navigation but be aware you can use this for other things.  It has methods to convert any list of Nodes into a `[HierarchyTreeNode](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Models/Generic/HierarchyTreeNode.cs)`, and has logic for getting Side Navigations (more on those later).
 
 #### Header Views
 
@@ -190,7 +191,7 @@ The last piece is the actual rendering of the navigation.  Included are the basi
 
 #### Navigation-less Layout, Navigation View, Dynamic Route Tag for Mega Menus
 
-Just like the Header / Footer Content, the Mega Menu system uses the Partial Widget Page to allow the user to create WYSIWYG content on the Page tab of the navigation item and pull that into the mega menu itself.   It uses a [\_Layout-Navigation.cshtml](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Views/Shared/_layout-Navigation.cshtml), a [Generic_Navigation.cshtml](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Views/Shared/PageTypes/Generic_Navigation.cshtml) view (no need for a routing attribute as Kentico looks to this spot if none is defined).  The navigation is cached through the `[INavigationRepository](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Repositories/Interfaces/INavigationRepository.cs)` ([in the Implementation of it](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Repositories/Implementations/KenticoNavigationRepository.cs)) system.
+Just like the Header / Footer Content, the Mega Menu system uses the Partial Widget Page to allow the user to create WYSIWYG content on the Page tab of the navigation item and pull that into the mega menu itself.   It uses a [\_Layout-Noheader.cshtml](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Views/Shared/_Layout-NoHeader.cshtml), a [Generic_Navigation.cshtml](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Views/Shared/PageTypes/Generic_Navigation.cshtml) view (no need for a routing attribute as Kentico looks to this spot if none is defined).  The navigation is cached through the `[INavigationRepository](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/RepositoryLibrary/Interfaces/INavigationRepository.cs)` ([in the Implementation of it](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/RepositoryLibrary/Implementation/KenticoNavigationRepository.cs)) system.
 
 #### Custom Cache Clear Event Hook
 
@@ -228,7 +229,7 @@ Secondary Navigation
 
 As a sample, on the [Generic_GenericPage.cshtml](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Views/Shared/PageTypes/Generic_GenericPage.cshtml), I demonstrate showing a Secondary navigation using the `<vc:secondary-navigation />` View Component.  
 
-Keep in mind that using the aforementioned `[INavigationRepository](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Repositories/Interfaces/INavigationRepository.cs)`, it's quite easy to mimic my system and create additional navigation styling to your liking.  The `GetSecondaryNavItems` takes a path and some other configurations, you can also use the `GetAncestorPath` method to show a side navigation from an ancestor of the current page.  The rendering views ([SecondaryNavigation/Default.cshtml](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Views/Shared/Components/SecondaryNavigation/Default.cshtml), [SecondaryNavigationItem.cshtml](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Views/Shared/Navigation/SecondaryNavigationItem.cshtml) and [SecondaryNavigationDropdownItem.cshtml](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Views/Shared/Navigation/SecondaryNavigationDropdownItem.cshtml)) operate the same as the main navigation.
+Keep in mind that using the aforementioned `[INavigationRepository](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/RepositoryLibrary/Interfaces/INavigationRepository.cs)`, it's quite easy to mimic my system and create additional navigation styling to your liking.  The `GetSecondaryNavItems` takes a path and some other configurations, you can also use the `GetAncestorPath` method to show a side navigation from an ancestor of the current page.  The rendering views ([SecondaryNavigation/Default.cshtml](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Views/Shared/Components/SecondaryNavigation/Default.cshtml), [SecondaryNavigationItem.cshtml](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Views/Shared/Navigation/SecondaryNavigationItem.cshtml) and [SecondaryNavigationDropdownItem.cshtml](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Views/Shared/Navigation/SecondaryNavigationDropdownItem.cshtml)) operate the same as the main navigation.
 
 ### Breadcrumbs
 
@@ -252,7 +253,7 @@ The Sitemap system is relatively simple, you use the `ISiteMapRepository` to get
 
     <modules runAllManagedModulesForAllRequests="true">
 
-[Robots.txt](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/wwwcontent/robots.txt)
+[Robots.txt](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/wwwroot/robots.txt)
 -----------------------------------------------------------------------------------------
 
 For the `Robots.txt` file, you can just create one, there is no need for really any MVC logic unless you, for some reason, want the `Robots.txt` to be dynamic.  Then you can follow a similar pattern to the Sitemap.
@@ -262,7 +263,7 @@ For the `Robots.txt` file, you can just create one, there is no need for really 
 User Management
 ---------------
 
-One final piece many sites need is User Management.  I have included an `[AccountController](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Controllers/Administrative/AccountController.cs)` and related views that allow for `[Sign In](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Views/Account/SignIn.cshtml)`, `Sign Out`, `[Register](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Views/Account/Register.cshtml)` (with [Email Verification](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Views/Account/CheckYourEmail.cshtml)), `[Change Password](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Views/Account/ResetPassword.cshtml)`, and `[Reset Forgotten Password](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Views/Account/ForgottenPasswordReset.cshtml)` (Email password reset link).
+One final piece many sites need is User Management.  I have included an [AccountController](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Controllers/Administrative/AccountController.cs) and related views that allow for [Sign In](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Views/Account/SignIn.cshtml), `Sign Out`, [Register](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Views/Account/Register.cshtml) (with [Email Verification](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Views/Account/CheckYourEmail.cshtml)), [Change Password](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Views/Account/ResetPassword.cshtml), and [Reset Forgotten Password](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Views/Account/ForgottenPasswordReset.cshtml) (Email password reset link).
 
 
 I also included the Dancing Goat variety which you can swap out if you wish, otherwise it's not really used.
@@ -285,7 +286,7 @@ For Interfaces that retrieve data and inherit `IRepository`, you should follow t
 
 1.  Any logic that retrieves data should be an Interface that inherits `IRepository`, any logic that simply manipulates or performs some action should be an Interface that inherits `IService`
 2.  Then create your Implementation of these `Interfaces`, for Repositories, leverage the `MVCCaching` attributes.  Any call made through dependency injection that have `MVCCaching` will automatically cache with the proper dependencies, and the dependency keys will be added to the output cache.
-3.  This may require a `Helper` interface so your calls within the implementation are also done through dependency injection.  For example, [KenticoRoleRepository](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Repositories/Implementations/KenticoRoleRepository.cs) (which implements [IRoleRepository](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Repositories/Interfaces/IRoleRepository.cs)) has a helper [IKenticoRoleRepositoryHelper](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Repositories/Interfaces/IKenticoRoleRepositoryHelper.cs) for some of its calls, so it can call it through an `IRepository` interface.
+3.  This may require a `Helper` interface so your calls within the implementation are also done through dependency injection.  For example, [KenticoRoleRepository](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/RepositoryLibrary/Implementation/KenticoRoleRepository.cs) (which implements [IRoleRepository](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/RepositoryLibrary/Interfaces/IRoleRepository.cs)) has a helper [IKenticoRoleRepositoryHelper](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/RepositoryLibrary/Interfaces/IKenticoRoleRepositoryHelper.cs) for some of its calls, so it can call it through an `IRepository` interface.
 
 This will ensure that your code is automatically cached.  Definitely recommend reading the [MVCCaching Documentation](https://github.com/KenticoDevTrev/MVCCaching/blob/master/Documentation.md) for all of it’s nuances.  
  
