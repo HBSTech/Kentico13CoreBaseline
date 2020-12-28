@@ -1,0 +1,31 @@
+﻿@model Generic.ViewModels.TabParentViewModel
+@inject PartialWidgetPage.IPartialWidgetPageHelper PWPHelper
+@{
+    Layout = "_Layout";
+}
+<main role="main">
+    <div class="container">
+        <editable-area area-identifier="areaAbove" />
+        <nav>
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                @for (int T = 0; T < Model.Tabs.Count(); T++)
+                {
+                    var Element = Model.Tabs.ElementAt(T);
+                    <a class="nav-item nav-link" id="nav-home-tab @(T == 0 ? "active" : "")" data-toggle="tab" href="#Tab-@Element.DocumentID" role="tab" aria-controls="Tab-@Element.DocumentID" aria-selected="@(T == 0 ? "true" : "false")">@Element.Name</a>
+                }
+            </div>
+        </nav>
+        <div class="tab-content" id="nav-tabContent">
+            @for (int T = 0; T < Model.Tabs.Count(); T++)
+            {
+                var Element = Model.Tabs.ElementAt(T);
+                <inlinewidgetpage documentid="@Element.DocumentID">
+                    <div class="tab-pane fade @(T == 0 ? "show active" : "")" id="Tab-@Element.DocumentID" role="tabpanel" aria-labelledby="Tab-@Element.DocumentID">
+                        <vc:tab-component />
+                    </div>
+                </inlinewidgetpage>
+            }
+        </div>
+        <editable-area area-identifier="areaBelow" />
+    </div>
+</main>

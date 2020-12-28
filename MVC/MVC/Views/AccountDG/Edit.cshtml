@@ -1,0 +1,47 @@
+﻿@model DancingGoat.Models.PersonalDetailsViewModel
+
+@{
+    ViewBag.Title = HtmlLocalizer["Personal details"].Value;
+    ViewData["PageClass"] = "inverted";
+}
+
+<div class="row col-md-6 form-horizontal">
+    <a asp-action="YourAccount" asp-controller="Account">&larr; @HtmlLocalizer["back to Your Account"]</a>
+    <h2>@HtmlLocalizer["Personal details"]</h2>
+    <form asp-action="Edit" asp-controller="Account" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="FormPanel">
+            <div class="form-group">
+                <div class="form-group-label">
+                    <label asp-for="UserName"></label>
+                </div>
+                <div class="form-group-input">
+                    <input asp-for="UserName" disabled="disabled" type="text" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-group-label">
+                    <label asp-for="FirstName"></label>
+                </div>
+                <div class="form-group-input">
+                    <input asp-for="FirstName" />
+                </div>
+                <div class="message message-error">
+                    <span asp-validation-for="FirstName"></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="form-group-label">
+                    <label asp-for="LastName"></label>
+                </div>
+                <div class="form-group-input">
+                    <input asp-for="LastName" />
+                </div>
+                <div class="message message-error">
+                    <span asp-validation-for="LastName"></span>
+                </div>
+            </div>
+            <input type="submit" value="@HtmlLocalizer["Update personal details"]" class="btn btn-primary" />
+        </div>
+    </form>
+</div>

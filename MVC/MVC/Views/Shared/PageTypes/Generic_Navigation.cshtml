@@ -1,0 +1,6 @@
+﻿@model Kentico.Content.Web.Mvc.Routing.IPageViewModel<Navigation>
+@inject IPartialWidgetPageHelper PWPHelper
+@{
+    Layout = PWPHelper.LayoutIfEditMode("~/Views/Shared/_Layout-NoHeader.cshtml");
+}
+<vc:partial-navigation />

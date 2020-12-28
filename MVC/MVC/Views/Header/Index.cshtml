@@ -1,0 +1,6 @@
+﻿@model Header
+@inject IPartialWidgetPageHelper PWPHelper
+@{ 
+    Layout = PWPHelper.LayoutIfEditMode("~/Views/Shared/_Layout-NoHeader.cshtml");
+}
+<vc:partial-header/>

@@ -1,0 +1,54 @@
+﻿@using CMS.DocumentEngine
+@model SearchViewModel
+@{
+    ViewBag.Title = "Search";
+    Layout = "~/Views/Shared/_layout.cshtml";
+}
+
+<div class="container">
+    <section id="tw-case" class="tw-case">
+        <div class="row">
+            <div class="col">
+                @if (!string.IsNullOrWhiteSpace(Model.SearchValue))
+                {
+                    <h1>Search Results</h1>
+                    <h2>For @Model.SearchValue</h2>
+                }
+                else
+                {
+                    <h1>Search</h1>
+                }
+                <input type="text" id="txtSearch" placeholder="Search..." /> <button type="button" class="btn-primary" onclick="Search();">Search</button>
+
+                @foreach (var SearchItem in Model.SearchItems)
+                {<article>
+                        @if (SearchItem.Type.Equals("cms.document", StringComparison.InvariantCultureIgnoreCase))
+                        {
+                            <a href="@(((TreeNode)SearchItem.Data).RelativeURL)">@SearchItem.Title</a>
+                            <p>@Html.Raw(SearchItem.Content)</p>
+                        }
+                        else
+                        {
+                            @SearchItem.Title
+                            <p>@SearchItem.Content</p>
+                        }
+                    </article>
+                }
+            </div>
+
+        </div>
+    </section>
+
+</div>
+<script type="text/javascript">
+    function Search() {
+        window.location = window.location.href.split("?")[0] + "?SearchValue=" + encodeURI(document.getElementById("txtSearch").value);
+    }
+    var searchBox = document.getElementById("txtSearch");
+    searchBox.addEventListener("keydown", function (e) {
+        if (e.keyCode === 13) {  //checks whether the pressed key is "Enter"
+            Search();
+        }
+    });
+</script>
+

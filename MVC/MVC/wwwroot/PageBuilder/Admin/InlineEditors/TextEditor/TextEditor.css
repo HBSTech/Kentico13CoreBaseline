@@ -1,0 +1,13 @@
+﻿.text-editor {
+    outline: none;
+    cursor: text;
+}
+
+    .text-editor:empty:before {
+        content: attr(data-placeholder-text);
+        color: #d6d9d6;
+    }
+
+    .text-editor:not(:focus):hover {
+        background-color: rgba(155, 155, 155, 0.17);
+    }

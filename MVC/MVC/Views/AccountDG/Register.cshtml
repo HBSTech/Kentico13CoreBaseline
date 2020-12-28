@@ -1,0 +1,83 @@
+﻿@model DancingGoat.Models.RegisterViewModel
+
+@{
+    ViewBag.Title = HtmlLocalizer["Register"].Value;
+    ViewData["PageClass"] = "inverted";
+}
+
+<div class="signin-register">
+    <div class="row">
+        <div class="col-md-6 zone-dark">
+            <h2>@HtmlLocalizer["Register"]</h2>
+            <p>@HtmlLocalizer["Create your own account and enjoy smooth shopping experience at Dancing Goat."]</p>
+            <div class="separator"></div>
+            <div class="form-group-input">
+                <div class="logon-page-background">
+                    <div class="logon-panel">
+                        
+                        <form asp-action="Register" method="post">
+                            <div class="form-horizontal" role="form">
+                                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                                <div class="form-group">
+                                    <div class="editing-form-label-cell">
+                                        @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label" })
+                                    </div>
+                                    <div class="editing-form-value-cell">
+                                        @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="editing-form-label-cell">
+                                        @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label" })
+                                    </div>
+                                    <div class="editing-form-value-cell">
+                                        @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="editing-form-label-cell">
+                                        @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label" })
+                                    </div>
+                                    <div class="editing-form-value-cell">
+                                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="editing-form-label-cell">
+                                        @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label" })
+                                    </div>
+                                    <div class="editing-form-value-cell">
+                                        @Html.PasswordFor(model => model.Password, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="editing-form-label-cell">
+                                        @Html.LabelFor(model => model.PasswordConfirmation, htmlAttributes: new { @class = "control-label" })
+                                    </div>
+                                    <div class="editing-form-value-cell">
+                                        @Html.PasswordFor(model => model.PasswordConfirmation, htmlAttributes: new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.PasswordConfirmation, "", new { @class = "text-danger" })
+                                    </div>
+                                </div>
+
+                                <input type="submit" value="@HtmlLocalizer["Register"]" class="btn btn-primary" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 zone-light">
+            <h2>@HtmlLocalizer["Already have an account?"]</h2>
+            @Html.ActionLink(HtmlLocalizer["Sign in"].Value, "Login", null, new { @class = "btn btn-secondary btn-default" })
+        </div>
+    </div>
+</div>

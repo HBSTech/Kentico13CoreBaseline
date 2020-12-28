@@ -1,0 +1,7 @@
+﻿
+@{
+    ViewBag.Title = HtmlLocalizer["Confirmation required"].Value;
+}
+
+<h2>@HtmlLocalizer["Your account requires activation before logging in."]</h2>
+@Html.ActionLink(HtmlLocalizer["Sign in"].Value, "Login", null, new { @class = "btn btn-secondary" })

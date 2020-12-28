@@ -1,0 +1,78 @@
+﻿@{
+    Layout = null;
+}
+@using Kentico.Web.Mvc
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor Accessor
+@inject IPartialWidgetPageHelper PWPHelper
+<!DOCTYPE html>
+<html lang="en" class="js">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <title class="has_page_title">Kentico Boilerplate - HBS</title>
+
+    <!-- JQUERY, added in header so available anywhere -->
+    <script src="~/js/scripts/jquery-3.5.1.min.js"></script>
+    <environment include="Development">
+        <link href="~/css/bootstrap/bootstrap.min.css" rel="stylesheet" />
+        <link href="~/css/Custom.css" rel="stylesheet" />
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/bundles/HeaderJS.min.js"></script>
+        <link href="~/css/bundles/HeaderStyles.min.css" rel="stylesheet" />
+    </environment>
+
+    @RenderSection("head", required: false)
+
+    <page-builder-mode include="Edit">
+        <!-- Edit Mode -->
+        <page-builder-styles />
+        <link href="~/css/EditMode.min.css" rel="stylesheet" />
+    </page-builder-mode>
+    @*Page builder styles manually added here if needed*@
+
+</head>
+<body>
+
+    <span style="display:none">CONTENTSTART</span>
+    @RenderBody()
+    <span style="display:none">CONTENTEND</span>
+
+    <inlinewidgetpage documentid="@PWPHelper.GetDocumentIDByNode("/Masterpage/Footer")" initialize-document-prior="true">
+        <vc:partial-footer />
+    </inlinewidgetpage>
+
+    <!-- Includes the jQuery Validator for MVC-->
+    <script src="~/js/bundles/jqueryval.min.js"></script>
+
+    <script type="text/javascript">
+        $.validator.setDefaults({ ignore: null });
+    </script>
+
+    <!-- Includes the AJAX Unobtrusive for MVC -->
+    <script src="~/js/bundles/jquery-unobtrusive-ajax.min.js"></script>
+    <page-builder-mode include="Edit">
+        <!-- Edit mode-->
+        <page-builder-scripts />
+        <script src="~/js/scripts/MyComponentsConfiguration.js"></script>
+    </page-builder-mode>
+    <page-builder-mode exclude="Edit">
+        @* Needed for some of the form stuff, at least used to be *@
+        <script src="~/js/scripts/updatableFormHelper.js"></script>
+        <script src="~/js/scripts/inputmask.js"></script>
+    </page-builder-mode>
+
+    <!-- Javascripts File -->
+    <environment include="Development">
+        <script src="~/js/Custom.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/js/bundles/FooterJS.min.js"></script>
+    </environment>
+
+    @RenderSection("bottom", required: false)
+</body>
+</html>

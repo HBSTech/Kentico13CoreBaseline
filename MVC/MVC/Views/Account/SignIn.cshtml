@@ -1,0 +1,50 @@
+﻿@model Generic.Models.LoginViewModel
+@{
+    ViewBag.Title = "Sign In";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="container">
+        @if (ViewContext.ViewData.ModelState.Where(x => x.Key == "").Any())
+        {
+            <div>@Html.ValidationSummary(true, "", new { @class = "alert alert-danger text-danger col-12", @role = "alert" })</div>
+        }
+        <h1 class="text-center pt-4 pb-2">Sign in to your account</h1>
+        <div class="row">
+            <div class="col-12 col-sm-6 m-auto">
+                <div class="form-group">
+                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @placeholder = "Enter Email" } })
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-sm-6 m-auto">
+                <div class="form-group has-feedback">
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @autocomplete = "off", @placeholder = "Enter your password" } })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-sm-6 m-auto">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.StaySignedIn, new { htmlAttributes = new { @autocomplete = "off" } })
+                    @Html.LabelFor(model => model.StaySignedIn, htmlAttributes: new { @class = "" })
+                    @Html.ValidationMessageFor(model => model.StaySignedIn, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-6 m-auto text-center">
+                <input type="submit" value="Sign in" class="btn btn-primary btn-theme" style="width: 100%;" /><br />
+                Not already a member?  <a href="@Url.Action("Registration","Account")">Register Here</a>.<br />
+                <a href="@Url.Action("ForgotPassword", "Account")">Forgotten password</a>
+            </div>
+        </div>
+    </div>
+}

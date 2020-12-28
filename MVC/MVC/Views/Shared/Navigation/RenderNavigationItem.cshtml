@@ -1,0 +1,38 @@
+﻿@using Generic.Models;
+@model NavigationItem
+@{
+    string CurrentPath = (string)ViewData["CurrentPagePath"];
+}
+@if (Model.IsMegaMenu)
+{
+    <li class="nav-item dropdown mega-menu @Model.LinkCSSClass @(Model.IsCurrentPage(CurrentPath) ? "active" : "")">
+        <a href="#" class="nav-link dropdown-toggle" title="@Model.LinkAlt" onclick="@Model.LinkOnClick" data-toggle="dropdown">
+            @Html.Raw(Model.LinkText)
+        </a>
+        <div class="dropdown-menu">
+            <inlinewidgetpage documentid="Model.LinkDocumentID" initialize-document-prior="true">
+                <vc:partial-navigation/>
+            </inlinewidgetpage>
+        </div>
+    </li>
+}
+else if (Model.Children.Count == 0)
+{
+    <li class="nav-item @Model.LinkCSSClass @(Model.IsCurrentPage(CurrentPath) ? "active" : "")">
+        <a class="nav-link" title="@Model.LinkAlt" onclick="@Model.LinkOnClick" href="@Model.LinkHref">@Html.Raw(Model.LinkText)</a>
+    </li>
+}
+else
+{
+    <li class="nav-item dropdown @Model.LinkCSSClass @(Model.IsCurrentPage(CurrentPath) ? "active" : "")">
+        <a class="nav-link  dropdown-toggle" title="@Model.LinkAlt" href="#" onclick="@Model.LinkOnClick" data-toggle="dropdown">
+            @Html.Raw(Model.LinkText)
+        </a>
+        <ul class="dropdown-menu">
+            @foreach (var ChildItem in Model.Children)
+            {
+                <partial name="~/Views/Shared/Navigation/RenderNavigationDropdownItem.cshtml" for="@ChildItem" view-data="ViewData" />
+            }
+        </ul>
+    </li>
+}

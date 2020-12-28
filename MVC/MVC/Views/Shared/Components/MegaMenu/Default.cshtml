@@ -1,0 +1,6 @@
+﻿@inject IPartialWidgetPageHelper PWPHelper
+@inject IUserWidgetProvider UserWidgetProvider 
+@{
+    Layout = PWPHelper.LayoutIfEditMode("~/Views/Shared/_layout_Navigation.cshtml");
+}
+<editable-area area-identifier="main" area-options-allowed-widgets="@await UserWidgetProvider.GetUserAllowedWidgetsAsync()" />

@@ -1,0 +1,11 @@
+﻿@using Generic.Models;
+@model NavigationViewModel
+@{
+    ViewData["CurrentPagePath"] = Model.CurrentPagePath;
+}
+<ul class="navbar-nav">
+    @foreach (var NavItem in Model.NavItems)
+    {
+        <partial name="~/Views/Shared/Navigation/RenderNavigationItem.cshtml" for="@NavItem" view-data="@ViewData" />
+    }
+</ul>

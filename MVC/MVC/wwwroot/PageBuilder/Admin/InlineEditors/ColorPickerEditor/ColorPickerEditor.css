@@ -1,0 +1,72 @@
+.color-picker-editor div.inline-editor-btn-group {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    z-index: 10000;
+    position: absolute;
+    right: 1em;
+    top: 1em;
+    background-color: #262524;
+    display: table;
+    box-sizing: border-box;
+    border: 1px solid #383838;
+    border-radius: 2px;
+    opacity: 0.8;
+    -webkit-transition: background-color .2s ease-in;
+    transition: background-color .2s ease-in;
+}
+
+.color-picker-editor div.inline-editor-btn-group:hover {
+    opacity: 1.0;
+}
+
+.color-picker-editor div.inline-editor-btn-group ul {
+    margin: 0;
+    padding: 0;
+}
+
+.color-picker-editor div.inline-editor-btn-group li {
+    float: left;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.color-picker-editor div.inline-editor-btn-group li:first-child button {
+    border-bottom-left-radius: 2px;
+    border-top-left-radius: 2px;
+}
+
+.color-picker-editor div.inline-editor-btn-group li:last-child button {
+    border-bottom-right-radius: 2px;
+    border-top-right-radius: 2px;
+}
+
+.color-picker-editor div.inline-editor-btn-group li button {
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    font-size: 24px;
+    line-height: 1.33;
+    margin: 0;
+    padding: 8px;
+    text-decoration: none;
+    color: #fff;
+    background-color: #262524;
+    height: 50px;
+    min-width: 50px;
+    border: 0;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    -webkit-transition: background-color .2s ease-in;
+    transition: background-color .2s ease-in;
+}
+
+.color-picker-editor div.inline-editor-btn-group li button:hover {
+    background-color: #383838;
+}
+
+.color-picker-editor .color-btn {
+    padding: 10px 0;
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+}

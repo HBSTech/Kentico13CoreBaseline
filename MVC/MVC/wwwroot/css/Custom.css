@@ -1,0 +1,16 @@
+﻿.navbar-nav {
+  flex-flow: row; }
+  .navbar-nav .nav-item {
+    padding: 20px;
+    text-align: center; }
+
+  .active > a {
+      font-weight: bold;
+  }
+  .row img {
+      max-width: 100%;
+  }
+img.Logo {
+    max-width: 100px !important;
+}
+/*# sourceMappingURL=data:application/json;base64,ewoJInZlcnNpb24iOiAzLAoJImZpbGUiOiAiQ29udGVudC9zY3NzL0N1c3RvbS5jc3MiLAoJInNvdXJjZXMiOiBbCgkJIkNvbnRlbnQvc2Nzcy9DdXN0b20uc2NzcyIKCV0sCgkibmFtZXMiOiBbXSwKCSJtYXBwaW5ncyI6ICJBQUdBLEFBQUEsV0FBVyxDQUFDO0VBQ1IsU0FBUyxFQUFFLEdBQUcsR0FNakI7RUFQRCxBQUdJLFdBSE8sQ0FHUCxTQUFTLENBQUM7SUFDTixPQUFPLEVBQUUsSUFBSTtJQUNiLFVBQVUsRUFBRSxNQUFNLEdBQ3JCIgp9 */

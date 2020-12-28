@@ -1,0 +1,6 @@
+﻿@model CMS.DocumentEngine.Types.Generic.Tab.TabFields 
+@inject IPartialWidgetPageHelper PWPHelper
+@{
+    Layout = PWPHelper.LayoutIfEditMode("_Layout");
+}
+<vc:tab-component />

@@ -1,0 +1,65 @@
+﻿@using Kentico.Membership.Web.Mvc
+
+@model DancingGoat.Models.YourAccountViewModel
+
+@{
+    ViewBag.Title = HtmlLocalizer["Your account"].Value;
+    ViewData["PageClass"] = "inverted no-bg";
+}
+
+<div class="container">
+    <h2>@HtmlLocalizer["Your account"]</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <h3>@HtmlLocalizer["Personal details"]</h3>
+            <div>@Model.User.FirstName @Model.User.LastName</div>
+            <div>@Model.User.Email</div>
+            <div>
+                <a href="@Url.Action("Edit", "Account" )">@HtmlLocalizer["Edit"]</a>
+            </div>
+        </div>
+        @if (Model.User.Roles.Any())
+        {
+            <div class="col-md-4">
+                <h3>@HtmlLocalizer["Roles"]</h3>
+                <ul>
+                    @foreach (var role in Model.User.Roles)
+                    {
+                        <li>@role</li>
+                    }
+                </ul>
+            </div>
+        }
+    <div class="col-md-4">
+        <div class="avatar" onclick="document.getElementById('avatarUpload').click()">
+            <img class="avatar-image" src="@Url.Kentico().AvatarUrl(Model.User.UserName, pathToDefaultAvatar: " ~/Content/Images/default-avatar.png")" />
+            <div class="avatar-upload-info">
+                <div class="text">@HtmlLocalizer["Change photo"]</div>
+            </div>
+        </div>
+        @if (Model.AvatarUpdateFailed)
+        {
+            <div class="avatar-error">
+                <span class="avatar-error-message">@HtmlLocalizer["Please upload a valid image."]</span>
+            </div>
+            <script type="text/javascript">
+                if (window.history.replaceState) {
+                    window.history.replaceState({}, document.title, window.location.pathname);
+                }
+            </script>
+        }
+
+        <form asp-controller="Account" asp-action="ChangeAvatar" method="post" enctype="multipart/form-data" id="avatarUploadForm" style="display: none;">
+            @Html.TextBox("avatarUpload", "", new { type = "file", id = "avatarUpload", accept = "image/*", onchange = "document.getElementById('avatarUploadForm').submit()" })
+        </form>
+    </div>
+    </div>
+
+    <div class="row">
+        <div class="clear">
+            <a asp-controller="Orders" asp-action="Index" class="btn btn-more">
+                @HtmlLocalizer["Your orders"]
+            </a>
+        </div>
+    </div>
+</div>
