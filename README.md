@@ -300,7 +300,7 @@ They are also looking into output caching as this is not part of native .Net Cor
 AutoMapper
 ----------
 
-`AutoMapper` is a common tool to Map one model to another.  This is often used when mapping Data models to View Models.  You can include the `IMapper` interface in your constructor, and then use its `Map<TDestination>(SourceObject)`.  You can configure this and add your own mappings in the [AutoMapperMaps.cs](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Infrastructure/AutoMapper/AutoMapperMaps.cs).
+`AutoMapper` is a common tool to Map one model to another.  This is often used when mapping Data models to View Models.  You can include the `IMapper` interface in your constructor, and then use its `Map<TDestination>(SourceObject)`.  You can configure this and add your own mappings in the [AutoMapperMaps.cs](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/App_Start/AutoMapperMaps.cs).
 
 Take it from here
 ==========================================
