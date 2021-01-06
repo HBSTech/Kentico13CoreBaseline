@@ -49,7 +49,7 @@ namespace Generic.Controllers.Administrative
         /// <returns></returns>
         private string GetSitemapXml(IEnumerable<SitemapNode> Nodes)
         {
-                return $"<urlset>{string.Join("\n", Nodes.Select(x => SitemapNodeToXmlString(x)))}</urlset>";
+                return $"<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">{string.Join("\n", Nodes.Select(x => SitemapNodeToXmlString(x)))}</urlset>";
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace Generic.Controllers.Administrative
 
             return string.Format("<url>{0}{1}{2}{3}</url>",
                 $"<loc>{Node.Url}</loc>",
-                Node.LastModificationDate.HasValue ? $"<lastmod>{Node.LastModificationDate.Value.ToString("yyyy-MM-ddTHH:mm:ss")}</lastmod>" : "",
+                Node.LastModificationDate.HasValue ? $"<lastmod>{Node.LastModificationDate.Value.ToString("yyyy-MM-ddTHH:mm:sszzz")}</lastmod>" : "",
                 !string.IsNullOrWhiteSpace(changeFreq) ? $"<changefreq>{changeFreq}</changefreq>" : "",
                 Node.Priority.HasValue ? $"<priority>{Node.Priority.Value}</priority>" : ""
                 );
