@@ -9,6 +9,8 @@ Our Kentico 13 Baseline for MVC .Net Core 5.0 Site, the perfect starting point f
 # Installation
 Install a normal Kentico 13 Site, and hotfix it up 13.0.5 (this is the minimum version that supports .Net Core 5.0)
 
+Also make sure to install .Net 5.0 and .Net Core 3.1 onto your solution (you can install the Hosting Bundles as well if you plan on hosting via IIS)
+
 ## Install NuGet Packages
 On the Kentico Admin (WebApp/Mother) solution, install the following NuGet Packages
 
