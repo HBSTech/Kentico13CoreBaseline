@@ -38,6 +38,8 @@ Kentico uses Webfarm to sync media file changes, event triggers, and more import
 5. Update any nuget packages for custom tools (usually `Something.Kentico.Core`) installed if needed, however do **not** update non-custom Kentico Nuget Packages as this could break your solution if Kentico's code depends on certain versions.
 6. Rebuild solution
 
+If using IIS, there is also a `web.config`, you will have to update the aspNetCore processPath to point to the project's .exe file.
+
 ***
 
 
