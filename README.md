@@ -22,6 +22,10 @@ Optionally install
 ## Install Site Objects
 In your Kentico Admin instance, go to `Sites` - `Import Site or Object` and upload the [Baseline Site](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/Kentico13CoreBaseline-AdminSiteImport.zip).  You can import these objects into an existing site or create the site from it.
 
+You may need to uncheck the Global Objects -> On-line marketing Tasks (Activity Types, Automation Actions, and Automation Templates), if you do not have an EMS License.
+
+You may also want to go through and uncheck any items that already exist IF this is not a fresh install and you did modifications to some of these items, or if this is a later version of Kentico that may have touched them.  The import items are really the Pages and Page Types primarily.
+
 ## Enable Webfarm
 
 Kentico uses Webfarm to sync media file changes, event triggers, and more importantly, Cache dependency touches.  Please go to `Settings - Versioning & Synchronization - Web Farm` and set to `Automatic` (you can also set it to Manual if you wish).  By default, the Web farm names will be the server name (for your admin site) and the Server Name + "`_AutoExternalWeb`" for your MVC site. 
