@@ -287,6 +287,10 @@ KenticoAdmin/CMS/App_Data/CMSModules/SmartSearch/**
 !KenticoAdmin/CMS/App_Data/CMSModules/SmartSearch/*/
 !KenticoAdmin/CMS/App_Data/CMSModules/SmartSearch/_StopWords/**
 !KenticoAdmin/CMS/App_Data/CMSModules/SmartSearch/_Synonyms/**
+MVC/MVC/App_Data/CMSModules/SmartSearch/**
+!MVC/MVC/App_Data/CMSModules/SmartSearch/*/
+!MVC/MVC/App_Data/CMSModules/SmartSearch/_StopWords/**
+!MVC/MVC/App_Data/CMSModules/SmartSearch/_Synonyms/**
 
 ## Kentico Starter Sites
 Boilerplate/App_Data/CMSModules/WebFarm/webfarm.sync
@@ -298,6 +302,10 @@ Boilerplate/[Bb]in
 ## Project specific ignores
 # Sensitive settings
 AppSettings.json
+AppSettings.config
+ConnectionStrings.config
+SessionState.config
+
 CI-Restore.bat
 
 # Project media libraries (recommend shared file storage)
