@@ -2,12 +2,12 @@
 
 
 # Kentico13CoreBaseline
-Our Kentico 13 Baseline for MVC .Net Core 5.0 Site, the perfect starting point for your Kentico 13 Site to get up and running right away.
+Our Kentico 13 Baseline for MVC .Net Core 5.0 Site, the perfect starting point for your Kentico Xperience 13 Site to get up and running right away.
 
 ***
 
 # Installation
-Install a normal Kentico 13 Site, and hotfix it up 13.0.5 (this is the minimum version that supports .Net Core 5.0)
+Install a normal Kentico 13 Site, and hotfix it up to at least 13.0.16 (KX13 Refresh 1)
 
 Also make sure to install .Net 5.0 and .Net Core 3.1 onto your solution (you can install the Hosting Bundles as well if you plan on hosting via IIS)
 
@@ -20,6 +20,12 @@ On the Kentico Admin (WebApp/Mother) solution, install the following NuGet Packa
 Optionally install
 1. [HBS_CSVImport](https://www.nuget.org/packages/HBS_CSVImport/) (will be upgraded to 13 in near future)
 2. [HBS.AutomaticGeneratedUserRoles.Kentico](https://www.nuget.org/packages/HBS.AutomaticGeneratedUserRoles.Kentico/)
+
+## Upgrading / Hotfixing Admin
+If you already had the Baseline for Admin, or are upgrading / hotfixing in the future, make sure to update the `Kentico.Xperience.Libraries` nuget package on the admin to the version your site is either on or hotfixing to.  The NuGet packages this Baseline uses inherits this nuget package, and if you fail to update this package after you hotfix, your Admin solution will probably not work.
+
+## Upgrading from Baseline V1 (13.0.5-13.0.15) to V2 (13.0.16+)
+If you used the KX13 baseline and want to integrate the refresh features.  After hotfixing your admin solution to KX 13.0.16+, proceed to update the `Kentico.Xperience.AspNetCore.WebApp` to the newer hotfix.  Then, please view the [Refresh 1](https://github.com/HBSTech/Kentico13CoreBaseline/commit/543e98e14799fe6f9e6b3018e023a5d003343ec1) Commit to view the items updated and the differences, and manually incorporate those changes into your solution.  This also requires updating your `MVCCaching.Kentico.Core` and `MVCCaching.Base.Core` to the latest version.
 
 ## Install Site Objects
 In your Kentico Admin instance, go to `Sites` - `Import Site or Object` and upload the [Baseline Site](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/Kentico13CoreBaseline-AdminSiteImport.zip).  You can import these objects into an existing site or create the site from it.
