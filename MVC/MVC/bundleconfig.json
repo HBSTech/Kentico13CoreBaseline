@@ -4,7 +4,11 @@
 		"inputFiles": [
 			"wwwroot/css/bootstrap/bootstrap.min.css",
 			"wwwroot/css/Custom.min.css"
-		]
+		],
+		"minify": {
+			"enabled": true,
+			"gzip": true
+		}
 	},
 	{
 		"outputFileName": "wwwroot/js/bundles/FooterJS.min.js",
@@ -13,17 +17,20 @@
 		],
 		"minify": {
 			"enabled": true,
-			"renameLocals": true
+			"renameLocals": true,
+			"gzip": true
 		},
 		"sourceMap": false
 	},
 	{
 		"outputFileName": "wwwroot/js/bundles/HeaderJS.min.js",
 		"inputFiles": [
+			"wwwroot/js/HeaderCustom.js"
 		],
 		"minify": {
 			"enabled": true,
-			"renameLocals": true
+			"renameLocals": true,
+			"gzip": true
 		},
 		"sourceMap": false
 	},
@@ -36,7 +43,8 @@
 		],
 		"minify": {
 			"enabled": true,
-			"renameLocals": true
+			"renameLocals": true,
+			"gzip": true
 		},
 		"sourceMap": false
 	},
@@ -47,7 +55,8 @@
 		],
 		"minify": {
 			"enabled": true,
-			"renameLocals": true
+			"renameLocals": true,
+			"gzip": true
 		},
 		"sourceMap": false
 	}

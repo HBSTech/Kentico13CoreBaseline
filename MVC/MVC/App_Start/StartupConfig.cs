@@ -25,6 +25,7 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using CMS.Helpers;
 using System;
+using Generic.Library;
 
 namespace Generic
 {
@@ -125,6 +126,11 @@ namespace Generic
             }
         }
 
+        internal static void RegisterGzipFileHandling(IServiceCollection services, IWebHostEnvironment environment, IConfiguration Configuration)
+        {
+            services.ConfigureOptions<GzipStaticFileOptions>();
+        }
+
         public static void RegisterLocalization(IServiceCollection services, IWebHostEnvironment Environment, IConfiguration Configuration)
         {
             // From dancing goat, Localizer
@@ -181,7 +187,8 @@ namespace Generic
             if (Environment.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            } else
+            }
+            else
             {
                 app.UseExceptionHandler("/error/500");
                 app.UseHsts();
@@ -189,6 +196,27 @@ namespace Generic
 
             app.UseStatusCodePagesWithReExecute("/error/{0}");
 
+            /*app.UseStaticFiles(new StaticFileOptions
+             {
+                 OnPrepareResponse = context =>
+                 {
+                     IHeaderDictionary headers = context.Context.Response.Headers;
+                     string contentType = headers["Content-Type"];
+                     if (contentType == "application/x-gzip")
+                     {
+                         if (context.File.Name.EndsWith("js.gz"))
+                         {
+                             contentType = "application/javascript";
+                         }
+                         else if (context.File.Name.EndsWith("css.gz"))
+                         {
+                             contentType = "text/css";
+                         }
+                         headers.Add("Content-Encoding", "gzip");
+                         headers["Content-Type"] = contentType;
+                     }
+                 }
+             });*/
             app.UseStaticFiles();
 
             app.UseKentico();

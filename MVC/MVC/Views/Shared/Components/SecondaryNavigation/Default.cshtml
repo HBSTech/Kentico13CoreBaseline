@@ -1,31 +1,39 @@
 ﻿@using Generic.Models;
 @model NavigationViewModel
-@{
-    ViewData["CurrentPagePath"] = Model.CurrentPagePath;
-}
-<!-- Use this if you want to display a sort of "Sibling" navigation, where the current page is part of a section of the site, so you want to navigate to sibling pages as well
-    Some examples are http://ecasd.us/District/Board-of-Education/Board-Member-Email (the "Parent" is the Board of Education)
-    and https://www.nwtc.edu/academics/programs/fields-of-interest (The "Parent" is Academic Progrms")
-    -->
-@if(Model.NavItems != null && Model.NavItems.Count > 0) { 
-    <h3>@Model.NavItems.FirstOrDefault().LinkText</h3>
-    <ul>
-        @foreach (var ChildItem in Model.NavItems.FirstOrDefault().Children)
+
+<cache expires-after="@TimeSpan.FromMinutes(60)" vary-by="@($"{Model.NavWrapperClass}{Model.StartingPath}")" enabled="@CacheContext.CacheEnabled()">
+    <div data-ktc-search-exclude>
+        <!-- Use this if you want to display a sort of "Sibling" navigation, where the current page is part of a section of the site, so you want to navigate to sibling pages as well
+        Some examples are http://ecasd.us/District/Board-of-Education/Board-Member-Email (the "Parent" is the Board of Education)
+        and https://www.nwtc.edu/academics/programs/fields-of-interest (The "Parent" is Academic Progrms")
+        -->
+
+        @if (Model.NavItems != null && Model.NavItems.Count > 0)
         {
-            <partial name="~/Views/Shared/Navigation/SecondaryNavigationDropdownItem.cshtml" for="@ChildItem" view-data="@ViewData" />
+            <h3>@Model.NavItems.FirstOrDefault().LinkText</h3>
+            <ul class="@Model.NavWrapperClass">
+                @foreach (var ChildItem in Model.NavItems.FirstOrDefault().Children)
+                {
+                    <partial name="~/Views/Shared/Navigation/SecondaryNavigationDropdownItem.cshtml" for="@ChildItem" view-data="@ViewData" />
+                }
+            </ul>
         }
-    </ul>
-}
-<!--Use the below if you wish to display all the items as is, this is often used when the page you are on is the "Parent" and you simply want to show navigation below.
-    Some examples are
-    https://www.physicsclassroom.com/Physics-Tutorial/1-D-Kinematics (the navigation on the main page, not the side)
-    https://www.ssmhealth.com/cancer/screenings-prevention (the navigation on the right showing items found under teh current page)
-    -->
-<!--
-    <ul class="navbar-nav">
-    @*foreach (var NavItem in Model.NavItems)
-    {
-        <partial name="~/Views/Shared/Components/MainNavigation/Default.cshtml" for="@NavItem"  view-data="@ViewData"/>
-    }*@
-</ul>
--->
+        <!--Use the below if you wish to display all the items as is, this is often used when the page you are on is the "Parent" and you simply want to show navigation below.
+        Some examples are
+        https://www.physicsclassroom.com/Physics-Tutorial/1-D-Kinematics (the navigation on the main page, not the side)
+        https://www.ssmhealth.com/cancer/screenings-prevention (the navigation on the right showing items found under teh current page)
+        -->
+        <!--
+            <ul class="navbar-nav @Model.NavWrapperClass">
+            @*foreach (var NavItem in Model.NavItems)
+            {
+                <partial name="~/Views/Shared/Components/MainNavigation/Default.cshtml" for="@NavItem"  view-data="@ViewData"/>
+            }*@
+        </ul>
+        -->
+        @* The CacheScope.Begin() is located in the View Component's Invoke *@
+    </div>
+    <cache-dependency cache-keys="@CacheScope.End()" />
+</cache>
+<navigation-page-selector parent-class="@Model.NavWrapperClass" />
+

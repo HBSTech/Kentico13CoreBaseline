@@ -10,6 +10,7 @@ namespace Generic.ViewModels
         }
 
         public List<NavigationItem> NavItems { get; internal set; }
-        public string CurrentPagePath { get; internal set; }
+        public string NavWrapperClass { get; internal set; }
+        public string StartingPath { get; internal set; }
     }
 }

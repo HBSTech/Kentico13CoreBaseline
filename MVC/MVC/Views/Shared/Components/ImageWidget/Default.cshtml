@@ -6,7 +6,7 @@
 {
 <div style="min-height: 100px;">
     <vc:image-uploader image-type="@ImageTypeEnum.Attachment" property-name="@nameof(ImageWidgetProperties.ImageGuid)"
-                       has-image="@(Model.ImageGuid != null)" message-position="Center" use-absolute-position="false" />
+                       has-image="@(Model.ImageGuid != default(Guid))" message-position="Center" use-absolute-position="false" />
 </div>
 }
 @if (!string.IsNullOrWhiteSpace(Model.ImageUrl))

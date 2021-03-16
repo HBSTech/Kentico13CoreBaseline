@@ -1,15 +1,12 @@
 ﻿@model Generic.Models.NavigationItem
-@{ 
-    string CurrentPath = (string)ViewData["CurrentPagePath"];
-}
-<li class="@(Model.IsCurrentPage(CurrentPath) ? "active" : "") @Model.LinkCSSClass">
+<li data-navpath="@Model.LinkPagePath.ToLowerInvariant()" data-navhref="@Model.LinkHref.ToLowerInvariant()" class="@Model.LinkCSSClass">
     <a title="@Model.LinkAlt" onclick="@Model.LinkOnClick" href="@Model.LinkHref">@Html.Raw(Model.LinkText)</a>
     @if (Model.Children.Count > 0)
     {
         <ul>
             @foreach (var ChildItem in Model.Children)
             {
-                <partial name="~/Views/Shared/Navigation/RenderNavigationDropdownItem.cshtml" for="@ChildItem" view-data="ViewData"/>
+                <partial name="~/Views/Shared/Navigation/RenderNavigationDropdownItem.cshtml" for="@ChildItem" />
             }
         </ul>
     }

@@ -17,7 +17,7 @@ namespace Generic.Models.FormComponents
         [BindableProperty]
         public string Value { 
             get {
-                return GuidValue == null ? "" : GuidValue.ToString();
+                return GuidValue != default(Guid) ? GuidValue.ToString() : "";
             } set {
                 if(!string.IsNullOrWhiteSpace(value))
                 {

@@ -10,13 +10,18 @@
 @using Generic.ViewModels
 @using Generic.Repositories.Interfaces
 @using CMS.DocumentEngine.Types.Generic
-
+@using MVCCaching.Base.Core.Interfaces
+@using MVCCaching.Interceptor;
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @addTagHelper *, Kentico.Content.Web.Mvc
 @addTagHelper *, PageBuilderContainers.Kentico.MVC.Core
 @addTagHelper *, PartialWidgetPage.Kentico.MVC.Core
 @addTagHelper *, Xperience.PageBuilderModeTagHelper
 @addTagHelper *, MVC
+@addTagHelper *, Kentico.Web.Mvc
 @inject IHtmlLocalizer<Generic.SharedResources> HtmlLocalizer
 @inject IUserWidgetProvider UserWidgetProvider
 @inject IUrlHelper Url
+@inject ICacheDependenciesScope CacheScope
+@inject ICacheDependenciesStore CacheStore
+@inject ICachingRepositoryContext CacheContext

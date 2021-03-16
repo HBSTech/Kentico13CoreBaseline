@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iis": {
-      "applicationUrl": "http://kentico13baseline.hbstest.net:5001",
+      "applicationUrl": "http://kentico13baseline.hbstest.net",
       "sslPort": 0
     },
     "iisExpress": {

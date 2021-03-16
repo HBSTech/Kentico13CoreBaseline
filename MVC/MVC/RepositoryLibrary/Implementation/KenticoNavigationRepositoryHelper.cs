@@ -40,11 +40,13 @@ namespace Generic.Repositories.Helpers.Implementations
                 switch ((NavigationTypeEnum)(NavTreeNode.NavigationType))
                 {
                     case NavigationTypeEnum.Automatic:
-                        if(NavTreeNode.NavigationPageNodeGuid != Guid.Empty) { 
+                        if (NavTreeNode.NavigationPageNodeGuid != Guid.Empty)
+                        {
                             var TempNavItem = _CachableSelfHelper.GetTreeNodeToNav(NavTreeNode.NavigationPageNodeGuid);
                             // Convert to a new navigation item so it's not linked to the cached memory object, specifically the Children List
                             NavItem = _Mapper.Map<NavigationItem>(TempNavItem);
-                        } else
+                        }
+                        else
                         {
                             NavItem.LinkText = NavTreeNode.NavigationLinkText;
                             NavItem.LinkTarget = NavTreeNode.NavigationLinkTarget;
@@ -73,7 +75,8 @@ namespace Generic.Repositories.Helpers.Implementations
                 NavItem.LinkCSSClass = NavTreeNode.NavigationLinkCSS;
                 NavItem.LinkOnClick = NavTreeNode.NavigationLinkOnClick;
                 NavItem.LinkAlt = NavTreeNode.NavigationLinkAlt;
-            } else
+            }
+            else
             {
                 // Create navigation item from page manually
                 NavItem = _Mapper.Map<NavigationItem>(HierarchyNavTreeNode.Page);
@@ -87,14 +90,14 @@ namespace Generic.Repositories.Helpers.Implementations
             return NavItem;
         }
 
-        [CacheDependency("node|##SITENAME##|{0}")]
+        [CacheDependency("nodeguid|##SITENAME##|{0}")]
         public NavigationItem GetTreeNodeToNav(Guid linkPageIdentifier)
         {
             return GetTreeNodeToNavAsync(linkPageIdentifier).Result;
         }
 
 
-        [CacheDependency("node|##SITENAME##|{0}")]
+        [CacheDependency("nodeguid|##SITENAME##|{0}")]
         public async Task<NavigationItem> GetTreeNodeToNavAsync(Guid linkPageIdentifier)
         {
             var DocQuery = DocumentHelper.GetDocuments()
@@ -124,7 +127,7 @@ namespace Generic.Repositories.Helpers.Implementations
 
         [CacheDependency("nodes|##SITENAME##|generic.navigation|all")]
         // This cache key is manually triggered upon Navigation Category changes or Page updates to pages the navigation points to
-        [CacheDependency("CustomNavigationClearKey")]
+        //[CacheDependency("CustomNavigationClearKey")]
         public IEnumerable<Navigation> GetNavigationItems(string NavPath, string[] NavTypes)
         {
             return GetNavigationItemsAsync(NavPath, NavTypes).Result;
@@ -132,7 +135,7 @@ namespace Generic.Repositories.Helpers.Implementations
 
         [CacheDependency("nodes|##SITENAME##|generic.navigation|all")]
         // This cache key is manually triggered upon Navigation Category changes or Page updates to pages the navigation points to
-        [CacheDependency("CustomNavigationClearKey")]
+        //[CacheDependency("CustomNavigationClearKey")]
         public async Task<IEnumerable<Navigation>> GetNavigationItemsAsync(string NavPath, string[] NavTypes)
         {
             var NavigationItems = DocumentHelper.GetDocuments<Navigation>()

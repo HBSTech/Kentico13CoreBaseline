@@ -1,38 +1,11 @@
-using Controllers;
-using Kentico.Activities.Web.Mvc;
-using Kentico.CampaignLogging.Web.Mvc;
-using Kentico.Content.Web.Mvc;
-using Kentico.Content.Web.Mvc.Routing;
-using Kentico.Newsletters.Web.Mvc;
-using Kentico.OnlineMarketing.Web.Mvc;
-using Kentico.PageBuilder.Web.Mvc;
-using Kentico.Scheduler.Web.Mvc;
-using Kentico.Web.Mvc;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using RelationshipsExtended.Interfaces;
-using RelationshipsExtended;
 using Autofac;
 using MVCCaching.Kentico;
 using System.Reflection;
-using BootstrapLayoutTool;
-using PageBuilderContainers;
-using PageBuilderContainers.Base;
-using PartialWidgetPage;
 using Autofac.Extensions.DependencyInjection;
-using XperienceCommunity.PageBuilderModeTagHelper;
-using Kentico.Membership;
-using Microsoft.AspNetCore.Identity;
-using AutoMapper;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Routing;
-using CMS.Helpers;
-using System;
 
 namespace Generic
 {
@@ -74,6 +47,8 @@ namespace Generic
             StartupConfig.RegisterInterfaces(services, Environment, Configuration);
 
             StartupConfig.RegisterKenticoServices(services, Environment, Configuration);
+
+            StartupConfig.RegisterGzipFileHandling(services, Environment, Configuration);
 
             StartupConfig.RegisterLocalization(services, Environment, Configuration);
 
