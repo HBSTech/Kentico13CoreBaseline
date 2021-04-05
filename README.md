@@ -90,7 +90,9 @@ The Routing priority contains Kentico's Route handler and it's routing, MVC Rout
 
 ### [bundleconfig.json](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/bundleconfig.json)
 
-Contains the bundling of CSS and Javascript for certain areas. This is how .Net Core bundles css / javascript
+Contains the bundling of CSS and Javascript for certain areas. This is how .Net Core bundles css / javascript. 
+
+Note it is up to you to choose a minifier tool to handle this bundleconfig.json, i prefer the `Bundler & Minifier` Visual Studio Extension.
 
 ### [AutoMapperMaps.cs](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/App_Start/AutoMapperMaps.cs)
 
