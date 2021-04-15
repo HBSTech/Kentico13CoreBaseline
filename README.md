@@ -90,7 +90,13 @@ The Routing priority contains Kentico's Route handler and it's routing, MVC Rout
 
 ### [bundleconfig.json](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/bundleconfig.json)
 
-Contains the bundling of CSS and Javascript for certain areas. This is how .Net Core bundles css / javascript
+Contains the bundling of CSS and Javascript for certain areas. This is how .Net Core bundles css / javascript. 
+
+It is up to you to choose a minifier tool to handle this bundleconfig.json, i prefer the `Bundler & Minifier` Visual Studio Extension.
+
+#### Optional GZIP Compression
+
+Included in this is also the handling of gzip file rendering.  If you reference a gzip file (`.js.gz` or `.css.gz`), there is logic to properly handle the Content-Encoding and content type switching.  The `bundleconfig.json` will render these .gz files out, you should make sure the .gz file has a content type of `application/x-gzip` and you reference these .gz files as you would reference javascript or css files.
 
 ### [AutoMapperMaps.cs](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/App_Start/AutoMapperMaps.cs)
 
