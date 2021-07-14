@@ -3,7 +3,7 @@
 		"outputFileName": "wwwroot/css/bundles/HeaderStyles.min.css",
 		"inputFiles": [
 			"wwwroot/css/bootstrap/bootstrap.min.css",
-			"wwwroot/css/Custom.css"
+			"wwwroot/css/Custom.min.css"
 		],
 		"minify": {
 			"enabled": true,

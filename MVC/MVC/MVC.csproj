@@ -17,10 +17,10 @@
     <PackageReference Include="Authorization.Kentico.MVC.Core" Version="13.0.1" />
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
-    <PackageReference Include="BootstrapLayoutTool.PageBuilderContainered.Kentico.MVC.Core" Version="13.0.0" />
+    <PackageReference Include="BootstrapLayoutTool.PageBuilderContainered.Kentico.MVC.Core" Version="13.31.0" />
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
     <PackageReference Include="HBS.AutomaticGeneratedUserRoles.Kentico" Version="13.0.0" />
-    <PackageReference Include="kentico.xperience.aspnetcore.webapp" Version="13.0.16" />
+    <PackageReference Include="kentico.xperience.aspnetcore.webapp" Version="13.0.33" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.4" />
     <PackageReference Include="MVCCaching.Base.Core" Version="2.1.1" />
     <PackageReference Include="MVCCaching.Kentico.Core" Version="13.0.2" />

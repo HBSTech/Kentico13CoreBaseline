@@ -7,7 +7,7 @@ Our Kentico 13 Baseline for MVC .Net Core 5.0 Site, the perfect starting point f
 ***
 
 # Installation
-Install a normal Kentico 13 Site, and hotfix it up to at least 13.0.16 (KX13 Refresh 1)
+Install a normal Kentico 13 Site, and hotfix it up to at least 13.0.33 (KX13 Refresh 2)
 
 Also make sure to install .Net 5.0 and .Net Core 3.1 onto your solution (you can install the Hosting Bundles as well if you plan on hosting via IIS)
 
@@ -22,11 +22,9 @@ Optionally install
 2. [HBS.AutomaticGeneratedUserRoles.Kentico](https://www.nuget.org/packages/HBS.AutomaticGeneratedUserRoles.Kentico/)
 
 ## Upgrading / Hotfixing Admin
-If you already had the Baseline for Admin, or are upgrading / hotfixing in the future, make sure to update the `Kentico.Xperience.Libraries` nuget package on the admin to the version your site is either on or hotfixing to.  The NuGet packages this Baseline uses inherits this nuget package, and if you fail to update this package after you hotfix, your Admin solution will probably not work.
+If you already had the Baseline for Admin, or are upgrading / hotfixing in the future, make sure to update the `Kentico.Xperience.Libraries` nuget package on the admin to the version your site is either on or hotfixing to.  The NuGet packages this Baseline uses inherits this nuget package, and **if you fail to update this package after you hotfix, your Admin solution will probably not work.**
 
-## Upgrading from Baseline V1 (13.0.5-13.0.15) to V2 (13.0.16+)
-If you used the KX13 baseline and want to integrate the refresh features.  After hotfixing your admin solution to KX 13.0.16+, proceed to update the `Kentico.Xperience.AspNetCore.WebApp` to the newer hotfix.  Then, please view the [Refresh 1](https://github.com/HBSTech/Kentico13CoreBaseline/commit/543e98e14799fe6f9e6b3018e023a5d003343ec1) Commit to view the items updated and the differences, and manually incorporate those changes into your solution.  This also requires updating your `MVCCaching.Kentico.Core` and `MVCCaching.Base.Core` to the latest version.
-
+# FRESH INSTALL
 ## Install Site Objects
 In your Kentico Admin instance, go to `Sites` - `Import Site or Object` and upload the [Baseline Site](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/Kentico13CoreBaseline-AdminSiteImport.zip).  You can import these objects into an existing site or create the site from it.
 
@@ -48,6 +46,23 @@ Kentico uses Webfarm to sync media file changes, event triggers, and more import
 
 If using IIS, there is also a `web.config`, you will have to update the aspNetCore processPath to point to the project's .exe file.
 
+# UPGRADING FROM EXISTING BASELINE
+
+## Upgrading from Baseline V1 (13.0.5-13.0.15) to V2 (13.0.16+)
+If you used the KX13 baseline and want to integrate the refresh features.  After hotfixing your admin solution to KX 13.0.16+, proceed to update the `Kentico.Xperience.AspNetCore.WebApp` to the newer hotfix.  Then, please view the [Refresh 1](https://github.com/HBSTech/Kentico13CoreBaseline/commit/543e98e14799fe6f9e6b3018e023a5d003343ec1) Commit to view the items updated and the differences, and manually incorporate those changes into your solution.  This also requires updating your `MVCCaching.Kentico.Core` and `MVCCaching.Base.Core` to the latest version.
+
+## Upgrading from Baseline V2 (13.0.16) to V3 (13.0.33+)
+First, if upgrading from V1 (13.0.5-13.0.15) to V3, first make sure to follow the instructions above to apply the commits.
+
+There was no major changes from V2 to V3, except updating the [Bootstrap Layout Tool](https://www.nuget.org/packages/BootstrapLayoutTool.Kentico.MVC.Core/) to the latest version, which includes dynamic Form Sections with Properties (which is a Xperience Refresh 2 feature).
+
+If you created Forms using the previous Bootstrap Layout's Form Sections, please note you'll need to install the [Transition package](https://www.nuget.org/packages/BootstrapLayoutTool.Kentico.MVC.Core.Transition/) as this contains those non-dynamic form sections, and if you try to edit a form and the section is no longer in the MVC project, it blows up and you can't edit it.
+
+I also have included one [new file](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/MVC/MVC/Library/FormWidgetCustomConfiguration.cs) that renders the Form Widget to be more in line with Bootstrap 4's rendering.  You can add this file and modify it to your liking.
+
+I've updated the Site Import as well which contains mainly just the updated Form Control, but if you are upgrading you shouldn't need to re-import the site objects.
+
+
 ***
 
 
@@ -56,7 +71,7 @@ Baseline Items
 ======================================================================
 
 # Features
-1. Bootstrap4 and jQuery included (with Bootstrap Layout Tool)
+1. Bootstrap4 and jQuery included (with Bootstrap Layout Tool, which now includes Form Sections)
 2. Header, Footer Configurations
 3. Main Navigation with SubNav, MegaMenu, and Dynamic Menu capabilities
 4. SEO Title/Thumbnail with OG Tag generation (uses Kentico's Page Meta Data page type feature, currently Image is not included so you do need to pass this yourself)
