@@ -80,23 +80,6 @@ namespace CMS.DocumentEngine.Types.Generic
 
 
 		/// <summary>
-		/// Page Meta Data.
-		/// </summary>
-		[DatabaseField]
-		public string Component_PageMetaData
-		{
-			get
-			{
-				return ValidationHelper.GetString(GetValue("Component_PageMetaData"), @"");
-			}
-			set
-			{
-				SetValue("Component_PageMetaData", value);
-			}
-		}
-
-
-		/// <summary>
 		/// Gets an object that provides extended API for working with Home fields.
 		/// </summary>
 		[RegisterProperty]
@@ -159,22 +142,6 @@ namespace CMS.DocumentEngine.Types.Generic
 				set
 				{
 					mInstance.HomeName = value;
-				}
-			}
-
-
-			/// <summary>
-			/// Page Meta Data.
-			/// </summary>
-			public string Component_PageMetaData
-			{
-				get
-				{
-					return mInstance.Component_PageMetaData;
-				}
-				set
-				{
-					mInstance.Component_PageMetaData = value;
 				}
 			}
 		}

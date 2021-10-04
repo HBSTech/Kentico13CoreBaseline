@@ -7,23 +7,21 @@ using System.Threading.Tasks;
 
 namespace Generic.Components
 {
-    [ViewComponent(Name = "PageMetaData")]
-    public class PageMetaDataViewComponent : ViewComponent
+    [ViewComponent(Name = "ManualPageMetaData")]
+    public class ManualPageMetaDataViewComponent : ViewComponent
     {
-        public PageMetaDataViewComponent(IMetaDataRepository metaDataRepository)
+        public ManualPageMetaDataViewComponent()
         {
-            MetaDataRepository = metaDataRepository;
+            
         }
 
-        public IMetaDataRepository MetaDataRepository { get; }
-
         /// <summary>
-        /// Uses the current page context to render meta data
+        /// Render Page meta data with a custom meta data item
         /// </summary>
+        /// <param name="metaData"></param>
         /// <returns></returns>
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(PageMetaData metaData)
         {
-            var metaData = await MetaDataRepository.GetMetaDataAsync();
             PageMetaDataViewModel model = new PageMetaDataViewModel()
             {
                 Title = metaData.Title,
