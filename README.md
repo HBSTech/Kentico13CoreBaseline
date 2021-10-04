@@ -105,8 +105,7 @@ I've updated the Site Import as well which contains mainly just the updated Form
 1. Install the [XperienceCommunity.PageCustomDataControlExtender](https://github.com/wiredviews/xperience-page-custom-data-control-extender)
 2. To enable versioning on the DocumentCustomData field (which is used for the Image MetaData in the baseline), please see the [Register VersionManager](https://github.com/wiredviews/xperience-page-custom-data-control-extender) step, which adds XML elements to your web.config
 3. See the **Adding DocumentOGImage Field** above to setup the DocumentOGImage field if you wish to have Images for your OG Tags for meta data
-4. Make changes outlined in [This Commit](https://github.com/HBSTech/Kentico13CoreBaseline/commit/8066055a9c3f978f3c6d43ba39eec0eefca78694)
-
+4. Make changes outlined in [This Commit](https://github.com/HBSTech/Kentico13CoreBaseline/commit/f4c976da48cc1b3b5370084fb824dfbdba47fbae) which include a new IMetaPageDataRepository and implementation, removal of old fields on Home and Generic Page, New and update to the PageMetaDataViewComponent, and update to 3 views that used the <vc:page-meta-data/> component to remove the page property
 ***
 
 
