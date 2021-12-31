@@ -1,7 +1,6 @@
 ﻿using FluentValidation;
 using Generic.Library.Validation;
 using Generic.Repositories.Interfaces;
-using Generic.Resources.Attributes;
 using Generic.Services.Interfaces;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;

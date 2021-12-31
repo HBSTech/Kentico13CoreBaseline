@@ -26,13 +26,9 @@ using System;
 using Generic.Library;
 using Generic.Repositories.Implementations;
 using System.Reflection;
-using Generic.Resources;
 using Generic.Library.Checkpoint.Library;
 using XperienceCommunity.Authorization;
 using XperienceCommunity.Localizer;
-using Microsoft.Extensions.Localization;
-using CMS.SiteProvider;
-using CMS.Base;
 using XperienceCommunity.PageBuilderUtilities;
 
 namespace Generic.App_Start

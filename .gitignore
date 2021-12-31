@@ -23,6 +23,7 @@ MVC/packages/*
 packages/*
 
 KenticoAdmin/*
+!KenticoAdmin/.gitkeep
 **/App_Data/CMSModules/SmartSearch/**/*
 **/App_Data/CMSModules/WebFarm/**/*
 **/Baseline/media/**/*
@@ -31,6 +32,10 @@ KenticoAdmin/*
 **/appsettings.development.json
 **/MVC.csproj.user
 **/MVC.user
-XperienceModels/bin/*
-XperienceModels/obj/*
+MVC/MVC.Libraries/bin
+MVC/MVC.Libraries/obj
+MVC/MVC.Models/bin
+MVC/MVC.Models/obj
+XperienceModels/bin
+XperienceModels/obj
 !README.md
