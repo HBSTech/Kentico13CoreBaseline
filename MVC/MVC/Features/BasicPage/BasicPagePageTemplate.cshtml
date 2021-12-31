@@ -1,0 +1,6 @@
+﻿@model ComponentViewModel<Generic.Features.BasicPage.BasicPagePageTemplateProperties>
+@section head {
+    <vc:page-meta-data />
+    <vc:breadcrumbs-json include-default-breadcrumb="true" nodeid="-1" />
+}
+<vc:basic-page path=@Model.Page.NodeAliasPath />

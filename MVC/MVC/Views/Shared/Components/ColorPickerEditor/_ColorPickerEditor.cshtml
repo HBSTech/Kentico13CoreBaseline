@@ -1,0 +1,24 @@
+﻿@model Generic.Components.InlineEditors.ColorPickerEditor.ColorPickerEditorViewModel
+
+@using (Html.Kentico().BeginInlineEditor("color-picker-editor", Model.PropertyName, new { @class = "color-picker-editor" }))
+{
+    <div class="inline-editor-btn-group">
+        <ul class="inline-editor-btn-group-actions">
+            <li>
+                <button id="first-color-btn" type="button">
+                    <i class="color-btn first-color"></i>
+                </button>
+            </li>
+            <li>
+                <button id="second-color-btn" type="button">
+                    <i class="color-btn second-color"></i>
+                </button>
+            </li>
+            <li>
+                <button id="third-color-btn" type="button">
+                    <i class="color-btn third-color"></i>
+                </button>
+            </li>
+        </ul>
+    </div>
+}

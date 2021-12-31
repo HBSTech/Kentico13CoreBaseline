@@ -1,0 +1,22 @@
+﻿@model Generic.Features.BasicPage.BasicPageViewModel
+<vc:breadcrumbs include-default-breadcrumb="true" nodeid="-1" />
+@{ 
+    var secondaryNavProps = new SecondaryNavigationProperties()
+    {
+        Path = Model.Path,
+        Level = 2,
+        LevelIsRelative = true,
+        MinimumAbsoluteLevel = 2,
+        CssClass = "SecondaryNav"
+    };
+}
+<div class="row">
+    <div class="col-sm-3">
+        <vc:secondary-navigation navigation-properties=secondaryNavProps />
+    </div>
+    <div class="col-sm-9">
+        <editable-area area-identifier="main" area-options-allowed-widgets="@await UserWidgetProvider.GetUserAllowedWidgetsAsync()" />
+    </div>
+</div>
+
+

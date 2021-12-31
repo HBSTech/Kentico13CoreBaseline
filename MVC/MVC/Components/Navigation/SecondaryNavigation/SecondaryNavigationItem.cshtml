@@ -1,0 +1,21 @@
+﻿@model Generic.Models.NavigationItem
+@if (Model.Children.Count == 0)
+{
+    <li data-navpath="@Model.LinkPagePath.ToLowerInvariant()" data-navhref="@Model.LinkHref.ToLowerInvariant()" class="nav-item @Model.LinkCSSClass">
+        <a class="nav-link" title="@Model.LinkAlt" onclick="@Model.LinkOnClick" href="@Model.LinkHref">@Html.Raw(Model.LinkText)</a>
+    </li>
+}
+else
+{
+    <li data-navpath="@Model.LinkPagePath.ToLowerInvariant()" data-navhref="@Model.LinkHref.ToLowerInvariant()" class="nav-item dropdown @Model.LinkCSSClass">
+        <a class="nav-link" title="@Model.LinkAlt" href="#" onclick="@Model.LinkOnClick" data-toggle="dropdown">
+            @Html.Raw(Model.LinkText)
+        </a>
+        <ul class="dropdown-menu">
+            @foreach (var ChildItem in Model.Children)
+            {
+                <partial name="/Components/Navigation/SecondaryNavigation/SecondaryNavigationDropdownItem.cshtml" for="@ChildItem" view-data="@ViewData" />
+            }
+        </ul>
+    </li>
+}

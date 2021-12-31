@@ -1,0 +1,70 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup Label="Globals">
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>Generic</RootNamespace>
+    <AssemblyName>MVC</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <Optimize>false</Optimize>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="BootstrapLayoutTool.PageBuilderContainered.Kentico.MVC.Core" Version="13.31.0" />
+    <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.6" />
+    <PackageReference Include="HBS.AutomaticGeneratedUserRoles.Kentico" Version="13.0.0" />
+    <PackageReference Include="kentico.xperience.aspnetcore.webapp" Version="13.0.55" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.4" />
+    <PackageReference Include="MVCCaching.Base.Core" Version="2.1.1" />
+    <PackageReference Include="MVCCaching.Kentico.Core" Version="13.0.2" />
+    <PackageReference Include="PageBuilderContainers.Kentico.MVC.Core" Version="13.0.3" />
+    <PackageReference Include="PartialWidgetPage.Kentico.MVC.Core" Version="13.0.3" />
+    <PackageReference Include="PartialWidgetPage.Kentico.MVC.Core.Widget" Version="13.0.1" />
+    <PackageReference Include="RelationshipsExtended.MVC.Standard" Version="13.0.1" />
+    <PackageReference Include="XperienceCommunity.Authorization" Version="13.5.0" />
+    <PackageReference Include="XperienceCommunity.Localizer" Version="13.5.0" />
+    <PackageReference Include="XperienceCommunity.PageBuilderTagHelpers" Version="1.1.0" />
+    <PackageReference Include="XperienceCommunity.PageNavigationRedirects" Version="1.1.0" />
+    <PackageReference Include="XperienceCommunity.PageTemplateUtilities" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Views\Shared\PageTypes\" />
+    <Folder Include="wwwroot\js\jquery.unobtrusive.ajax\" />
+    <Folder Include="wwwroot\PageBuilder\Admin\InlineEditors\ColorPickerEditor\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\XperienceModels\XperienceModels.csproj" />
+    <ProjectReference Include="..\MVC.Libraries\MVC.Libraries.csproj" />
+    <ProjectReference Include="..\MVC.Models\MVC.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Components\Navigation\MainNavigation\MainNavigationDropdownItem.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Components\Navigation\MainNavigation\MainNavigationItem.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Components\Navigation\SecondaryNavigation\SecondaryNavigationDropdownItem.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Update="Components\Navigation\SecondaryNavigation\SecondaryNavigationItem.cshtml">
+      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>
+

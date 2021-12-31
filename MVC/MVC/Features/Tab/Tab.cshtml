@@ -1,0 +1,9 @@
+﻿@model Generic.Features.Tab.TabViewModel
+<page-builder-mode include="Edit">
+    <div style="margin-top: 50px;">
+        <editable-area area-identifier="tabContent" area-options-allowed-widgets="@await UserWidgetProvider.GetUserAllowedWidgetsAsync()" />
+    </div>
+</page-builder-mode>
+<page-builder-mode exclude="Edit">
+    <editable-area area-identifier="tabContent" area-options-allowed-widgets="@await UserWidgetProvider.GetUserAllowedWidgetsAsync()" />
+</page-builder-mode>

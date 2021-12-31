@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>XperienceModels</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Kentico.Xperience.Libraries" Version="13.0.55" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="CustomTables\" />
+    <Folder Include="Global\" />
+  </ItemGroup>
+
+</Project>

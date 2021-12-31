@@ -1,0 +1,17 @@
+﻿using MVCCaching;
+using System.Threading.Tasks;
+
+namespace Generic.Services.Interfaces
+{
+    public interface IRoleService : IService
+    {
+        /// <summary>
+        /// Sets the user's given role
+        /// </summary>
+        /// <param name="userID">The User ID</param>
+        /// <param name="roleName">The Role Name</param>
+        /// <param name="siteName">The Site name</param>
+        /// <param name="roleToggle">True if they should be added to the role, false if removed</param>
+        Task SetUserRole(int userID, string roleName, string siteName, bool roleToggle);
+    }
+}

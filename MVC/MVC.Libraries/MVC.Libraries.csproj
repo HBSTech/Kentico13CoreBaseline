@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <RootNamespace>Generic</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="Kentico.Xperience.AspNetCore.WebApp" Version="13.0.55" />
+    <PackageReference Include="MVCCaching.Base.Core" Version="2.1.1" />
+    <PackageReference Include="MVCCaching.Kentico.Core" Version="13.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="PartialWidgetPage.Kentico.MVC.Core" Version="13.0.3" />
+    <PackageReference Include="RelationshipsExtended.Base" Version="13.0.2" />
+    <PackageReference Include="RelationshipsExtended.MVC.Standard" Version="13.0.1" />
+    <PackageReference Include="TypeMerger" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\XperienceModels\XperienceModels.csproj" />
+    <ProjectReference Include="..\MVC.Models\MVC.Models.csproj" />
+  </ItemGroup>
+
+</Project>
