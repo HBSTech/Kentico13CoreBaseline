@@ -1,6 +1,0 @@
-﻿@model Kentico.PageBuilder.Web.Mvc.ComponentViewModel
-@section head {
-    @* passing a new ViewDataDictionary() as if you don't, it assumes the "type" passed is th same as your view's model type, causing 500 error *@
-    <vc:page-meta-data/>
-}
-<editable-area area-identifier="main" area-options-allowed-widgets="@await UserWidgetProvider.GetUserAllowedWidgetsAsync()"/>
