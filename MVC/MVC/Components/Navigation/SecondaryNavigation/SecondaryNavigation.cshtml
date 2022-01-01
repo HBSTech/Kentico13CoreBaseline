@@ -34,4 +34,9 @@
     </div>
     <cache-dependency cache-keys="@CacheScope.End()" />
 </cache>
-<navigation-page-selector parent-class="@Model.NavWrapperClass" />
+@{
+    if (Model.IncludeCurrentPageSelector)
+    {
+        <navigation-page-selector current-page-path="@Model.CurrentPagePath" parent-class="@Model.NavWrapperClass" />
+    }
+}
