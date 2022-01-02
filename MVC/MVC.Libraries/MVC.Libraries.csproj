@@ -16,6 +16,7 @@
     <PackageReference Include="RelationshipsExtended.Base" Version="13.0.2" />
     <PackageReference Include="RelationshipsExtended.MVC.Standard" Version="13.0.1" />
     <PackageReference Include="TypeMerger" Version="2.1.1" />
+    <PackageReference Include="XperienceCommunity.QueryExtensions" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
