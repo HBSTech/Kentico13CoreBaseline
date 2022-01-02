@@ -10,20 +10,16 @@ namespace Generic.Features.TabParent
     public class TabParentViewComponent : ViewComponent
     {
         private readonly ITabRepository _tabRepository;
-        private readonly IPageContextRepository _pageContextRepository;
 
-        public TabParentViewComponent(ITabRepository tabRepository,
-            IPageContextRepository pageContextRepository)
+        public TabParentViewComponent(ITabRepository tabRepository)
         {
             _tabRepository = tabRepository;
-            _pageContextRepository = pageContextRepository;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(int nodeId)
+        public async Task<IViewComponentResult> InvokeAsync(PageIdentity page)
         {
-            var parentPage = await _pageContextRepository.GetPageByNodeAsync(nodeId);
             var model = new TabParentViewModel();
-            if(parentPage == null)
+            if(page == null)
             {
                 model = new TabParentViewModel()
                 {
@@ -31,8 +27,8 @@ namespace Generic.Features.TabParent
                     Tabs = new List<TabItem>()
                 };
             } else {
-                model.Name = (await _tabRepository.GetTabParentAsync(nodeId)).Name;
-                model.Tabs = await _tabRepository.GetTabsAsync(parentPage.Path);
+                model.Name = (await _tabRepository.GetTabParentAsync(page.NodeID)).Name;
+                model.Tabs = await _tabRepository.GetTabsAsync(page.Path);
             }
             return View("TabParent", model);
         }
