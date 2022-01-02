@@ -15,6 +15,7 @@
     <environment include="Development">
         <link href="~/css/bootstrap/bootstrap.min.css" rel="stylesheet" />
         <link href="~/css/Custom.css" rel="stylesheet" />
+        <link href="~/css/EditMode.css" rel="stylesheet" />
     </environment>
     <environment exclude="Development">
         <script src="~/js/bundles/HeaderJS.min.js.gz"></script>
@@ -33,9 +34,21 @@
 </head>
 <body>
     <header>
-        <inlinewidgetpage documentid="@PWPHelper.GetDocumentIDByNode("/Masterpage/Header")" initialize-document-prior="true">
-            <vc:header />
-        </inlinewidgetpage>
+        <cache expires-after="@TimeSpan.FromMinutes(60)" enabled="@CacheContext.CacheEnabled()">
+            @{
+                var headerDoc = await pageContextRepository.GetPageAsync("/MasterPage/Header");
+                <vc:configuration-helper visible=@(headerDoc == null) mode="@ConfigurationHelperMode.Inline" instructions="<strong>No Header Page Found</strong>: Please create a folder `MasterPage` at the root, and add a Header page there with the name `Header`." needs-attention="true" />
+                if (headerDoc != null)
+                {
+                    CacheScope.Begin();
+                    CacheStore.Store(new string[] { $"documentid|{headerDoc.DocumentID}" });
+                    <inlinewidgetpage documentid="@headerDoc.DocumentID" initialize-document-prior="true">
+                        <vc:header />
+                    </inlinewidgetpage>
+                    <cache-dependency cache-keys="@CacheScope.End()" />
+                }
+            }
+        </cache>
         <vc:main-navigation css-class="MainNav" navigation-parent-path="/MasterPage/Navigation" />
     </header>
 

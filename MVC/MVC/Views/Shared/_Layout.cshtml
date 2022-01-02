@@ -6,6 +6,7 @@
 @inject PartialWidgetPage.IPartialWidgetPageHelper PWPHelper
 @inject ICacheDependenciesStore CacheStore
 @inject IStringLocalizer<SharedResources> StringLocalizer
+@inject IPageContextRepository pageContextRepository
 <!DOCTYPE html>
 <html lang="@(System.Threading.Thread.CurrentThread.CurrentCulture.Name.Split('-')[0])">
 <head>
@@ -17,6 +18,7 @@
     <environment include="Development">
         <link href="~/css/bootstrap/bootstrap.min.css" rel="stylesheet" />
         <link href="~/css/Custom.css" rel="stylesheet" />
+        <link href="~/css/EditMode.css" rel="stylesheet" />
     </environment>
     <environment exclude="Development">
         <script src="~/js/bundles/HeaderJS.min.js.gz"></script>
@@ -37,13 +39,21 @@
     @* Cache Header*@
 
     <header data-ktc-search-exclude>
+
         <cache expires-after="@TimeSpan.FromMinutes(60)" enabled="@CacheContext.CacheEnabled()">
-            @{CacheScope.Begin();}
-            @{CacheStore.Store(new string[] { $"documentid|{PWPHelper.GetDocumentIDByNode("/Masterpage/Header")}" });}
-            <inlinewidgetpage documentid="@PWPHelper.GetDocumentIDByNode("/Masterpage/Header")" initialize-document-prior="true">
-                <vc:header />
-            </inlinewidgetpage>
-            <cache-dependency cache-keys="@CacheScope.End()" />
+            @{
+                var headerDoc = await pageContextRepository.GetPageAsync("/MasterPage/Header");
+                <vc:configuration-helper visible=@(headerDoc == null) mode="@ConfigurationHelperMode.Inline" instructions="<strong>No Header Page Found</strong>: Please create a folder `MasterPage` at the root, and add a Header page there with the name `Header`." needs-attention="true" />
+                if (headerDoc != null)
+                {
+                    CacheScope.Begin();
+                    CacheStore.Store(new string[] { $"documentid|{headerDoc.DocumentID}" });
+                    <inlinewidgetpage documentid="@headerDoc.DocumentID" initialize-document-prior="true">
+                        <vc:header />
+                    </inlinewidgetpage>
+                    <cache-dependency cache-keys="@CacheScope.End()" />
+                }
+            }
         </cache>
 
         @* Cache is on the component itself *@
@@ -60,12 +70,19 @@
 
     <footer data-ktc-search-exclude>
         <cache expires-after="@TimeSpan.FromMinutes(60)" enabled="@CacheContext.CacheEnabled()">
-            @{CacheScope.Begin();}
-            @{CacheStore.Store(new string[] { $"documentid|{PWPHelper.GetDocumentIDByNode("/Masterpage/Footer")}" });}
-            <inlinewidgetpage documentid="@PWPHelper.GetDocumentIDByNode("/Masterpage/Footer")" initialize-document-prior="true">
-                <vc:footer />
-            </inlinewidgetpage>
-            <cache-dependency cache-keys="@CacheScope.End()" />
+            @{
+                var footerDoc = await pageContextRepository.GetPageAsync("/MasterPage/Footer");
+                <vc:configuration-helper visible=@(footerDoc == null) mode="@ConfigurationHelperMode.Inline" instructions="<strong>No Footer Page Found</strong>: Please create a folder `MasterPage` at the root, and add a Footer page there with the name `Footer`." needs-attention="true" />
+                if (footerDoc != null)
+                {
+                    CacheScope.Begin();
+                    CacheStore.Store(new string[] { $"documentid|{footerDoc.DocumentID}" });
+                    <inlinewidgetpage documentid="@footerDoc.DocumentID" initialize-document-prior="true">
+                        <vc:footer />
+                    </inlinewidgetpage>
+                    <cache-dependency cache-keys="@CacheScope.End()" />
+                }
+            }
         </cache>
     </footer>
 

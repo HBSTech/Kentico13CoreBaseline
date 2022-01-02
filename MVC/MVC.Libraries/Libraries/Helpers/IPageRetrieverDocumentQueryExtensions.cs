@@ -17,7 +17,7 @@ namespace Kentico.Content.Web.Mvc
         public static DocumentQuery EnsureUrls(this DocumentQuery baseQuery)
         {
             if(baseQuery.SelectColumnsList?.Any() ?? false) { 
-                baseQuery.AddColumns(nameof(TreeNode.NodeID), nameof(TreeNode.DocumentCulture));
+                baseQuery.AddColumns(nameof(TreeNode.NodeID), nameof(TreeNode.DocumentCulture), nameof(TreeNode.NodeSiteID));
             }
             baseQuery.WithPageUrlPaths();
             return baseQuery;
@@ -30,7 +30,7 @@ namespace Kentico.Content.Web.Mvc
         /// <returns></returns>
         public static DocumentQuery<TDocument> EnsureUrls<TDocument>(this DocumentQuery<TDocument> baseQuery) where TDocument : TreeNode, new()
         {
-            baseQuery.AddColumns(nameof(TreeNode.NodeID), nameof(TreeNode.DocumentCulture));
+            baseQuery.AddColumns(nameof(TreeNode.NodeID), nameof(TreeNode.DocumentCulture), nameof(TreeNode.NodeSiteID));
             baseQuery.WithPageUrlPaths();
             return baseQuery;
         }
@@ -41,7 +41,7 @@ namespace Kentico.Content.Web.Mvc
         /// <returns></returns>
         public static MultiDocumentQuery EnsureUrls(this MultiDocumentQuery baseQuery)
         {
-            baseQuery.AddColumns(nameof(TreeNode.NodeID), nameof(TreeNode.DocumentCulture));
+            baseQuery.AddColumns(nameof(TreeNode.NodeID), nameof(TreeNode.DocumentCulture), nameof(TreeNode.NodeSiteID));
             baseQuery.WithPageUrlPaths();
             return baseQuery;
         }

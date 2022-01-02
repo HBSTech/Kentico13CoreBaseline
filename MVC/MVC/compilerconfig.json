@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "wwwroot/css/EditMode.css",
+    "inputFile": "wwwroot/css/EditMode.less"
+  },
+  {
+    "outputFile": "wwwroot/css/Custom.css",
+    "inputFile": "wwwroot/css/Custom.less"
+  }
+]

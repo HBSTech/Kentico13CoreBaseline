@@ -15,6 +15,7 @@
     <environment include="Development">
         <link href="~/css/bootstrap/bootstrap.min.css" rel="stylesheet" />
         <link href="~/css/Custom.css" rel="stylesheet" />
+        <link href="~/css/EditMode.css" rel="stylesheet" />
     </environment>
     <environment exclude="Development">
         <script src="~/js/bundles/HeaderJS.min.js.gz"></script>
@@ -35,9 +36,21 @@
 
     @RenderBody()
 
-    <inlinewidgetpage documentid="@PWPHelper.GetDocumentIDByNode("/Masterpage/Footer")" initialize-document-prior="true">
-        <vc:footer />
-    </inlinewidgetpage>
+    <cache expires-after="@TimeSpan.FromMinutes(60)" enabled="@CacheContext.CacheEnabled()">
+        @{
+            var footerDoc = await pageContextRepository.GetPageAsync("/MasterPage/Footer");
+            <vc:configuration-helper visible=@(footerDoc == null) mode="@ConfigurationHelperMode.Inline" instructions="<strong>No Footer Page Found</strong>: Please create a folder `MasterPage` at the root, and add a Footer page there with the name `Footer`." needs-attention="true" />
+            if (footerDoc != null)
+            {
+                CacheScope.Begin();
+                CacheStore.Store(new string[] { $"documentid|{footerDoc.DocumentID}" });
+                <inlinewidgetpage documentid="@footerDoc.DocumentID" initialize-document-prior="true">
+                    <vc:footer />
+                </inlinewidgetpage>
+                <cache-dependency cache-keys="@CacheScope.End()" />
+            }
+        }
+    </cache>
 
     <!-- Includes the jQuery Validator for MVC-->
     <script src="~/js/bundles/jqueryval.min.js"></script>
