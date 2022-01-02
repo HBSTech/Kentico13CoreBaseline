@@ -5,20 +5,8 @@ using Kentico.Content.Web.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Kentico.PageBuilder.Web.Mvc
-{
-    public static class TreeNodeExtensionsForComponentViewModel
-    {
-        public static PageIdentity ToPageIdentity(this TreeNode node)
-        {
-            return CMS.DocumentEngine.TreeNodeExtensions.ToPageIdentity(node);
-        }
-    }
-}
-namespace CMS.DocumentEngine
+namespace Generic.Libraries.Extensions
 {
     public static class TreeNodeExtensions
     {
