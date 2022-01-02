@@ -23,14 +23,6 @@ namespace Generic.Libraries.AutoMapper
                 .ForMember(dest => dest.LinkUrl, opt => opt.MapFrom(src => DocumentURLProvider.GetUrl(src).Replace("~", "")))
                 .ForMember(dest => dest.IsCurrentPage, opt => opt.Ignore());
 
-            CreateMap<TreeNode, PageIdentity>()
-                .ForMember(dest => dest.Path, opt => opt.MapFrom(src => src.NodeAliasPath))
-                .ForMember(dest => dest.Alias, opt => opt.MapFrom(src => src.NodeAlias))
-                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.DocumentName))
-                .ForMember(dest => dest.RelativeUrl, opt => opt.Ignore())
-                .ForMember(dest => dest.AbsoluteUrl, opt => opt.Ignore())
-                .AfterMap<PageIdentityMapping>();
-
             // Used for when we get a NavItem from cache so the List of it is not the same
             CreateMap<NavigationItem, NavigationItem>()
                 .ForMember(dest => dest.Children, opt => opt.Ignore());

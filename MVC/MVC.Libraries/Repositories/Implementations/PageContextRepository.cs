@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Http;
 using CMS.Base.Internal;
 using Kentico.Web.Mvc;
 using Kentico.PageBuilder.Web.Mvc;
+using Generic.Libraries.Extensions;
 
 namespace Generic.Repositories.Implementations
 {
@@ -46,7 +47,7 @@ namespace Generic.Repositories.Implementations
             if (_pageDataContextRetriever.TryRetrieve<TreeNode>(out var currentPage))
             {
                 builder.Node(currentPage.Page.NodeID);
-                return Task.FromResult(_mapper.Map<PageIdentity>(currentPage.Page));
+                return Task.FromResult(currentPage.Page.ToPageIdentity());
             }
             else
             {
@@ -85,7 +86,7 @@ namespace Generic.Repositories.Implementations
                     .Key($"{MethodBase.GetCurrentMethod()}|{path}")
                     .Expiration(TimeSpan.FromMinutes(15))
                 );
-            return (page.Any() ? _mapper.Map<PageIdentity>(page.FirstOrDefault()) : null);
+            return (page.Any() ? page.FirstOrDefault().ToPageIdentity() : null);
         }
 
         public async Task<PageIdentity> GetPageAsync(int documentID)
@@ -119,7 +120,7 @@ namespace Generic.Repositories.Implementations
                     .Key($"{MethodBase.GetCurrentMethod()}|{documentID}")
                     .Expiration(TimeSpan.FromMinutes(15))
                 );
-            return (page.Any() ? _mapper.Map<PageIdentity>(page.FirstOrDefault()) : null);
+            return (page.Any() ? page.FirstOrDefault().ToPageIdentity() : null);
         }
 
         public async Task<PageIdentity> GetPageAsync(Guid documentGUID)
@@ -153,7 +154,7 @@ namespace Generic.Repositories.Implementations
                     .Key($"{MethodBase.GetCurrentMethod()}|{documentGUID}")
                     .Expiration(TimeSpan.FromMinutes(15))
                 );
-            return (page.Any() ? _mapper.Map<PageIdentity>(page.FirstOrDefault()) : null);
+            return (page.Any() ? page.FirstOrDefault().ToPageIdentity() : null);
         }
 
         public async Task<PageIdentity> GetPageByNodeAsync(int nodeID)
@@ -187,7 +188,7 @@ namespace Generic.Repositories.Implementations
                     .Key($"{MethodBase.GetCurrentMethod()}|{nodeID}")
                     .Expiration(TimeSpan.FromMinutes(15))
                 );
-            return (page.Any() ? _mapper.Map<PageIdentity>(page.FirstOrDefault()) : null);
+            return (page.Any() ? page.FirstOrDefault().ToPageIdentity() : null);
         }
 
         public async Task<PageIdentity> GetPageByNodeAsync(Guid nodeGUID)
@@ -221,7 +222,7 @@ namespace Generic.Repositories.Implementations
                     .Key($"{MethodBase.GetCurrentMethod()}|{nodeGUID}")
                     .Expiration(TimeSpan.FromMinutes(15))
                 );
-            return (page.Any() ? _mapper.Map<PageIdentity>(page.FirstOrDefault()) : null);
+            return (page.Any() ? page.FirstOrDefault().ToPageIdentity() : null);
         }
 
         public Task<bool> IsEditModeAsync()
