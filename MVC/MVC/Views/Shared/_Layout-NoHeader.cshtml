@@ -3,7 +3,9 @@
 }
 @using Kentico.Web.Mvc
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor Accessor
-@inject PartialWidgetPage.IPartialWidgetPageHelper PWPHelper
+@inject IPageContextRepository pageContextRepository
+@inject ICacheDependenciesStore CacheStore
+
 <!DOCTYPE html>
 <html lang="@(System.Threading.Thread.CurrentThread.CurrentCulture.Name.Split('-')[0])">
 <head>
@@ -39,7 +41,7 @@
     <cache expires-after="@TimeSpan.FromMinutes(60)" enabled="@CacheContext.CacheEnabled()">
         @{
             var footerDoc = await pageContextRepository.GetPageAsync("/MasterPage/Footer");
-            <vc:configuration-helper visible=@(footerDoc == null) mode="@ConfigurationHelperMode.Inline" instructions="<strong>No Footer Page Found</strong>: Please create a folder `MasterPage` at the root, and add a Footer page there with the name `Footer`." needs-attention="true" />
+            <vc:configuration-helper visible=@(footerDoc == null) mode="Inline" instructions="<strong>No Footer Page Found</strong>: Please create a folder `MasterPage` at the root, and add a Footer page there with the name `Footer`." needs-attention="true" />
             if (footerDoc != null)
             {
                 CacheScope.Begin();

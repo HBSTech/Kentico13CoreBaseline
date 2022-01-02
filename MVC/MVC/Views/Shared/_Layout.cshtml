@@ -43,7 +43,7 @@
         <cache expires-after="@TimeSpan.FromMinutes(60)" enabled="@CacheContext.CacheEnabled()">
             @{
                 var headerDoc = await pageContextRepository.GetPageAsync("/MasterPage/Header");
-                <vc:configuration-helper visible=@(headerDoc == null) mode="@ConfigurationHelperMode.Inline" instructions="<strong>No Header Page Found</strong>: Please create a folder `MasterPage` at the root, and add a Header page there with the name `Header`." needs-attention="true" />
+                <vc:configuration-helper visible=@(headerDoc == null) mode="Inline" instructions="<strong>No Header Page Found</strong>: Please create a folder `MasterPage` at the root, and add a Header page there with the name `Header`." needs-attention="true" />
                 if (headerDoc != null)
                 {
                     CacheScope.Begin();
@@ -72,7 +72,7 @@
         <cache expires-after="@TimeSpan.FromMinutes(60)" enabled="@CacheContext.CacheEnabled()">
             @{
                 var footerDoc = await pageContextRepository.GetPageAsync("/MasterPage/Footer");
-                <vc:configuration-helper visible=@(footerDoc == null) mode="@ConfigurationHelperMode.Inline" instructions="<strong>No Footer Page Found</strong>: Please create a folder `MasterPage` at the root, and add a Footer page there with the name `Footer`." needs-attention="true" />
+                <vc:configuration-helper visible=@(footerDoc == null) mode="Inline" instructions="<strong>No Footer Page Found</strong>: Please create a folder `MasterPage` at the root, and add a Footer page there with the name `Footer`." needs-attention="true" />
                 if (footerDoc != null)
                 {
                     CacheScope.Begin();

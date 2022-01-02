@@ -3,6 +3,8 @@
 <main role="main">
     <div class="container">
         <editable-area area-identifier="areaAbove" />
+        <vc:configuration-helper visible=@(!Model.Tabs.Any()) mode="@ConfigurationHelperMode.ToolTip" instructions="<strong>No Tabs Found</strong>: Please add Tab pages under this parent to display." needs-attention="true" />
+
         <nav data-name="@(Model.Name)">
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
                 @{var tabCount = Model.Tabs.Count();}
