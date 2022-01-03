@@ -31,8 +31,7 @@ Optionally install
 5. [HBS_CSVImport](https://www.nuget.org/packages/HBS_CSVImport/) (will be upgraded to 13 in near future)
 6. [HBS.AutomaticGeneratedUserRoles.Kentico](https://www.nuget.org/packages/HBS.AutomaticGeneratedUserRoles.Kentico/)
 
-
-
+Make sure you have Visual Studio 2019 or higher, and the Visual Studio extension [Web Essentials 2019](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.WebEssentials2019) is recommended.
 
 ## Upgrading / Hotfixing Admin
 If you already had the Baseline for Admin, or are upgrading / hotfixing in the future, make sure to update the `Kentico.Xperience.Libraries` nuget package on the admin to the version your site is either on or hotfixing to.  The NuGet packages this Baseline uses inherits this nuget package, and **if you fail to update this package after you hotfix, your Admin solution will probably not work.**
