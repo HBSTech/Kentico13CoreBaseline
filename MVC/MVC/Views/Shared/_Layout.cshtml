@@ -39,7 +39,7 @@
     @* Cache Header*@
 
     <header data-ktc-search-exclude>
-
+        <!-- ONLY Cache header partial widget page if the widgets / content of the header have no personalization!! -->
         <cache expires-after="@TimeSpan.FromMinutes(60)" enabled="@CacheContext.CacheEnabled()">
             @{
                 var headerDoc = await pageContextRepository.GetPageAsync("/MasterPage/Header");
@@ -69,6 +69,7 @@
     @RenderBody()
 
     <footer data-ktc-search-exclude>
+        <!-- ONLY Cache header partial widget page if the widgets / content of the header have no personalization!! -->
         <cache expires-after="@TimeSpan.FromMinutes(60)" enabled="@CacheContext.CacheEnabled()">
             @{
                 var footerDoc = await pageContextRepository.GetPageAsync("/MasterPage/Footer");
