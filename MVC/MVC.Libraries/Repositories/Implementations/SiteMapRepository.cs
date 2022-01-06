@@ -53,7 +53,7 @@ namespace Generic.Repositories.Implementations
                     .EnsureUrls(),
                 cacheSettings => cacheSettings
                     .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
-                    .Key($"{MethodBase.GetCurrentMethod()}|Custom")
+                    .Key($"GetSiteMapUrlSetAsync|Custom")
                     .Expiration(TimeSpan.FromMinutes(60))
                     );
 
@@ -198,7 +198,7 @@ namespace Generic.Repositories.Implementations
             }, cacheSettings =>
                 cacheSettings
                     .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
-                    .Key($"{MethodBase.GetCurrentMethod()}|{path}{className}|{options.GetCacheKey()}")
+                    .Key($"GetSiteMapUrlSetForClassBase|{path}{className}|{options.GetCacheKey()}")
                     .Expiration(TimeSpan.FromMinutes(1440))
                 );
             return results;
@@ -245,7 +245,7 @@ namespace Generic.Repositories.Implementations
             }, cacheSettings =>
                 cacheSettings
                     .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
-                    .Key($"{MethodBase.GetCurrentMethod()}|{path}|{options.GetCacheKey()}")
+                    .Key($"GetSiteMapUrlSetBaseAsync|{path}|{options.GetCacheKey()}")
                     .Expiration(TimeSpan.FromMinutes(1440))
                 );
             return results;

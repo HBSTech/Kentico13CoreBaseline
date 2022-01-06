@@ -117,7 +117,7 @@ namespace Generic.Services.Implementation
                     cs.CacheDependency = CacheHelper.GetCacheDependency($"{UserInfo.OBJECT_TYPE}|byname|{userName}");
                 }
                 return await _UserInfoProvider.GetAsync(userName);
-            }, new CacheSettings(15, MethodBase.GetCurrentMethod(), userName));
+            }, new CacheSettings(15, "GetUserInfoAsync", userName));
         }
     }
 }

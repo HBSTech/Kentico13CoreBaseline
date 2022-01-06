@@ -110,7 +110,7 @@ namespace Generic.Repositories.Implementations
                 }
             }, cacheSettings => cacheSettings
              .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
-             .Key($"{MethodBase.GetCurrentMethod()}|{orderBy}|{whereCondition}|{maxLevel}|{topNumber}|{(int)pathTypeEnum}|{startingPath}|{string.Join(",", pageTypes ?? Array.Empty<string>())}")
+             .Key($"GetSecondaryNavigationItemsAsync|{orderBy}|{whereCondition}|{maxLevel}|{topNumber}|{(int)pathTypeEnum}|{startingPath}|{string.Join(",", pageTypes ?? Array.Empty<string>())}")
              .Expiration(TimeSpan.FromMinutes(30))
             );
 
@@ -185,7 +185,7 @@ namespace Generic.Repositories.Implementations
                     , cacheSettings =>
                         cacheSettings
                         .Dependencies((items, csbuilder) => csbuilder.Custom($"nodeguid|{_siteRepository.CurrentSiteName()}|{nodeGuid}"))
-                        .Key($"{MethodBase.GetCurrentMethod()}|{nodeGuid}")
+                        .Key($"GetAncestorPathAsync|{nodeGuid}")
                         .Expiration(TimeSpan.FromMinutes(15))
                         );
 
@@ -201,7 +201,7 @@ namespace Generic.Repositories.Implementations
                     , cacheSettings =>
                         cacheSettings
                         .Dependencies((items, csbuilder) => csbuilder.Custom($"nodeguid|{_siteRepository.CurrentSiteName()}|{nodeID}"))
-                        .Key($"{MethodBase.GetCurrentMethod()}|{nodeID}")
+                        .Key($"GetAncestorPathAsync|{nodeID}")
                         .Expiration(TimeSpan.FromMinutes(15))
                         );
 
@@ -292,7 +292,7 @@ namespace Generic.Repositories.Implementations
                      }),
                cacheSettings => cacheSettings
                 .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
-                .Key($"{MethodBase.GetCurrentMethod()}|{linkPageIdentifier}")
+                .Key($"GetTreeNodeToNavAsync|{linkPageIdentifier}")
                 .Expiration(TimeSpan.FromMinutes(60))
             );
 
@@ -329,7 +329,7 @@ namespace Generic.Repositories.Implementations
                 }
             }, cacheSettings => cacheSettings
                 .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
-                .Key($"{MethodBase.GetCurrentMethod()}|{navPath}|{string.Join(",", navTypes ?? Array.Empty<string>())}")
+                .Key($"GetNavigationItemsAsync|{navPath}|{string.Join(",", navTypes ?? Array.Empty<string>())}")
                 .Expiration(TimeSpan.FromMinutes(1440))
             );
 
@@ -389,7 +389,7 @@ namespace Generic.Repositories.Implementations
                             }
                         }, cacheSettings =>
                             cacheSettings.Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
-                            .Key($"{MethodBase.GetCurrentMethod()}|{navItem.NodeGUID}")
+                            .Key($"NodeListToHierarchyTreeNodesAsync|{navItem.NodeGUID}")
                             .Expiration(TimeSpan.FromMinutes(60))
                             );
 

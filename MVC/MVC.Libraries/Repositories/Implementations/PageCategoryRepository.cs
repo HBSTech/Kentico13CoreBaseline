@@ -115,7 +115,7 @@ namespace Generic.Repositories.Implementations
                 var dictionaryByPath = items.GroupBy(x => x.Path).ToDictionary(key => key.Key, value => value.Select(x => x.CategoryItem));
                 var result = new Tuple<Dictionary<int, IEnumerable<CategoryItem>>, Dictionary<string, IEnumerable<CategoryItem>>>(dictionaryByNodeID, dictionaryByPath);
                 return result;
-            }, new CacheSettings(60, $"{MethodBase.GetCurrentMethod()}"));   
+            }, new CacheSettings(60, $"GetCategoriesByIdentifiersAsync"));   
         }
     }
 

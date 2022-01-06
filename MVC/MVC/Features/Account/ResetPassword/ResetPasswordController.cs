@@ -68,7 +68,7 @@ namespace Generic.Features.Account.ResetPassword
             }
             catch (Exception ex)
             {
-                _logger.LogException(ex, nameof(ResetPasswordController), MethodBase.GetCurrentMethod().Name, Description: $"For user {User.Identity.Name}");
+                _logger.LogException(ex, nameof(ResetPasswordController), "ResetPassword", Description: $"For user {User.Identity.Name}");
                 model.Succeeded = false;
                 model.Error = "An error occurred in changing the password.";
             }

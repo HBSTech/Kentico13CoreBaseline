@@ -75,7 +75,7 @@ namespace Generic.Features.Account.Registration
             }
             catch (Exception ex)
             {
-                _logger.LogException(ex, nameof(RegistrationController), MethodBase.GetCurrentMethod().Name, Description: $"For User {userAccountModel.User}");
+                _logger.LogException(ex, nameof(RegistrationController), "Registration", Description: $"For User {userAccountModel.User}");
                 userAccountModel.RegistrationFailureMessage = ex.Message;
                 userAccountModel.RegisterationSuccessful = false;
             }

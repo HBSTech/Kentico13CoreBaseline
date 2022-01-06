@@ -58,7 +58,7 @@ namespace Generic.Repositories.Implementations
                    }),
                cacheSettings => cacheSettings
                    .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
-                   .Key($"{MethodBase.GetCurrentMethod()}|{nodeID}")
+                   .Key($"GetTabParentAsync|{nodeID}")
                    .Expiration(TimeSpan.FromMinutes(60))
                );
 
@@ -80,7 +80,7 @@ namespace Generic.Repositories.Implementations
                     .OrderBy(nameof(TreeNode.NodeLevel), nameof(TreeNode.NodeOrder)),
                 cacheSettings => cacheSettings
                     .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
-                    .Key($"{MethodBase.GetCurrentMethod()}|{path}")
+                    .Key($"GetTabsAsync|{path}")
                     .Expiration(TimeSpan.FromMinutes(60))
                 );
 

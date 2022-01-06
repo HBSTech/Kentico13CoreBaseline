@@ -140,7 +140,7 @@ namespace Generic.Repositories.Implementations
                     .Where($"NodeClassID not in (select ClassID from CMS_Class where ClassName in ('{string.Join("','", validClassNames.Select(x => SqlHelper.EscapeQuotes(x)))}'))"),
                 cacheSettings => cacheSettings
                     .Dependencies((items, csbuilder) => csbuilder.PagePath("/", PathTypeEnum.Section))
-                    .Key($"{MethodBase.GetCurrentMethod()}")
+                    .Key($"GetNodeToBreadcrumbAndParent")
                     .Expiration(TimeSpan.FromMinutes(60))
                 );
             return results.GroupBy(x => x.NodeID)

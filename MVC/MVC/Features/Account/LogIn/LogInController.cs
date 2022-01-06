@@ -80,7 +80,7 @@ namespace Generic.Features.Account.LogIn
             catch (Exception ex)
             {
                 // Logs an error into the Kentico event log if the authentication fails
-                _logger.LogException(ex, nameof(LogInController), MethodBase.GetCurrentMethod().Name, Description: $"For user {model.UserName}");
+                _logger.LogException(ex, nameof(LogInController), "Login", Description: $"For user {model.UserName}");
             }
 
             // If the authentication was not successful, displays the sign-in form with an "Authentication failed" message

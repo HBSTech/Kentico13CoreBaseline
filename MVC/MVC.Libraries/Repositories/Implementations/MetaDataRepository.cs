@@ -50,7 +50,7 @@ namespace Generic.Repositories.Implementations
                     .TopN(1),
                 cacheSettings => cacheSettings
                     .Dependencies((result, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
-                    .Key($"{MethodBase.GetCurrentMethod()}|{documentId}")
+                    .Key($"GetMetaDataAsync|{documentId}")
                     .Expiration(TimeSpan.FromMinutes(1440))
             );
             return GetMetaDataInternal(page.FirstOrDefault(), thumbnail);
@@ -68,7 +68,7 @@ namespace Generic.Repositories.Implementations
                     .TopN(1),
                 cacheSettings => cacheSettings
                     .Dependencies((result, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
-                    .Key($"{MethodBase.GetCurrentMethod()}|{documentGuid}")
+                    .Key($"GetMetaDataAsync|{documentGuid}")
                     .Expiration(TimeSpan.FromDays(1))
             );
             return GetMetaDataInternal(page.FirstOrDefault(), thumbnail);

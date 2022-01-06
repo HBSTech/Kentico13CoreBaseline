@@ -57,7 +57,7 @@ namespace Generic.Repositories.Implementations
                     cs.CacheDependency = builder.GetCMSCacheDependency();
                 }
                 return await _attachmentInfoProvider.GetAsync(attachmentGuid, await _siteRepository.GetSiteIDAsync());
-            }, new CacheSettings(15, MethodBase.GetCurrentMethod(), attachmentGuid));
+            }, new CacheSettings(15, "GetAttachmentItemAsnc", attachmentGuid));
 
             return result != null ? _mapper.Map<AttachmentItem>(result) : null;
         }
@@ -73,7 +73,7 @@ namespace Generic.Repositories.Implementations
                     cs.CacheDependency = builder.GetCMSCacheDependency();
                 }
                 return await _mediaFileInfoProvider.GetAsync(fileGuid, await _siteRepository.GetSiteIDAsync());
-            }, new CacheSettings(15, MethodBase.GetCurrentMethod(), fileGuid));
+            }, new CacheSettings(15, "GetMediaItemAsync", fileGuid));
 
             return result != null ? _mapper.Map<MediaItem>(result) : null;
         }
@@ -113,7 +113,7 @@ namespace Generic.Repositories.Implementations
                     .WhereEquals(nameof(TreeNode.DocumentID), documentID),
                 cacheSettings => cacheSettings
                     .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
-                    .Key($"{MethodBase.GetCurrentMethod()}|{documentID}")
+                    .Key($"GetPageAttachmentsAsync|{documentID}")
                     .Expiration(TimeSpan.FromMinutes(15))
                 );
 

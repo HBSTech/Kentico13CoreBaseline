@@ -57,7 +57,7 @@ namespace Generic.Repositories.Implementations
                 var user = await _userInfoProvider.GetAsync(userID);
                 user ??= await _userInfoProvider.GetAsync("public");
                 return user;
-            }, new CacheSettings(15, MethodBase.GetCurrentMethod(), userID));
+            }, new CacheSettings(15, "GetUserAsync", userID));
             return user != null ? _mapper.Map<User>(user) : null;
         }
 
@@ -75,7 +75,7 @@ namespace Generic.Repositories.Implementations
                 var user = await _userInfoProvider.GetAsync(userName);
                 user ??= await _userInfoProvider.GetAsync("public");
                 return user;
-            }, new CacheSettings(15, MethodBase.GetCurrentMethod(), userName));
+            }, new CacheSettings(15, "GetUserAsync", userName));
             return user != null ? _mapper.Map<User>(user) : null;
         }
 
@@ -93,7 +93,7 @@ namespace Generic.Repositories.Implementations
                 var user = await _userInfoProvider.GetAsync(userGuid);
                 user ??= await _userInfoProvider.GetAsync("public");
                 return user;
-            }, new CacheSettings(15, MethodBase.GetCurrentMethod(), userGuid));
+            }, new CacheSettings(15, "GetUserAsync", userGuid));
             return user != null ? _mapper.Map<User>(user) : null;
         }
 
@@ -114,7 +114,7 @@ namespace Generic.Repositories.Implementations
                 .GetEnumerableTypedResultAsync()).FirstOrDefault();
                 user ??= await _userInfoProvider.GetAsync("public");
                 return user;
-            }, new CacheSettings(15, MethodBase.GetCurrentMethod(), email));
+            }, new CacheSettings(15, "GetUserByEmailAsync", email));
             return user != null ? _mapper.Map<User>(user) : null;
         }
     }

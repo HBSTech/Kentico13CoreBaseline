@@ -78,7 +78,7 @@ namespace Generic.Features.Account.ForgottenPasswordReset
             catch (Exception ex)
             {
                 model.Result = IdentityResult.Failed(new IdentityError() { Code = "Unknown", Description = "An error occurred." });
-                _logger.LogException(ex, nameof(ForgottenPasswordResetController), MethodBase.GetCurrentMethod().Name, Description: $"For userid {model.UserID}");
+                _logger.LogException(ex, nameof(ForgottenPasswordResetController), "ForgottenPasswordReset", Description: $"For userid {model.UserID}");
             }
             return Redirect(forgottenPasswordResetUrl);
         }

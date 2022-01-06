@@ -83,7 +83,7 @@ namespace Generic.Repositories.Implementations
                     .EnsureUrls(),
                 cacheSettings => cacheSettings
                     .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
-                    .Key($"{MethodBase.GetCurrentMethod()}|{path}")
+                    .Key($"GetPageAsync|{path}")
                     .Expiration(TimeSpan.FromMinutes(15))
                 );
             return (page.Any() ? page.FirstOrDefault().ToPageIdentity() : null);
@@ -117,7 +117,7 @@ namespace Generic.Repositories.Implementations
                     .EnsureUrls(),
                 cacheSettings => cacheSettings
                     .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
-                    .Key($"{MethodBase.GetCurrentMethod()}|{documentID}")
+                    .Key($"GetPageAsync|{documentID}")
                     .Expiration(TimeSpan.FromMinutes(15))
                 );
             return (page.Any() ? page.FirstOrDefault().ToPageIdentity() : null);
@@ -151,7 +151,7 @@ namespace Generic.Repositories.Implementations
                     .EnsureUrls(),
                 cacheSettings => cacheSettings
                     .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
-                    .Key($"{MethodBase.GetCurrentMethod()}|{documentGUID}")
+                    .Key($"GetPageAsync|{documentGUID}")
                     .Expiration(TimeSpan.FromMinutes(15))
                 );
             return (page.Any() ? page.FirstOrDefault().ToPageIdentity() : null);
@@ -185,7 +185,7 @@ namespace Generic.Repositories.Implementations
                     .EnsureUrls(),
                 cacheSettings => cacheSettings
                     .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
-                    .Key($"{MethodBase.GetCurrentMethod()}|{nodeID}")
+                    .Key($"GetPageByNodeAsync|{nodeID}")
                     .Expiration(TimeSpan.FromMinutes(15))
                 );
             return (page.Any() ? page.FirstOrDefault().ToPageIdentity() : null);
@@ -219,7 +219,7 @@ namespace Generic.Repositories.Implementations
                     .EnsureUrls(),
                 cacheSettings => cacheSettings
                     .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
-                    .Key($"{MethodBase.GetCurrentMethod()}|{nodeGUID}")
+                    .Key($"GetPageByNodeAsync|{nodeGUID}")
                     .Expiration(TimeSpan.FromMinutes(15))
                 );
             return (page.Any() ? page.FirstOrDefault().ToPageIdentity() : null);

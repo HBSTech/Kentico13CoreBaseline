@@ -47,7 +47,7 @@ namespace Generic.Repositories.Implementations
                     cs.CacheDependency = builder.GetCMSCacheDependency();
                 }
                 return await _roleInfoProvider.GetAsync(roleName, await _siteRepository.GetSiteIDAsync(siteName));
-            }, new CacheSettings(60, MethodBase.GetCurrentMethod(), roleName, siteName));
+            }, new CacheSettings(60, "GetRoleAsync", roleName, siteName));
 
             if(role != null)
             {
