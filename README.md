@@ -6,7 +6,7 @@
 Our Kentico 13 Baseline for MVC .Net Core 5.0 Site, the perfect starting point for your Kentico Xperience 13 Site to get up and running right away.
 
 # Installation
-Install a normal Kentico 13 Site, and hotfix it up to at least 13.0.46 (KX13 Refresh 3)
+Install a normal Kentico 13 Site, and hotfix it up to at least 13.0.57 (KX13 Refresh 3)
 
 Also make sure to install .Net 5.0 and .Net Core 3.1 onto your solution (you can install the Hosting Bundles as well if you plan on hosting via IIS)
 
