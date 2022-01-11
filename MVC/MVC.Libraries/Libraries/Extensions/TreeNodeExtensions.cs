@@ -1,4 +1,5 @@
 ﻿using CMS.DocumentEngine;
+using CMS.DocumentEngine.Routing;
 using CMS.Helpers;
 using Generic.Models;
 using Kentico.Content.Web.Mvc;
@@ -48,7 +49,7 @@ namespace Generic.Libraries.Extensions
                     // get full page
                     var fullNode = new DocumentQuery()
                     .WhereEquals(nameof(TreeNode.DocumentID), node.DocumentID)
-                    .EnsureUrls()
+                    .WithPageUrlPaths()
                     .GetEnumerableTypedResult()
                     .FirstOrDefault();
                     return new Tuple<string, string>(DocumentURLProvider.GetUrl(node), DocumentURLProvider.GetAbsoluteUrl(node));

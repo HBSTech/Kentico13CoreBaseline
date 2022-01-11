@@ -24,7 +24,7 @@
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.6" />
     <PackageReference Include="HBS.AutomaticGeneratedUserRoles.Kentico" Version="13.0.0" />
-    <PackageReference Include="kentico.xperience.aspnetcore.webapp" Version="13.0.55" />
+    <PackageReference Include="kentico.xperience.aspnetcore.webapp" Version="13.0.57" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.4" />
     <PackageReference Include="MVCCaching.Base.Core" Version="2.1.1" />
     <PackageReference Include="MVCCaching.Kentico.Core" Version="13.0.2" />
