@@ -28,11 +28,7 @@ If you already had the Baseline for Admin, or are upgrading / hotfixing in the f
 
 # FRESH INSTALL
 ## Install Site Objects
-In your Kentico Admin instance, go to `Sites` - `Import Site or Object` and upload the [Baseline Site](https://github.com/HBSTech/Kentico13CoreBaseline/blob/master/Kentico13CoreBaseline-AdminSiteImport.zip).  You can import these objects into an existing site or create the site from it.
-
-You may need to uncheck the Global Objects -> On-line marketing Tasks (Activity Types, Automation Actions, and Automation Templates), if you do not have an EMS License.
-
-You may also want to go through and uncheck any items that already exist IF this is not a fresh install and you did modifications to some of these items, or if this is a later version of Kentico that may have touched them.  The import items are really the Pages and Page Types primarily.
+In your Kentico Admin instance, go to `Sites` - `Import Site or Object` and upload the [Baseline Site generic objects](Baseline_Generics.1.0.0.zip).  You can import these objects into your existing site.
 
 ## Enable Webfarm
 
