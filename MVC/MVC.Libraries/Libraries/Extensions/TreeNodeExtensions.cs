@@ -52,7 +52,7 @@ namespace Generic.Libraries.Extensions
                     .WithPageUrlPaths()
                     .GetEnumerableTypedResult()
                     .FirstOrDefault();
-                    return new Tuple<string, string>(DocumentURLProvider.GetUrl(node), DocumentURLProvider.GetAbsoluteUrl(node));
+                    return new Tuple<string, string>(DocumentURLProvider.GetUrl(fullNode), DocumentURLProvider.GetAbsoluteUrl(fullNode));
                 } else
                 {
                     return new Tuple<string, string>(string.Empty, string.Empty);
