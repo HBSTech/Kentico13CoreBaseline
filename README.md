@@ -19,7 +19,7 @@ On the Kentico Admin (WebApp/Mother) solution, install the following NuGet Packa
 
 Optionally install
 5. [HBS_CSVImport](https://www.nuget.org/packages/HBS_CSVImport/) (will be upgraded to 13 in near future)
-6. [HBS.AutomaticGeneratedUserRoles.Kentico](https://www.nuget.org/packages/HBS.AutomaticGeneratedUserRoles.Kentico/)
+6. [HBS.AutomaticGeneratedUserRoles.Kentico](https://www.nuget.org/packages/HBS.AutomaticGeneratedUserRoles.Kentico/) (may not be needed with new Authorization plugin already installed)
 
 Make sure you have Visual Studio 2019 or higher, and the Visual Studio extension [Web Essentials 2019](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.WebEssentials2019) is recommended.
 
@@ -27,8 +27,17 @@ Make sure you have Visual Studio 2019 or higher, and the Visual Studio extension
 If you already had the Baseline for Admin, or are upgrading / hotfixing in the future, make sure to update the `Kentico.Xperience.Libraries` nuget package on the admin to the version your site is either on or hotfixing to.  The NuGet packages this Baseline uses inherits this nuget package, and **if you fail to update this package after you hotfix, your Admin solution will probably not work.**
 
 # FRESH INSTALL
-## Install Site Objects
-In your Kentico Admin instance, go to `Sites` - `Import Site or Object` and upload the [Baseline Site generic objects](Baseline_Generics.1.0.0.zip).  You can import these objects into your existing site.
+## Install Site Objects / Settings
+When starting fresh, please perform the following operations in your Kentico Xperience Admin instance:
+
+1. `Sites` - `Import Site or Object` and upload the [Baseline Site generic objects](Baseline_Generics.1.0.0.zip).  You can import these objects into your existing site.
+2. Go to `Page Types` and on all `Generic.XXXX` page types, edit them and go to `Sites` and add them to your site.
+3. Go to `Pages`, and...
+   * Add a `Home` page to the root
+   * Add a `Folder` called `MasterPage` to the root
+   * Add a `Folder` called `Navigation` under `MasterPage` (Navigation items go here)
+   * Add a `Header` called `Header` and a `Footer` called `Footer` under `MasterPage`
+4. Go to `Settings` -> `URLs & SEO` and set the `Routing mode` to `Based on Content Tree` and the Default Homepage to your `Home` page. 
 
 ## Enable Webfarm
 
@@ -36,42 +45,18 @@ Kentico uses Webfarm to sync media file changes, event triggers, and more import
 
 ## Replace MVC Solution with Baseline
 1. Remove the default MVC site folder and replace it with this repository
-2. Copy `appsettings.template` and rename it `appsettings.json`, update the empty fields with your connection string, Signature hash salt, and your Admin url.
+2. Copy `appsettings.json` and rename it `appsettings.Development.json`, update the empty fields with your connection string, Signature hash salt, and your Admin url.
 3. Open the MVC Solution
 4. Restore Nuget Packages (May have to run `Update-Package -reinstall` in nuget command prompt)
 5. Update any nuget packages for custom tools (usually `Something.Kentico.Core`) installed if needed, however do **not** update non-custom Kentico Nuget Packages as this could break your solution if Kentico's code depends on certain versions.
 6. Rebuild solution
 
-If using IIS, there is also a `web.config`, you will have to update the aspNetCore processPath to point to the project's .exe file.
+If using IIS, there is also a `web.config`, you will have to update the aspNetCore processPath to point to the project's .exe file.  It is recommended however you use either `IIS Express` for your MVC Site or straight up `Kuberneties`
 
-## Adding DocumentOGImage Field
-The Baseline site references the `DocumentOGImage` field in the DocumentCustomData element for the Image.  While it's not required, in order to leverage this, you will need to add this field using the `XperienceCommunity.PageCustomDataControlExtender` to page types you wish to leverage it. 
-	1. In the Kentico Admin, go to `Administration Interface` and go to `Form Controls`
-	2. Create a New form control:
- - Inherits from an existing
-   - Display Name: Media Selector (CustomData)
-   - Code Name: MediaSelector_CustomData
-   - Inherit from: Media Selection
-   - Control Extender: XperienceCommunity.PageCustomDataControlExtender (class
-   XperienceCommunity.PageCustomDataControlExtender.CustomDataControlExtender)
-   - Save
- - Add property
-   - FieldName: UseDocumentCustomData
-   - Data Type: Boolean
-   - Required: True
-   - Default Value: True
-   - Caption: Store value on Document
-   - Description: If false, will store on Node instead
-3. Next, either create a base page type with a `Field without database representation` and assign your page types to it, or just add a `field without database representation` directly to your page types, and configure the field as follows:
- - Field Name: DocumentOGImage
- - Data Type: Text
- - Size: 500
- - Field Caption: OG Image
- - Field Description: This data is stored in the Document's Custom Data Fields
- - Explanation Text: Recommended 1200x627 pixels and max 5mb size.
- - Form Control: Media Selector (CustomData)
+## Optional: Adding MetaData to Page Types
+The Baseline site references the various `MetaData_XXX` fields in the DocumentCustomData of pages.  These are included in the `Base Inherited Page` type that you should inherit from.  However, if you do not wish to use the `Base Inherited Page` then you can add the fields yourself manually.
 
-This will allow you to save the Media Image to the DocumentCustomData field.
+If you wish to add these fields manually, create `Field without database representation` on your page type, and mimic the `MetaData_xxx` fields you see on the `Base Inherited Page`.  The baseline defaults to the normal Page Meta Data within the Properties -> MetaData for all fields except the thumbnail image which isn't supported by default without the `MetaData_ThumbnailSmall` Document Custom Data.
 
 **Versioning**: 
 To enable versioning on the DocumentCustomData field (which is used for the Image MetaData in the baseline), please see the [Register VersionManager](https://github.com/wiredviews/xperience-page-custom-data-control-extender) step, which adds XML elements to your web.config
