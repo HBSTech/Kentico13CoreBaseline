@@ -27,6 +27,8 @@ namespace Generic.Repositories.Implementations
 
         public Task<string> GetAccountConfirmationUrlAsync(string fallBackUrl)
         {
+            _ = new CacheDependencyKeysBuilder(_siteRepository, _cacheDependenciesStore)
+                .Object(SettingsKeyInfo.OBJECT_TYPE, "BlogArticlesToDAccountConfirmationUrlisplay");
             string url = SettingsKeyInfoProvider.GetValue("AccountConfirmationUrl", _siteRepository.CurrentSiteName());
             url = !string.IsNullOrWhiteSpace(url) ? url : fallBackUrl;
             return Task.FromResult(_urlResolver.ResolveUrl(url));
@@ -34,6 +36,8 @@ namespace Generic.Repositories.Implementations
 
         public Task<string> GetAccountForgottenPasswordResetUrlAsync(string fallBackUrl)
         {
+            _ = new CacheDependencyKeysBuilder(_siteRepository, _cacheDependenciesStore)
+                .Object(SettingsKeyInfo.OBJECT_TYPE, "AccountForgottenPasswordResetUrl");
             string url = SettingsKeyInfoProvider.GetValue("AccountForgottenPasswordResetUrl", _siteRepository.CurrentSiteName());
             url = !string.IsNullOrWhiteSpace(url) ? url : fallBackUrl;
             return Task.FromResult(_urlResolver.ResolveUrl(url));
@@ -41,6 +45,8 @@ namespace Generic.Repositories.Implementations
 
         public Task<string> GetAccountForgotPasswordUrlAsync(string fallBackUrl)
         {
+            _ = new CacheDependencyKeysBuilder(_siteRepository, _cacheDependenciesStore)
+                .Object(SettingsKeyInfo.OBJECT_TYPE, "AccountForgotPasswordUrl");
             string url = SettingsKeyInfoProvider.GetValue("AccountForgotPasswordUrl", _siteRepository.CurrentSiteName());
             url = !string.IsNullOrWhiteSpace(url) ? url : fallBackUrl;
             return Task.FromResult(_urlResolver.ResolveUrl(url));
@@ -48,6 +54,8 @@ namespace Generic.Repositories.Implementations
 
         public Task<string> GetAccountLoginUrlAsync(string fallBackUrl)
         {
+            _ = new CacheDependencyKeysBuilder(_siteRepository, _cacheDependenciesStore)
+                .Object(SettingsKeyInfo.OBJECT_TYPE, "AccountLoginUrl");
             string url = SettingsKeyInfoProvider.GetValue("AccountLoginUrl", _siteRepository.CurrentSiteName());
             url = !string.IsNullOrWhiteSpace(url) ? url : fallBackUrl;
             return Task.FromResult(_urlResolver.ResolveUrl(url));
@@ -55,6 +63,8 @@ namespace Generic.Repositories.Implementations
 
         public Task<string> GetAccountRegistrationUrlAsync(string fallBackUrl)
         {
+            _ = new CacheDependencyKeysBuilder(_siteRepository, _cacheDependenciesStore)
+                .Object(SettingsKeyInfo.OBJECT_TYPE, "AccountRegistrationUrl");
             string url = SettingsKeyInfoProvider.GetValue("AccountRegistrationUrl", _siteRepository.CurrentSiteName());
             url = !string.IsNullOrWhiteSpace(url) ? url : fallBackUrl;
             return Task.FromResult(_urlResolver.ResolveUrl(url));
@@ -62,6 +72,8 @@ namespace Generic.Repositories.Implementations
 
         public Task<string> GetAccountMyAccountUrlAsync(string fallBackUrl)
         {
+            _ = new CacheDependencyKeysBuilder(_siteRepository, _cacheDependenciesStore)
+                .Object(SettingsKeyInfo.OBJECT_TYPE, "AccountMyAccountUrl");
             string url = SettingsKeyInfoProvider.GetValue("AccountMyAccountUrl", _siteRepository.CurrentSiteName());
             url = !string.IsNullOrWhiteSpace(url) ? url : fallBackUrl;
             return Task.FromResult(_urlResolver.ResolveUrl(url));
@@ -69,11 +81,15 @@ namespace Generic.Repositories.Implementations
 
         public Task<bool> GetAccountRedirectToAccountAfterLoginAsync()
         {
+            _ = new CacheDependencyKeysBuilder(_siteRepository, _cacheDependenciesStore)
+                .Object(SettingsKeyInfo.OBJECT_TYPE, "AccountRedirectToAccountAfterLogin");
             return Task.FromResult(SettingsKeyInfoProvider.GetBoolValue("AccountRedirectToAccountAfterLogin", _siteRepository.CurrentSiteName()));
         }
 
         public Task<string> GetAccountLogOutUrlAsync(string fallBackUrl)
         {
+            _ = new CacheDependencyKeysBuilder(_siteRepository, _cacheDependenciesStore)
+                .Object(SettingsKeyInfo.OBJECT_TYPE, "AccountLogOutUrl");
             string url = SettingsKeyInfoProvider.GetValue("AccountLogOutUrl", _siteRepository.CurrentSiteName());
             url = !string.IsNullOrWhiteSpace(url) ? url : fallBackUrl;
             return Task.FromResult(_urlResolver.ResolveUrl(url));
@@ -81,6 +97,8 @@ namespace Generic.Repositories.Implementations
 
         public Task<string> GetAccountResetPasswordUrlAsync(string fallBackUrl)
         {
+            _ = new CacheDependencyKeysBuilder(_siteRepository, _cacheDependenciesStore)
+                .Object(SettingsKeyInfo.OBJECT_TYPE, "AccountResetPassword");
             string url = SettingsKeyInfoProvider.GetValue("AccountResetPassword", _siteRepository.CurrentSiteName());
             url = !string.IsNullOrWhiteSpace(url) ? url : fallBackUrl;
             return Task.FromResult(_urlResolver.ResolveUrl(url));
@@ -88,6 +106,8 @@ namespace Generic.Repositories.Implementations
 
         public Task<string> GetAccessDeniedUrlAsync(string fallBackUrl)
         {
+            _ = new CacheDependencyKeysBuilder(_siteRepository, _cacheDependenciesStore)
+                .Object(SettingsKeyInfo.OBJECT_TYPE, "AccessDeniedUrl");
             string url = SettingsKeyInfoProvider.GetValue("AccessDeniedUrl", _siteRepository.CurrentSiteName());
             url = !string.IsNullOrWhiteSpace(url) ? url : fallBackUrl;
             return Task.FromResult(_urlResolver.ResolveUrl(url));

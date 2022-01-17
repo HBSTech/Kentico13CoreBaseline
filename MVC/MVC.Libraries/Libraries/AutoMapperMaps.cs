@@ -41,8 +41,10 @@ namespace Generic.Libraries.AutoMapper
 
             CreateMap<DocumentAttachment, AttachmentItem>()
                 .AfterMap<DocumentAttachmentUrlMapping>();
+
             CreateMap<AttachmentInfo, AttachmentItem>()
                 .AfterMap<AttachmentUrlMapping>();
+
             CreateMap<MediaFileInfo, MediaItem>()
                 .ForMember(dest => dest.MediaGUID, opt => opt.MapFrom(src => src.FileGUID))
                 .ForMember(dest => dest.MediaName, opt => opt.MapFrom(src => src.FileName))
