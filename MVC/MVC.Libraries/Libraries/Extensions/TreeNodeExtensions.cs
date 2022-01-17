@@ -1,6 +1,8 @@
-﻿using CMS.DocumentEngine;
+﻿using CMS.DataEngine;
+using CMS.DocumentEngine;
 using CMS.DocumentEngine.Routing;
 using CMS.Helpers;
+using CMS.SiteProvider;
 using Generic.Models;
 using Kentico.Content.Web.Mvc;
 using System;
@@ -38,7 +40,12 @@ namespace Generic.Libraries.Extensions
                 }
                 try
                 {
-                    return new Tuple<string, string>(DocumentURLProvider.GetUrl(node), DocumentURLProvider.GetAbsoluteUrl(node));
+                    if (node.NodeSiteID <= 0)
+                    {
+                        throw new Exception("Need NodeSiteD");
+                    }
+                    string url = DocumentURLProvider.GetUrl(node);
+                    return new Tuple<string, string>(DocumentURLProvider.GetUrl(node), GetAbsoluteUrlOptimized(url, node.NodeSiteID, node.DocumentCulture, true));
                 }
                 catch (Exception)
                 {
@@ -47,20 +54,79 @@ namespace Generic.Libraries.Extensions
                 if (pageIdentity.DocumentID > 0)
                 {
                     // get full page
-                    var fullNode = new DocumentQuery()
-                    .WhereEquals(nameof(TreeNode.DocumentID), node.DocumentID)
-                    .WithPageUrlPaths()
-                    .GetEnumerableTypedResult()
-                    .FirstOrDefault();
-                    return new Tuple<string, string>(DocumentURLProvider.GetUrl(fullNode), DocumentURLProvider.GetAbsoluteUrl(fullNode));
-                } else
+                    var fullNode = CacheHelper.Cache(cs =>
+                    {
+                        if (cs.Cached)
+                        {
+                            cs.CacheDependency = CacheHelper.GetCacheDependency(new string[]
+                            {
+                                $"documentid{ pageIdentity.DocumentID }"
+                            });
+                        }
+                        return new DocumentQuery()
+                            .WhereEquals(nameof(TreeNode.DocumentID), node.DocumentID)
+                            .EnsureUrls()
+                            .GetEnumerableTypedResult()
+                            .FirstOrDefault();
+                    }, new CacheSettings(10, "GetDocumentForUrlRetrieval", pageIdentity.DocumentID));
+
+                    string url = DocumentURLProvider.GetUrl(fullNode);
+                    return new Tuple<string, string>(url.Replace("~", ""), GetAbsoluteUrlOptimized(url, fullNode.NodeSiteID, fullNode.DocumentCulture, true));
+                }
+                else
                 {
                     return new Tuple<string, string>(string.Empty, string.Empty);
                 }
             }, new CacheSettings(10, "GetNodeUrlsForPageIdentity", node.DocumentID));
-            pageIdentity.RelativeUrl = relativeAndAbsoluteUrl.Item1.Replace("~", "");
-            pageIdentity.AbsoluteUrl = relativeAndAbsoluteUrl.Item2.Replace("~", "");
+            pageIdentity.RelativeUrl = relativeAndAbsoluteUrl.Item1;
+            pageIdentity.AbsoluteUrl = relativeAndAbsoluteUrl.Item2;
             return pageIdentity;
         }
+
+        /// <summary>
+        /// DocumentURLProvider.GetPresentationUrl() does various uncached database calls, this caches that to minimize calls for absolute url
+        /// </summary>
+        /// <param name="virtualPath"></param>
+        /// <param name="siteIdentifier"></param>
+        /// <param name="cultureCode"></param>
+        /// <param name="ensureUrlFormat"></param>
+        /// <returns></returns>
+        private static string GetAbsoluteUrlOptimized(string virtualPath, SiteInfoIdentifier siteIdentifier, string cultureCode, bool ensureUrlFormat)
+        {
+            Uri uri;
+            if (siteIdentifier == null)
+            {
+                throw new ArgumentNullException("siteIdentifier");
+            }
+            if (URLHelper.IsAbsoluteUrl(virtualPath, out uri))
+            {
+                return virtualPath;
+            }
+            string presentationUrl = CacheHelper.Cache(cs =>
+            {
+                if (cs.Cached)
+                {
+                    cs.CacheDependency = CacheHelper.GetCacheDependency(new string[]
+                    {
+                    $"{SiteInfo.OBJECT_TYPE}|all",
+                    $"{SiteDomainAliasInfo.OBJECT_TYPE}|all",
+                    });
+                }
+                return DocumentURLProvider.GetPresentationUrl(siteIdentifier, cultureCode);
+            }, new CacheSettings(1440, "GetPresentationUrl", siteIdentifier, cultureCode));
+
+            string str = URLHelper.CombinePath(virtualPath, '/', presentationUrl, null);
+            if (!URLHelper.IsAbsoluteUrl(str, out uri))
+            {
+                throw new InvalidOperationException("Unable to get the page absolute URL since the site presentation URL is not in correct format.");
+            }
+            if (ensureUrlFormat)
+            {
+                PageRoutingHelper.EnsureAbsoluteUrlFormat(str, siteIdentifier, out str);
+            }
+            return str;
+        }
     }
+
+
 }

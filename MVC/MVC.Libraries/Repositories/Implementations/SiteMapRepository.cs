@@ -51,7 +51,7 @@ namespace Generic.Repositories.Implementations
                query => query
                     .WhereEquals(nameof(TreeNode.DocumentShowInMenu), true)
                     .OrderBy(nameof(TreeNode.NodeLevel), nameof(TreeNode.NodeOrder))
-                    .WithPageUrlPaths(),
+                    .EnsureUrls(),
                 cacheSettings => cacheSettings
                     .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
                     .Key($"GetSiteMapUrlSetAsync|Custom")
@@ -195,7 +195,7 @@ namespace Generic.Repositories.Implementations
                 query.Culture(culture)
                     .CombineWithDefaultCulture()
                     .CombineWithAnyCulture()
-                    .WithPageUrlPaths();
+                    .EnsureUrls();
             }, cacheSettings =>
                 cacheSettings
                     .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
@@ -242,7 +242,7 @@ namespace Generic.Repositories.Implementations
                 query.Culture(culture)
                     .CombineWithDefaultCulture()
                     .CombineWithAnyCulture()
-                    .WithPageUrlPaths();
+                    .EnsureUrls();
             }, cacheSettings =>
                 cacheSettings
                     .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
