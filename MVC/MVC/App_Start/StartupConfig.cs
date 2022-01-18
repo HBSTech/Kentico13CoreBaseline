@@ -26,7 +26,6 @@ using System;
 using Generic.Library;
 using Generic.Repositories.Implementations;
 using System.Reflection;
-using Generic.Library.Checkpoint.Library;
 using XperienceCommunity.Authorization;
 using XperienceCommunity.Localizer;
 using XperienceCommunity.PageBuilderUtilities;
