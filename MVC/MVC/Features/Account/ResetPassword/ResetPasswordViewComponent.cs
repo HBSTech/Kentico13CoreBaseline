@@ -19,6 +19,7 @@ namespace Generic.Features.Account.ResetPassword
         /// <returns></returns>
         public IViewComponentResult Invoke()
         {
+            _modelStateService.MergeModelState(ModelState, TempData);
             var model = _modelStateService.GetViewModel<ResetPasswordViewModel>(TempData) ?? new ResetPasswordViewModel();
 
             return View("~/Features/Account/ResetPassword/ResetPassword.cshtml", model);
