@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Generic.Controllers.Administrative
+namespace Generic.Features.Sitemap
 {
     public class SiteMapController : Controller
     {

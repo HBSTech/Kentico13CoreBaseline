@@ -118,12 +118,12 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Enter your username or email" xml:space="preserve">
-    <value>Enter your username or email TEST</value>
+    <value>Enter your username or email</value>
   </data>
   <data name="teststring" xml:space="preserve">
     <value>Hello World</value>
   </data>
   <data name="Username Address Required" xml:space="preserve">
-    <value>Username Address Required Test</value>
+    <value>Username Address Required</value>
   </data>
 </root>
