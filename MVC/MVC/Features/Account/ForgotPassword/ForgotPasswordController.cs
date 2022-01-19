@@ -15,16 +15,19 @@ namespace Generic.Features.Account.ForgotPassword
         private readonly ISiteSettingsRepository _siteSettingsRepository;
         private readonly IUserService _userService;
         private readonly IUrlResolver _urlResolver;
+        private readonly IModelStateService _modelStateService;
 
         public ForgotPasswordController(IUserRepository userRepository,
             ISiteSettingsRepository siteSettingsRepository,
             IUserService userService,
-            IUrlResolver urlResolver)
+            IUrlResolver urlResolver,
+            IModelStateService modelStateService)
         {
             _userRepository = userRepository;
             _siteSettingsRepository = siteSettingsRepository;
             _userService = userService;
             _urlResolver = urlResolver;
+            _modelStateService = modelStateService;
         }
 
         /// <summary>
@@ -67,6 +70,8 @@ namespace Generic.Features.Account.ForgotPassword
                 model.Succeeded = false;
                 model.Error = ex.Message;
             }
+
+            _modelStateService.StoreViewModel(TempData, model);
 
             return Redirect(forgotPasswordUrl);
         }

@@ -5,6 +5,7 @@ using Generic.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Reflection;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace Generic.Features.Account.Registration
@@ -16,16 +17,20 @@ namespace Generic.Features.Account.Registration
         private readonly IUserService _userService;
         private readonly ILogger _logger;
         private readonly IUrlResolver _urlResolver;
+        private readonly IModelStateService _modelStateService;
 
         public RegistrationController(ISiteSettingsRepository siteSettingsRepository,
             IUserService userService,
             ILogger logger,
-            IUrlResolver urlResolver)
+            IUrlResolver urlResolver,
+            IModelStateService modelStateService
+            )
         {
             _siteSettingsRepository = siteSettingsRepository;
             _userService = userService;
             _logger = logger;
             _urlResolver = urlResolver;
+            _modelStateService = modelStateService;
         }
 
         
@@ -38,7 +43,7 @@ namespace Generic.Features.Account.Registration
         [Route(_routeUrl)]
         public ActionResult Registration()
         {
-            return View("~/Features/Account/Register/RegisterManual.cshtml");
+            return View("~/Features/Account/Registration/RegistrationManual.cshtml");
         }
 
         /// <summary>
@@ -51,7 +56,7 @@ namespace Generic.Features.Account.Registration
         [ExportModelState]
         public async Task<ActionResult> Registration(RegistrationViewModel userAccountModel)
         {
-            var registerUrl = await _siteSettingsRepository.GetAccountRegistrationUrlAsync(GetUrl());
+            var registrationUrl = await _siteSettingsRepository.GetAccountRegistrationUrlAsync(GetUrl());
             // Ensure valid
             var passwordValid = await _userService.ValidatePasswordPolicyAsync(userAccountModel.Password);
             if (!passwordValid)
@@ -60,7 +65,7 @@ namespace Generic.Features.Account.Registration
             }
             if (!ModelState.IsValid || !passwordValid)
             {
-                return Redirect(registerUrl);
+                return Redirect(registrationUrl);
             }
 
             // Create a basic Kentico User and assign the portal ID
@@ -71,16 +76,19 @@ namespace Generic.Features.Account.Registration
                 // Send confirmation email with registration link
                 string confirmationUrl = await _siteSettingsRepository.GetAccountConfirmationUrlAsync(ConfirmationController.GetUrl());
                 await _userService.SendRegistrationConfirmationEmailAsync(newUser, _urlResolver.GetAbsoluteUrl(confirmationUrl));
-                userAccountModel.RegisterationSuccessful = true;
+                userAccountModel.RegistrationSuccessful = true;
             }
             catch (Exception ex)
             {
                 _logger.LogException(ex, nameof(RegistrationController), "Registration", Description: $"For User {userAccountModel.User}");
                 userAccountModel.RegistrationFailureMessage = ex.Message;
-                userAccountModel.RegisterationSuccessful = false;
+                userAccountModel.RegistrationSuccessful = false;
             }
 
-            return Redirect(registerUrl);
+            // Store view model for retrieval
+            _modelStateService.StoreViewModel<RegistrationViewModel>(TempData, userAccountModel);
+
+            return Redirect(registrationUrl);
 
         }
 

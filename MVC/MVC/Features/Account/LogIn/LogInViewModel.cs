@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Generic.Features.Account.LogIn
 {
+    [Serializable]
     public class LogInViewModel
     {
         

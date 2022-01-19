@@ -16,16 +16,19 @@ namespace Generic.Features.Account.ResetPassword
         private readonly ISiteSettingsRepository _siteSettingsRepository;
         private readonly IUserService _userService;
         private readonly ILogger _logger;
+        private readonly IModelStateService _modelStateService;
 
         public ResetPasswordController(IUserRepository userRepository,
             ISiteSettingsRepository siteSettingsRepository,
             IUserService userService,
-            ILogger logger)
+            ILogger logger,
+            IModelStateService modelStateService)
         {
             _userRepository = userRepository;
             _siteSettingsRepository = siteSettingsRepository;
             _userService = userService;
             _logger = logger;
+            _modelStateService = modelStateService;
         }
 
         /// <summary>
@@ -72,6 +75,7 @@ namespace Generic.Features.Account.ResetPassword
                 model.Succeeded = false;
                 model.Error = "An error occurred in changing the password.";
             }
+            _modelStateService.StoreViewModel(TempData, model);
             return Redirect(resetPasswordUrl);
         }
 

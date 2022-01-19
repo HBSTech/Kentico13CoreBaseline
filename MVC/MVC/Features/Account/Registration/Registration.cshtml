@@ -1,7 +1,7 @@
 ﻿@model Generic.Features.Account.Registration.RegistrationViewModel
-@if (Model.RegisterationSuccessful.HasValue)
+@if (Model.RegistrationSuccessful.HasValue)
 {
-    if (Model.RegisterationSuccessful.Value)
+    if (Model.RegistrationSuccessful.Value)
     {
         <div class="container">
 
@@ -21,7 +21,7 @@
 else
 {
     <div class="container">
-        <form asp-controller="Register" asp-action="Register" method="POST" asp-antiforgery="true">
+        <form asp-controller="Registration" asp-action="Registration" method="POST" asp-antiforgery="true">
             <page-data-context initialized="false">
                 <h1>Create Account</h1>
             </page-data-context>
@@ -30,6 +30,7 @@ else
                 <editable-area area-identifier="main" area-options-allowed-widgets="@await UserWidgetProvider.GetUserAllowedWidgetsAsync()" />
             </page-data-context>
             <div asp-validation-summary="All" class="alert alert-danger text-danger col-12" role="alert"></div>
+
             <div class="form-horizontal UserRegistrationForm">
                 <div class="row">
                     <div class="col-sm-6">

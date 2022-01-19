@@ -1,5 +1,7 @@
 ﻿using Generic.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Text.Json;
 
 namespace Generic.Components.ImportModelState
 {
@@ -25,6 +27,7 @@ namespace Generic.Components.ImportModelState
         public IViewComponentResult Invoke()
         {
             _modelStateService.MergeModelState(ModelState, TempData);
+
             return Content(string.Empty);
         }
     }

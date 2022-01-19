@@ -25,13 +25,15 @@ namespace Generic.Features.Account.LogIn
         private readonly ILogger _logger;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IModelStateService _modelStateService;
 
         public LogInController(IUserRepository userRepository,
             ISiteSettingsRepository siteSettingsRepository,
             IUserService userService,
             ILogger logger,
             SignInManager<ApplicationUser> signInManager,
-            IHttpContextAccessor httpContextAccessor)
+            IHttpContextAccessor httpContextAccessor,
+            IModelStateService modelStateService)
         {
             _userRepository = userRepository;
             _siteSettingsRepository = siteSettingsRepository;
@@ -39,6 +41,7 @@ namespace Generic.Features.Account.LogIn
             _logger = logger;
             _signInManager = signInManager;
             _httpContextAccessor = httpContextAccessor;
+            _modelStateService = modelStateService;
         }
 
         /// <summary>
@@ -83,6 +86,9 @@ namespace Generic.Features.Account.LogIn
                 _logger.LogException(ex, nameof(LogInController), "Login", Description: $"For user {model.UserName}");
             }
 
+            // Store results
+            _modelStateService.StoreViewModel(TempData, model);
+
             // If the authentication was not successful, displays the sign-in form with an "Authentication failed" message
             if (model.Result != SignInResult.Success)
             {
@@ -92,6 +98,10 @@ namespace Generic.Features.Account.LogIn
 
             if (await _siteSettingsRepository.GetAccountRedirectToAccountAfterLoginAsync())
             {
+                // Redirectig away from Login, clear TempData so if they return to login it doesn't persist
+                _modelStateService.ClearViewModel<LogInViewModel>(TempData);
+                ModelState.Clear();
+
                 string redirectUrl = "";
                 // Try to get returnUrl from query
                 if (!string.IsNullOrWhiteSpace(model.RedirectUrl))

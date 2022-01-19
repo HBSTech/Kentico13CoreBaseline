@@ -1,7 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Generic.Features.Account.ForgotPassword
 {
+    [Serializable]
     public class ForgotPasswordViewModel
     {
         [Required]

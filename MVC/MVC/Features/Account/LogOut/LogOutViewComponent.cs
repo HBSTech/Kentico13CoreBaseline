@@ -9,10 +9,12 @@ namespace Generic.Features.Account.LogOut
         /// Uses the current page context to render meta data
         /// </summary>
         /// <returns></returns>
-        public IViewComponentResult Invoke(LogOutViewModel model = null)
+        public IViewComponentResult Invoke()
         {
+            // Nothing in View Model to need IModelStateService to restore
+
             // Any retrieval here
-            model ??= new LogOutViewModel()
+            var model = new LogOutViewModel()
             {
                 
             };

@@ -21,22 +21,28 @@ namespace Generic.Features.Account.LogIn
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ISiteSettingsRepository _siteSettingsRepository;
         private readonly IPageContextRepository _pageContextRepository;
+        private readonly IModelStateService _modelStateService;
 
         public LogInViewComponent(IHttpContextAccessor httpContextAccessor,
             ISiteSettingsRepository siteSettingsRepository,
-            IPageContextRepository pageContextRepository)
+            IPageContextRepository pageContextRepository,
+            IModelStateService modelStateService)
         {
             _httpContextAccessor = httpContextAccessor;
             _siteSettingsRepository = siteSettingsRepository;
             _pageContextRepository = pageContextRepository;
+            _modelStateService = modelStateService;
         }
 
         /// <summary>
         /// Uses the current page context to render meta data
         /// </summary>
         /// <returns></returns>
-        public async Task<IViewComponentResult> InvokeAsync(LogInViewModel model = null)
+        public async Task<IViewComponentResult> InvokeAsync()
         {
+            // Merge Model State
+            _modelStateService.MergeModelState(ModelState, TempData);
+
             string redirectUrl = "";
             // Try to get returnUrl from query
             if (_httpContextAccessor.HttpContext.Request.Query.TryGetValue("returnUrl", out StringValues queryReturnUrl) && queryReturnUrl.Any())
@@ -44,13 +50,15 @@ namespace Generic.Features.Account.LogIn
                 redirectUrl = queryReturnUrl.FirstOrDefault();
             }
 
-            model ??= new LogInViewModel()
+            var model = _modelStateService.GetViewModel<LogInViewModel>(TempData) ?? new LogInViewModel()
             {
                 RedirectUrl = redirectUrl,
                 MyAccountUrl = await _siteSettingsRepository.GetAccountMyAccountUrlAsync(MyAccountController.GetUrl()),
                 RegistrationUrl = await _siteSettingsRepository.GetAccountRegistrationUrlAsync(RegistrationController.GetUrl()),
                 ForgotPassword = await _siteSettingsRepository.GetAccountForgotPasswordUrlAsync(ForgotPasswordController.GetUrl())
             };
+
+            // Set this value fresh
             model.AlreadyLogedIn = !(await _pageContextRepository.IsEditModeAsync()) && User.Identity.IsAuthenticated;
 
             return View("~/Features/Account/LogIn/LogIn.cshtml", model);

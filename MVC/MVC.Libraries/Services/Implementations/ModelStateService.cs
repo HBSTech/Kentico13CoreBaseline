@@ -3,17 +3,14 @@ using Generic.Libraries.Helpers;
 using Generic.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.Json;
 
 namespace Generic.Services.Implementations
 {
     public class ModelStateService : IModelStateService
     {
-        public void MergeModelState(Microsoft.AspNetCore.Mvc.ModelBinding.ModelStateDictionary modelState, ITempDataDictionary tempData)
+        public void MergeModelState(ModelStateDictionary modelState, ITempDataDictionary tempData)
         {
             string key = typeof(ModelStateTransfer).FullName;
             var serialisedModelState = tempData[key] as string;
@@ -40,6 +37,37 @@ namespace Generic.Services.Implementations
                     }
                 }
             }
+        }
+
+        public void StoreViewModel<TModel>(ITempDataDictionary tempData, TModel viewModel)
+        {
+            tempData.Put<TModel>($"GetViewModel_{typeof(TModel).FullName}", viewModel);
+        }
+
+        public TModel GetViewModel<TModel>(ITempDataDictionary tempData)
+        {
+            var obj = tempData.Get<TModel>($"GetViewModel_{typeof(TModel).FullName}");
+            return (obj != null ? (TModel) obj : default(TModel));
+        }
+
+        public void ClearViewModel<TModel>(ITempDataDictionary tempData)
+        {
+            tempData.Remove($"GetViewModel_{typeof(TModel).FullName}");
+        }
+    }
+
+    public static class TempDataExtensions
+    {
+        public static void Put<T>(this ITempDataDictionary tempData, string key, T value) 
+        {
+            tempData[key] = JsonSerializer.Serialize<T>(value);
+        }
+
+        public static T Get<T>(this ITempDataDictionary tempData, string key)
+        {
+            object o;
+            tempData.TryGetValue(key, out o);
+            return o == null ? default : JsonSerializer.Deserialize<T>((string)o);
         }
     }
 }

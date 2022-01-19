@@ -2,11 +2,13 @@
 using Generic.Library.Validation;
 using Generic.Repositories.Interfaces;
 using Generic.Services.Interfaces;
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Generic.Features.Account.ResetPassword
 {
+    [Serializable]
     public class ResetPasswordViewModel
     {
         [Required]
@@ -41,7 +43,6 @@ namespace Generic.Features.Account.ResetPassword
 
             RuleFor(model => model.Password).ValidPassword(passwordSettings);
             RuleFor(model => model.PasswordConfirm).Equal(model => model.Password);
-            RuleFor(model => model.CurrentPassword).ValidPassword(passwordSettings);
             RuleFor(model => model.CurrentPassword).MustAsync(async (password, thread) =>
             {
                 var user = await _userRepository.GetCurrentUserAsync();

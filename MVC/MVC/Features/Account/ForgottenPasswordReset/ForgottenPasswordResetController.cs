@@ -17,16 +17,19 @@ namespace Generic.Features.Account.ForgottenPasswordReset
         private readonly ISiteSettingsRepository _siteSettingsRepository;
         private readonly IUserService _userService;
         private readonly ILogger _logger;
+        private readonly IModelStateService _modelStateService;
 
         public ForgottenPasswordResetController(IUserRepository userRepository,
             ISiteSettingsRepository siteSettingsRepository,
             IUserService userService,
-            ILogger logger)
+            ILogger logger,
+            IModelStateService modelStateService)
         {
             _userRepository = userRepository;
             _siteSettingsRepository = siteSettingsRepository;
             _userService = userService;
             _logger = logger;
+            _modelStateService = modelStateService;
         }
 
         /// <summary>
@@ -80,6 +83,11 @@ namespace Generic.Features.Account.ForgottenPasswordReset
                 model.Result = IdentityResult.Failed(new IdentityError() { Code = "Unknown", Description = "An error occurred." });
                 _logger.LogException(ex, nameof(ForgottenPasswordResetController), "ForgottenPasswordReset", Description: $"For userid {model.UserID}");
             }
+
+            // Set this property as the View uses it instead of the IdentityResult, which doesn't serialize/deserialize properly and doesn't make it through the StoreViewModel/GetViewModel
+            model.Succeeded = model.Result.Succeeded;
+            _modelStateService.StoreViewModel(TempData, model);
+
             return Redirect(forgottenPasswordResetUrl);
         }
 

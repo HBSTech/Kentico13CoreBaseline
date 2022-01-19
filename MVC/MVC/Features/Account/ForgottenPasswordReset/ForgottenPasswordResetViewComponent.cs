@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Generic.Services.Interfaces;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 using System;
@@ -10,10 +11,13 @@ namespace Generic.Features.Account.ForgottenPasswordReset
     public class ForgottenPasswordResetViewComponent : ViewComponent
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IModelStateService _modelStateService;
 
-        public ForgottenPasswordResetViewComponent(IHttpContextAccessor httpContextAccessor)
+        public ForgottenPasswordResetViewComponent(IHttpContextAccessor httpContextAccessor,
+            IModelStateService modelStateService)
         {
             _httpContextAccessor = httpContextAccessor;
+            _modelStateService = modelStateService;
         }
 
         /// <summary>
@@ -22,6 +26,9 @@ namespace Generic.Features.Account.ForgottenPasswordReset
         /// <returns></returns>
         public IViewComponentResult Invoke()
         {
+            // Merge Model State
+            _modelStateService.MergeModelState(ModelState, TempData);
+
             // Get values from Query String
             Guid? userId = null;
             string token = null;
@@ -37,7 +44,7 @@ namespace Generic.Features.Account.ForgottenPasswordReset
                 token = queryToken.FirstOrDefault();
             }
 
-            var model = new ForgottenPasswordResetViewModel()
+            var model = _modelStateService.GetViewModel<ForgottenPasswordResetViewModel>(TempData) ?? new ForgottenPasswordResetViewModel()
             {
                 UserID = userId ?? Guid.Empty,
                 Token = token
