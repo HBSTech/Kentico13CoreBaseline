@@ -1,5 +1,18 @@
 ﻿@model ComponentViewModel<Generic.Features.TabParent.TabParentPageTemplateProperties>
+@using CMS.DocumentEngine.Types.Generic;
+@using Generic.Models;
+@using Generic.Libraries.Extensions;
+@inject IPageIdentityFactory pageIdentityFactory
 @section head{
     <vc:page-meta-data />
 }
-<vc:tab-parent page=@Model.Page.ToPageIdentity() />
+@{
+    // This component requires the Page be specifically a TabParent
+    if (Model.Page is not TabParent tabParent)
+    {
+        return;
+    }
+    // Convert to identity with our TabParentItem model
+    var identity = pageIdentityFactory.Convert<TabParentItem, TabParent>(tabParent.ToPageIdentity());
+}
+<vc:tab-parent page="identity" />

@@ -159,24 +159,6 @@ namespace Generic.Libraries.AutoMapper
         }
     }
 
-    public class PageIdentityMapping : IMappingAction<TreeNode, PageIdentity>
-    {
-        private readonly IPageUrlRetriever _pageUrlRetriever;
-
-        public PageIdentityMapping(IPageUrlRetriever pageUrlRetriever)
-        {
-            _pageUrlRetriever = pageUrlRetriever;
-        }
-
-        public void Process(TreeNode source, PageIdentity destination, ResolutionContext context)
-        {
-            var url = _pageUrlRetriever.Retrieve(source);
-            destination.RelativeUrl = url.RelativePath;
-            destination.AbsoluteUrl = url.AbsoluteUrl;
-        }
-    }
-
-
 
     public class SearchItemMapping : IMappingAction<SearchResultItem, SearchItem>
     {

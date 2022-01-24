@@ -6,7 +6,6 @@ using CMS.SiteProvider;
 using Generic.Models;
 using Kentico.Content.Web.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Generic.Libraries.Extensions
@@ -18,25 +17,14 @@ namespace Generic.Libraries.Extensions
         /// </summary>
         /// <param name="node"></param>
         /// <returns></returns>
-        public static PageIdentity ToPageIdentity(this TreeNode node)
+        public static PageIdentity<TPage> ToPageIdentity<TPage>(this TPage node) where TPage : TreeNode
         {
-            var pageIdentity = new PageIdentity()
-            {
-                NodeID = node.NodeID,
-                NodeGUID = node.NodeGUID,
-                DocumentID = node.DocumentID,
-                DocumentGUID = node.DocumentGUID,
-                Path = node.NodeAliasPath,
-                Alias = node.NodeAlias,
-                Name = node.DocumentName,
-                NodeLevel = node.NodeLevel
-            };
-
+            // Get Urls
             var relativeAndAbsoluteUrl = CacheHelper.Cache(cs =>
             {
                 if (cs.Cached)
                 {
-                    cs.CacheDependency = CacheHelper.GetCacheDependency($"documentid|{pageIdentity.DocumentID}");
+                    cs.CacheDependency = CacheHelper.GetCacheDependency($"documentid|{node.DocumentID}");
                 }
                 try
                 {
@@ -51,7 +39,7 @@ namespace Generic.Libraries.Extensions
                 {
                     // Will need to re-query the page, must be missing columns
                 }
-                if (pageIdentity.DocumentID > 0)
+                if (node.DocumentID > 0)
                 {
                     // get full page
                     var fullNode = CacheHelper.Cache(cs =>
@@ -60,7 +48,7 @@ namespace Generic.Libraries.Extensions
                         {
                             cs.CacheDependency = CacheHelper.GetCacheDependency(new string[]
                             {
-                                $"documentid{ pageIdentity.DocumentID }"
+                                $"documentid{ node.DocumentID }"
                             });
                         }
                         return new DocumentQuery()
@@ -68,7 +56,7 @@ namespace Generic.Libraries.Extensions
                             .EnsureUrls()
                             .GetEnumerableTypedResult()
                             .FirstOrDefault();
-                    }, new CacheSettings(10, "GetDocumentForUrlRetrieval", pageIdentity.DocumentID));
+                    }, new CacheSettings(10, "GetDocumentForUrlRetrieval", node.DocumentID));
 
                     string url = DocumentURLProvider.GetUrl(fullNode);
                     return new Tuple<string, string>(url.Replace("~", ""), GetAbsoluteUrlOptimized(url, fullNode.NodeSiteID, fullNode.DocumentCulture, true));
@@ -78,10 +66,26 @@ namespace Generic.Libraries.Extensions
                     return new Tuple<string, string>(string.Empty, string.Empty);
                 }
             }, new CacheSettings(10, "GetNodeUrlsForPageIdentity", node.DocumentID));
-            pageIdentity.RelativeUrl = relativeAndAbsoluteUrl.Item1;
-            pageIdentity.AbsoluteUrl = relativeAndAbsoluteUrl.Item2;
+
+            var pageIdentity = new PageIdentity<TPage>()
+            {
+                NodeID = node.NodeID,
+                NodeGUID = node.NodeGUID,
+                DocumentID = node.DocumentID,
+                DocumentGUID = node.DocumentGUID,
+                Path = node.NodeAliasPath,
+                Alias = node.NodeAlias,
+                Name = node.DocumentName,
+                NodeLevel = node.NodeLevel,
+                RelativeUrl = relativeAndAbsoluteUrl.Item1,
+                AbsoluteUrl = relativeAndAbsoluteUrl.Item2,
+                Data = node
+            };
+
             return pageIdentity;
         }
+
+
 
         /// <summary>
         /// DocumentURLProvider.GetPresentationUrl() does various uncached database calls, this caches that to minimize calls for absolute url
@@ -127,6 +131,17 @@ namespace Generic.Libraries.Extensions
             return str;
         }
     }
+}
 
+// Kentico specific typed variation
+namespace Generic.Models
+{
+    public record PageIdentity<TData, TPage> : PageIdentity<TData> where TPage : TreeNode
+    {
+        public PageIdentity()
+            : base()
+        {
 
+        }
+    }
 }

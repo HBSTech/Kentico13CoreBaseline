@@ -16,18 +16,20 @@ namespace Generic.Features.TabParent
             _tabRepository = tabRepository;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(PageIdentity page)
+        public async Task<IViewComponentResult> InvokeAsync(PageIdentity<TabParentItem> page)
         {
             var model = new TabParentViewModel();
-            if(page == null)
+            if (page == null)
             {
                 model = new TabParentViewModel()
                 {
                     Name = "Unknown",
                     Tabs = new List<TabItem>()
                 };
-            } else {
-                model.Name = (await _tabRepository.GetTabParentAsync(page.NodeID)).Name;
+            }
+            else
+            {
+                model.Name = page.Data.Name;
                 model.Tabs = await _tabRepository.GetTabsAsync(page.Path);
             }
             return View("TabParent", model);

@@ -7,14 +7,12 @@ using Kentico.Content.Web.Mvc;
 using MVCCaching.Base.Core.Interfaces;
 using System;
 using System.Linq;
-using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using CMS.Base.Internal;
 using Kentico.Web.Mvc;
 using Kentico.PageBuilder.Web.Mvc;
 using Generic.Libraries.Extensions;
-using CMS.DocumentEngine.Routing;
 
 namespace Generic.Repositories.Implementations
 {
@@ -48,7 +46,7 @@ namespace Generic.Repositories.Implementations
             if (_pageDataContextRetriever.TryRetrieve<TreeNode>(out var currentPage))
             {
                 builder.Node(currentPage.Page.NodeID);
-                return Task.FromResult(currentPage.Page.ToPageIdentity());
+                return Task.FromResult((PageIdentity)currentPage.Page.ToPageIdentity());
             }
             else
             {
