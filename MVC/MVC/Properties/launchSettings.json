@@ -7,8 +7,8 @@
       "sslPort": 0
     },
     "iisExpress": {
-      "applicationUrl": "http://kentico13baseline.hbstest.net:5001",
-      "sslPort": 0
+      "applicationUrl": "http://kentico13baseline.hbstest.net:5781",
+      "sslPort": 44373
     }
   },
   "profiles": {
