@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using System.Data;
 
 namespace Generic.Repositories.Implementations
 {
@@ -34,10 +35,11 @@ namespace Generic.Repositories.Implementations
         public async Task<IEnumerable<CategoryItem>> GetCategoriesByNodeAsync(int nodeID)
         {
             var dictionary = (await GetCategoriesByIdentifiersAsync()).Item1;
-            if(dictionary.ContainsKey(nodeID))
+            if (dictionary.ContainsKey(nodeID))
             {
                 return dictionary[nodeID];
-            } else
+            }
+            else
             {
                 return Array.Empty<CategoryItem>();
             }
@@ -76,7 +78,7 @@ namespace Generic.Repositories.Implementations
             builder.ObjectType(TreeCategoryInfo.OBJECT_TYPE)
                 .ObjectType(CategoryInfo.OBJECT_TYPE);
 
-            return await _progressiveCache.Load(async cs =>
+            return await _progressiveCache.LoadAsync(async cs =>
             {
                 if (cs.Cached)
                 {
@@ -95,12 +97,14 @@ namespace Generic.Repositories.Implementations
                         $"{nameof(CategoryInfo.CategoryName)}",
                         $"{nameof(CategoryInfo.CategoryDisplayName)}"
                         });
-                var retriever = await query.GetEnumerableResultAsync(System.Data.CommandBehavior.Default);
+
+                var dt = new DataTable();
+                dt.Load((await query.ExecuteReaderAsync(CommandBehavior.Default)));
 
                 // Group into two dictionaries
-                var items = retriever.Select(x => new PageCategoryItem()
+                var items = dt.Rows.Cast<DataRow>().Select(x => new PageCategoryItem()
                 {
-                    NodeID = (int) x[nameof(TreeNode.NodeID)],
+                    NodeID = (int)x[nameof(TreeNode.NodeID)],
                     Path = (string)x[nameof(TreeNode.NodeAliasPath)],
                     CategoryItem = new CategoryItem()
                     {
@@ -115,7 +119,7 @@ namespace Generic.Repositories.Implementations
                 var dictionaryByPath = items.GroupBy(x => x.Path).ToDictionary(key => key.Key, value => value.Select(x => x.CategoryItem));
                 var result = new Tuple<Dictionary<int, IEnumerable<CategoryItem>>, Dictionary<string, IEnumerable<CategoryItem>>>(dictionaryByNodeID, dictionaryByPath);
                 return result;
-            }, new CacheSettings(60, $"GetCategoriesByIdentifiersAsync"));   
+            }, new CacheSettings(60, $"GetCategoriesByIdentifiersAsync"));
         }
     }
 
