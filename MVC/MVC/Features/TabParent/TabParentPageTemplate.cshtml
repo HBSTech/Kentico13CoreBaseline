@@ -13,6 +13,6 @@
         return;
     }
     // Convert to identity with our TabParentItem model
-    var identity = pageIdentityFactory.Convert<TabParentItem, TabParent>(tabParent.ToPageIdentity());
+    var identity = pageIdentityFactory.Convert<TabParentItem, TabParent>(tabParent.ToPageIdentity<TabParent>());
 }
 <vc:tab-parent page="identity" />
