@@ -25,6 +25,9 @@ If you already had the Baseline for Admin, or are upgrading / hotfixing in the f
 # Bug Fixes / Features Added
 Bug fixes are mentioned here by date and MVC Version # (see MVC/MVC/MVC.csproj version #).  The commit history shows all changes.
 
+**Version 1.1.1 (Feb 11, 2022)**
+* Fixed bug on CacheDependencyKeysBuilder.Object(string objectType, string name) which had !string.IsNullOrWhitespace instead of string.IsNullOrWhitespace, thus not adding the cache dependency key when called
+
 **Version 1.1.0 (Feb 1, 2022)** [link](https://github.com/HBSTech/Kentico13CoreBaseline/commit/79d0b046743eff5edaefbb376f8ae41dc3747038)
 * Added version # for bug tracking
 * Fixed PageCategoryRetriever.GetCategoriesByIdentifiersAsync usage of query.GetEnumerableResultAsync to be query.ExecuteReaderAsync and loaded into a DataTable (otherwise the reader would close before data retrieved)
