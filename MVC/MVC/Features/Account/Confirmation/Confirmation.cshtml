@@ -13,7 +13,7 @@
         <page-builder-mode include="Edit">
             <p><strong>Success Message Below</strong></p>
         </page-builder-mode>
-        <editable-area area-identifier="main" area-options-allowed-widgets="@await UserWidgetProvider.GetUserAllowedWidgetsAsync()" />
+        <editable-area area-identifier="main" />
     </page-data-context>
 }
 @if (!Model.Result.Succeeded || Model.IsEditMode)
@@ -26,7 +26,7 @@
         <page-builder-mode include="Edit">
             <p><strong>Failure Message Below</strong></p>
         </page-builder-mode>
-        <editable-area area-identifier="failure" area-options-allowed-widgets="@await UserWidgetProvider.GetUserAllowedWidgetsAsync()" />
+        <editable-area area-identifier="failure" />
     </page-data-context>
     @if (Model.Result != null && Model.Result.Errors != null && Model.Result.Errors.Any())
     {

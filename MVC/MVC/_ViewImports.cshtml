@@ -18,6 +18,7 @@
 @using MVCCaching.Base.Core.Interfaces;
 @addTagHelper *, PartialWidgetPage.Kentico.MVC.Core
 @addTagHelper *, XperienceCommunity.PageBuilderTagHelpers
+@addTagHelper *, XperienceCommunity.WidgetFilter
 @inject ICacheDependenciesScope CacheScope
 @inject MVCCaching.Interceptor.ICachingRepositoryContext CacheContext
 @*  Site Tools / Tag Helpers *@
@@ -29,5 +30,4 @@
 @using Generic.Libraries.Extensions 
 @addTagHelper *, MVC.Libraries
 @addTagHelper *, MVC
-@inject IUserWidgetProvider UserWidgetProvider
 @inject IUrlHelper Url

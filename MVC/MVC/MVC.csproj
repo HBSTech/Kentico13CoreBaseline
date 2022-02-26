@@ -4,9 +4,11 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>Generic</RootNamespace>
     <AssemblyName>MVC</AssemblyName>
+    <Version>1.1.1</Version>
+    <PackageReleaseNotes>Fixed bug on CacheDependencyKeysBuilder.Object(string objectType, string name) which had !string.IsNullOrWhitespace instead of string.IsNullOrWhitespace</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -24,7 +26,7 @@
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.6" />
     <PackageReference Include="HBS.AutomaticGeneratedUserRoles.Kentico" Version="13.0.0" />
-    <PackageReference Include="kentico.xperience.aspnetcore.webapp" Version="13.0.57" />
+    <PackageReference Include="kentico.xperience.aspnetcore.webapp" Version="13.0.62" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.4" />
     <PackageReference Include="MVCCaching.Base.Core" Version="2.1.1" />
     <PackageReference Include="MVCCaching.Kentico.Core" Version="13.0.2" />
@@ -37,9 +39,11 @@
     <PackageReference Include="XperienceCommunity.PageBuilderTagHelpers" Version="1.1.0" />
     <PackageReference Include="XperienceCommunity.PageNavigationRedirects" Version="1.1.0" />
     <PackageReference Include="XperienceCommunity.PageTemplateUtilities" Version="1.0.0" />
+    <PackageReference Include="XperienceCommunity.WidgetFilter" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Repositories\Implementation\" />
     <Folder Include="Views\Shared\PageTypes\" />
     <Folder Include="wwwroot\js\jquery.unobtrusive.ajax\" />
     <Folder Include="wwwroot\PageBuilder\Admin\InlineEditors\ColorPickerEditor\" />

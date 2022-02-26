@@ -30,6 +30,7 @@ using XperienceCommunity.Authorization;
 using XperienceCommunity.Localizer;
 using XperienceCommunity.PageBuilderUtilities;
 using FluentValidation.AspNetCore;
+using XperienceCommunity.WidgetFilter;
 
 namespace Generic.App_Start
 {
@@ -76,6 +77,8 @@ namespace Generic.App_Start
 
             // Fluent Validator
             services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblies(new Assembly[] { typeof(Startup).Assembly, typeof(Generic.Libraries.AssemblyInfo).Assembly, typeof(Generic.Models.AssemblyInfo).Assembly }));
+
+            services.AddWidgetFilter();
         }
 
         public static void RegisterKenticoServices(IServiceCollection services, IWebHostEnvironment Environment, IConfiguration Configuration)

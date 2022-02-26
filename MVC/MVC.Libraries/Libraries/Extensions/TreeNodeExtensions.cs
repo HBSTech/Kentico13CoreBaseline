@@ -53,7 +53,7 @@ namespace Generic.Libraries.Extensions
                         }
                         return new DocumentQuery()
                             .WhereEquals(nameof(TreeNode.DocumentID), node.DocumentID)
-                            .EnsureUrls()
+                            .WithPageUrlPaths()
                             .GetEnumerableTypedResult()
                             .FirstOrDefault();
                     }, new CacheSettings(10, "GetDocumentForUrlRetrieval", node.DocumentID));

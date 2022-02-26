@@ -13,6 +13,7 @@ using CMS.Base.Internal;
 using Kentico.Web.Mvc;
 using Kentico.PageBuilder.Web.Mvc;
 using Generic.Libraries.Extensions;
+using CMS.DocumentEngine.Routing;
 
 namespace Generic.Repositories.Implementations
 {
@@ -79,7 +80,7 @@ namespace Generic.Repositories.Implementations
                         nameof(TreeNode.DocumentName),
                         nameof(TreeNode.NodeLevel)
                         })
-                    .EnsureUrls(),
+                    .WithPageUrlPaths(),
                 cacheSettings => cacheSettings
                     .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
                     .Key($"GetPageAsync|{path}")
@@ -113,7 +114,7 @@ namespace Generic.Repositories.Implementations
                         nameof(TreeNode.DocumentName),
                         nameof(TreeNode.NodeLevel)
                         })
-                    .EnsureUrls(),
+                    .WithPageUrlPaths(),
                 cacheSettings => cacheSettings
                     .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
                     .Key($"GetPageAsync|{documentID}")
@@ -147,7 +148,7 @@ namespace Generic.Repositories.Implementations
                         nameof(TreeNode.DocumentName),
                         nameof(TreeNode.NodeLevel)
                         })
-                    .EnsureUrls(),
+                    .WithPageUrlPaths(),
                 cacheSettings => cacheSettings
                     .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
                     .Key($"GetPageAsync|{documentGUID}")
@@ -181,7 +182,7 @@ namespace Generic.Repositories.Implementations
                         nameof(TreeNode.DocumentName),
                         nameof(TreeNode.NodeLevel)
                         })
-                    .EnsureUrls(),
+                    .WithPageUrlPaths(),
                 cacheSettings => cacheSettings
                     .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
                     .Key($"GetPageByNodeAsync|{nodeID}")
@@ -215,7 +216,7 @@ namespace Generic.Repositories.Implementations
                         nameof(TreeNode.DocumentName),
                         nameof(TreeNode.NodeLevel)
                         })
-                    .EnsureUrls(),
+                    .WithPageUrlPaths(),
                 cacheSettings => cacheSettings
                     .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
                     .Key($"GetPageByNodeAsync|{nodeGUID}")

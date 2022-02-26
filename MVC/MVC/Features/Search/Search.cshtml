@@ -7,7 +7,7 @@
                     <h1>Search Results</h1>
                 </page-data-context>
                 <page-data-context initialized="true">
-                    <editable-area area-identifier="main" area-options-allowed-widgets="@await UserWidgetProvider.GetUserAllowedWidgetsAsync()" />
+                    <editable-area area-identifier="main" />
                 </page-data-context>
                 @if (!string.IsNullOrWhiteSpace(Model.SearchValue))
                 {

@@ -134,7 +134,7 @@ namespace Generic.Libraries.Helpers
 
         public CacheDependencyKeysBuilder Object(string objectType, string name)
         {
-            if (!string.IsNullOrWhiteSpace(name))
+            if (string.IsNullOrWhiteSpace(name))
             {
                 return this;
             }
