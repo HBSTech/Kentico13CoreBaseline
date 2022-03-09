@@ -119,5 +119,23 @@ namespace Generic.Services.Implementation
                 return await _UserInfoProvider.GetAsync(userName);
             }, new CacheSettings(15, "GetUserInfoAsync", userName));
         }
+
+        public Task CreateExternalUserAsync(User user)
+        {
+            // Create basic user
+            var newUser = new UserInfo()
+            {
+                UserName = user.UserName,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                SiteIndependentPrivilegeLevel = UserPrivilegeLevelEnum.None,
+                Enabled = user.Enabled,
+                IsExternal = true
+            };
+            _UserInfoProvider.Set(newUser);
+
+            return Task.FromResult(_Mapper.Map<User>(newUser));
+        }
     }
 }

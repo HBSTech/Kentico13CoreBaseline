@@ -4,9 +4,9 @@
     <page-builder-mode exclude="Edit">
 
         <script type="text/javascript">
-    setTimeout(() => {
-        window.location = '@Model.MyAccountUrl';
-    }, 3000);
+            setTimeout(() => {
+                window.location = '@Model.MyAccountUrl';
+            }, 3000);
         </script>
     </page-builder-mode>
 }
@@ -68,6 +68,51 @@ else
                 </div>
             </div>
         </div>
+        @* TODO: Add to View Model*@
+        @if (Model.GoogleAuthEnabled)
+        {
+            @*Google Signin button generated at https://developers.google.com/identity/gsi/web/tools/configurator*@
+        <div id="g_id_onload"
+         data-client_id="@Model.GoogleAuthClientID"
+         data-context="signin"
+         data-ux_mode="popup"
+         data-login_uri="~/account/googleresponse"
+         data-auto_prompt="false">
+        </div>
+
+        <div class="g_id_signin"
+         data-type="standard"
+         data-shape="pill"
+         data-theme="outline"
+         data-text="signin_with"
+         data-size="large"
+         data-logo_alignment="left">
+        </div>
+        @* Google signin script, may not be needed *@
+        <script src="https://accounts.google.com/gsi/client" async defer></script>
+        }
+
     </form>
+    @if (Model.ExternalLoginProviders.Any())
+    {
+        <div class="col-md-4 offset-2">
+            <section>
+                <h4>Use different service for log in:</h4>
+                <hr />
+                @{
+                    <form asp-controller="Login" asp-action="ExternalLogin" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+                        <div>
+                            <p>
+                                @foreach (var provider in Model.ExternalLoginProviders)
+                                {
+                                    <input type="submit" class="btn btn-info" value="@provider.Name" name="provider" />
+                                }
+                            </p>
+                        </div>
+                    </form>
+                }
+            </section>
+        </div>
+    }
 }
 

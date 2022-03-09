@@ -16,7 +16,6 @@ using BootstrapLayoutTool;
 using PageBuilderContainers;
 using PageBuilderContainers.Base;
 using PartialWidgetPage;
-using XperienceCommunity.PageBuilderTagHelpers;
 using Kentico.Membership;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -29,8 +28,8 @@ using System.Reflection;
 using XperienceCommunity.Authorization;
 using XperienceCommunity.Localizer;
 using XperienceCommunity.PageBuilderUtilities;
-using FluentValidation.AspNetCore;
 using XperienceCommunity.WidgetFilter;
+using FluentValidation.AspNetCore;
 
 namespace Generic.App_Start
 {
@@ -189,7 +188,38 @@ namespace Generic.App_Start
                     .AddUserManager<ApplicationUserManager<ApplicationUser>>()
                     .AddSignInManager<SignInManager<ApplicationUser>>();
 
-            services.AddAuthentication();
+            // Authentication in AppSettings
+            services.AddAuthentication()
+                // https://docs.microsoft.com/en-us/aspnet/core/security/authentication/social/?view=aspnetcore-6.0&tabs=visual-studio
+                .AddGoogle("Google", opt =>
+                {
+                    var googleAuth = Configuration.GetSection("Authentication:Google");
+
+                    opt.ClientId = googleAuth["ClientId"];
+                    opt.ClientSecret = googleAuth["ClientSecret"];
+                    opt.SignInScheme = IdentityConstants.ExternalScheme;
+                }).AddFacebook("Facebook", opt =>
+                {
+                    var facebookAuth = Configuration.GetSection("Authentication:Facebook");
+
+                    opt.AppId = facebookAuth["AppId"];
+                    opt.AppSecret = facebookAuth["AppSecret"];
+                    opt.SignInScheme = IdentityConstants.ExternalScheme;
+                    opt.AccessDeniedPath = "/Account/Login2";
+                }).AddTwitter(opt =>
+                {
+                    var twitterAuth = Configuration.GetSection("Authentication:Twitter");
+
+                    opt.ConsumerKey = twitterAuth["APIKey"];
+                    opt.ConsumerSecret = twitterAuth["APIKeySecret"];
+                    opt.RetrieveUserDetails = true;
+                }).AddMicrosoftAccount(opt =>
+                {
+                    var microsoftAuth = Configuration.GetSection("Authentication:Microsoft");
+
+                    opt.ClientId = microsoftAuth["ClientId"];
+                    opt.ClientSecret = microsoftAuth["ClientSecret"];
+                });
             services.AddAuthorization();
 
             // Register authentication cookie

@@ -5,9 +5,12 @@ using Generic.Libraries.Attributes;
 using Generic.Libraries.Helpers;
 using Generic.Repositories.Interfaces;
 using Generic.Services.Interfaces;
+using Kentico.Membership;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Primitives;
 using System;
 using System.Linq;
@@ -21,17 +24,23 @@ namespace Generic.Features.Account.LogIn
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ISiteSettingsRepository _siteSettingsRepository;
         private readonly IPageContextRepository _pageContextRepository;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IModelStateService _modelStateService;
+        private readonly IConfiguration _configuration;
 
         public LogInViewComponent(IHttpContextAccessor httpContextAccessor,
             ISiteSettingsRepository siteSettingsRepository,
             IPageContextRepository pageContextRepository,
-            IModelStateService modelStateService)
+            SignInManager<ApplicationUser> signInManager,
+            IModelStateService modelStateService,
+            IConfiguration configuration)
         {
             _httpContextAccessor = httpContextAccessor;
             _siteSettingsRepository = siteSettingsRepository;
             _pageContextRepository = pageContextRepository;
+            _signInManager = signInManager;
             _modelStateService = modelStateService;
+            _configuration = configuration;
         }
 
         /// <summary>
@@ -44,19 +53,32 @@ namespace Generic.Features.Account.LogIn
             _modelStateService.MergeModelState(ModelState, TempData);
 
             string redirectUrl = "";
+
             // Try to get returnUrl from query
             if (_httpContextAccessor.HttpContext.Request.Query.TryGetValue("returnUrl", out StringValues queryReturnUrl) && queryReturnUrl.Any())
             {
                 redirectUrl = queryReturnUrl.FirstOrDefault();
             }
 
-            var model = _modelStateService.GetViewModel<LogInViewModel>(TempData) ?? new LogInViewModel()
+            // Check google configuration
+            
+
+            var model = new LogInViewModel()
             {
                 RedirectUrl = redirectUrl,
                 MyAccountUrl = await _siteSettingsRepository.GetAccountMyAccountUrlAsync(MyAccountController.GetUrl()),
                 RegistrationUrl = await _siteSettingsRepository.GetAccountRegistrationUrlAsync(RegistrationController.GetUrl()),
-                ForgotPassword = await _siteSettingsRepository.GetAccountForgotPasswordUrlAsync(ForgotPasswordController.GetUrl())
+                ForgotPassword = await _siteSettingsRepository.GetAccountForgotPasswordUrlAsync(ForgotPasswordController.GetUrl()),
+                ExternalLoginProviders = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList(),
             };
+
+            // Check google which requires additional configuration on login screen
+            var googleAuth = _configuration.GetSection("Authentication:Google");
+            if (googleAuth.Exists())
+            {
+                model.GoogleAuthEnabled = true;
+                model.GoogleAuthClientID = googleAuth["ClientId"];
+            }
 
             // Set this value fresh
             model.AlreadyLogedIn = !(await _pageContextRepository.IsEditModeAsync()) && User.Identity.IsAuthenticated;

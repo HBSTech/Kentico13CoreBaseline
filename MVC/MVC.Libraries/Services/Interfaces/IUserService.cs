@@ -70,5 +70,6 @@ namespace Generic.Services.Interfaces
         /// <param name="password"></param>
         /// <returns></returns>
         Task<bool> ValidatePasswordPolicyAsync(string password);
+        Task CreateExternalUserAsync(User user);
     }
 }

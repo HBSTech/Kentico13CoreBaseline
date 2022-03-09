@@ -14,5 +14,6 @@ namespace Generic.Models
         public string MiddleNamge { get; set; }
         public string LastName { get; set; }
         public bool Enabled { get; set; }
+        public bool IsExternal { get; set; }
     }
 }
