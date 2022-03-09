@@ -20,6 +20,7 @@ namespace Generic.Repositories.Implementation
         public List<string> GoogleUserRoles { get; set; } = new List<string>();
         public List<string> MicrosoftUserRoles { get; set; } = new List<string>();
         public List<string> TwitterUserRoles { get; set; } = new List<string>();
+        public bool UseTwoFormAuthentication { get; set; } = false;
 
         public ExistingInternalUserBehavior GetExistingInternalUserBehavior() => ExistingInternalUserBehavior;
 
@@ -34,6 +35,8 @@ namespace Generic.Repositories.Implementation
         IEnumerable<string> IAuthenticationConfigurations.MicrosoftUserRoles() => MicrosoftUserRoles;
 
         IEnumerable<string> IAuthenticationConfigurations.TwitterUserRoles() => TwitterUserRoles;
+
+        bool IAuthenticationConfigurations.UseTwoFormAuthentication() => UseTwoFormAuthentication;
     }
 
     public static class AuthenticationConfigurationExtensions

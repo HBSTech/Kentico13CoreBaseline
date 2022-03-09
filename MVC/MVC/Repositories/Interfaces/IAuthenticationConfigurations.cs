@@ -12,5 +12,6 @@ namespace Generic.Repositories.Interfaces
         IEnumerable<string> GoogleUserRoles();
         IEnumerable<string> MicrosoftUserRoles();
         IEnumerable<string> TwitterUserRoles();
+        bool UseTwoFormAuthentication();
     }
 }

@@ -165,13 +165,13 @@ namespace Generic.App_Start
             services.ConfigureOptions<GzipStaticFileOptions>();
         }
 
-        public static void RegisterLocalization(IServiceCollection services, IWebHostEnvironment Environment, IConfiguration Configuration)
+        public static void RegisterLocalizationAndControllerViews(IServiceCollection services, IWebHostEnvironment Environment, IConfiguration Configuration)
         {
             // From dancing goat, Localizer
 
             services.AddLocalization()
                     .AddXperienceLocalizer() // Call after AddLocalization
-                    .AddControllersWithViews()
+                    .AddControllersWithViews(options => options.Filters.AddKenticoAuthorization())
                     .AddViewLocalization()
                     .AddDataAnnotationsLocalization(options =>
                     {
@@ -203,9 +203,10 @@ namespace Generic.App_Start
                     .AddUserManager<ApplicationUserManager<ApplicationUser>>()
                     .AddSignInManager<SignInManager<ApplicationUser>>();
             // Get default 
+
             services.AddAuthentication()
                 // https://docs.microsoft.com/en-us/aspnet/core/security/authentication/social/?view=aspnetcore-6.0&tabs=visual-studio
-                .AddGoogle("Google", opt =>
+                /*.AddGoogle("Google", opt =>
                 {
                     var googleAuth = Configuration.GetSection("Authentication:Google");
 
@@ -236,12 +237,13 @@ namespace Generic.App_Start
                     opt.ClientId = microsoftAuth["ClientId"];
                     opt.ClientSecret = microsoftAuth["ClientSecret"];
                     opt.EventsType = typeof(SiteSettingsOauthAuthenticationEvents);
-                })
+                })*/
                 // Baseline Configuration of External Authentication
                 .ConfigureAuthentication(config =>
                 {
                     config.ExistingInternalUserBehavior = Models.Account.ExistingInternalUserBehavior.SetToExternal;
                     config.FacebookUserRoles.Add("facebook-user");
+                    config.UseTwoFormAuthentication = false;
                 });
             services.AddAuthorization();
 
@@ -252,12 +254,12 @@ namespace Generic.App_Start
             // Configures the application's authentication cookie
             services.ConfigureApplicationCookie(c =>
             {
-                // These 3 are actually handled on the SiteSettingsCookieAuthenticationEvent
+                // These 3 are actually handled on the SiteSettingsOauthAuthenticationEvents
                 // and are overwritten by site settings
                 c.LoginPath = new PathString("/Account/Signin");
                 c.LogoutPath = new PathString("/Account/Signout");
                 c.AccessDeniedPath = new PathString("/Error/403");
-
+                
                 c.ExpireTimeSpan = TimeSpan.FromDays(14);
                 c.SlidingExpiration = true;
                 c.Cookie.Name = AUTHENTICATION_COOKIE_NAME;
@@ -310,6 +312,7 @@ namespace Generic.App_Start
             app.UseAuthorization();
 
             app.UseCustomVaryByHeaders();
+
         }
     }
 }

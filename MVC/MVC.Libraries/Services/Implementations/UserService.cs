@@ -82,7 +82,7 @@ namespace Generic.Services.Implementation
 
             // Creates and sends the confirmation email to the user's address
             await _EmailService.SendEmailAsync(user.Email, "Password Reset Request",
-                string.Format($"A Password reset request has been generated for your account.  If you have generated this request, you may reset your password by clicking <a href=\"{confirmationLink}?userId={user.UserGUID}&token={HttpUtility.UrlEncode(token)}\">here</a>."));
+                $"A Password reset request has been generated for your account.  If you have generated this request, you may reset your password by clicking <a href=\"{confirmationLink}?userId={user.UserGUID}&token={HttpUtility.UrlEncode(token)}\">here</a>.");
         }
 
         public async Task<IdentityResult> ResetPasswordFromTokenAsync(User user, string token, string newPassword)
@@ -136,6 +136,13 @@ namespace Generic.Services.Implementation
             _UserInfoProvider.Set(newUser);
 
             return Task.FromResult(_Mapper.Map<User>(newUser));
+        }
+
+        public async Task SendVerificationCodeEmailAsync(User user, string token)
+        {
+            // Creates and sends the confirmation email to the user's address
+            await _EmailService.SendEmailAsync(user.Email, "Verification Code",
+                $"<p>Hello {user.UserName}!</p><p>When Prompted, enter the code below to finish authenticating:</p> <table align=\"center\" width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\"><tbody><tr><td width=\"15%\"></td><td width=\"70%\" align=\"center\" bgcolor=\"#f1f3f2\" style=\"color:black;margin-bottom:10px;border-radius:10px\"><p style=\"font-size:xx-large;font-weight:bold;margin:10px 0px\">{token}</p></td></tr></tbody></table>");
         }
     }
 }

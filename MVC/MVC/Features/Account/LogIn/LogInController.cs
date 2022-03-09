@@ -18,6 +18,7 @@ namespace Generic.Features.Account.LogIn
     public class LogInController : Controller
     {
         public const string _routeUrl = "Account/LogIn";
+        public const string _twoFormAuthenticationUrl = "Account/TwoFormAuthentication";
         private readonly IUserRepository _userRepository;
         private readonly ISiteSettingsRepository _siteSettingsRepository;
         private readonly IUserService _userService;
@@ -89,7 +90,52 @@ namespace Generic.Features.Account.LogIn
             {
                 var actualUser = await _userRepository.GetUserAsync(model.UserName);
                 actualUser ??= await _userRepository.GetUserByEmailAsync(model.UserName);
-                model.Result = await _signInManager.PasswordSignInAsync(actualUser?.UserName, model.Password, model.StayLogedIn, false);
+
+                if (actualUser == null)
+                {
+                    ModelState.AddModelError(nameof(model.UserName), "No User Found");
+                    // Store model state, then redirect
+                    _modelStateService.StoreViewModel(TempData, model);
+                    return Redirect("/" + _twoFormAuthenticationUrl);
+                }
+                var applicationUser = await _userManager.FindByNameAsync(actualUser.UserName);
+
+
+                var passwordValid = await _userManager.CheckPasswordAsync(applicationUser, model.Password);
+
+                if (passwordValid && _authenticationConfigurations.UseTwoFormAuthentication())
+                {
+                    if (await _signInManager.IsTwoFactorClientRememberedAsync(applicationUser))
+                    {
+                        // Sign in and proceed.
+                        await _signInManager.SignInAsync(applicationUser, model.StayLogedIn);
+                        return await LoggedInRedirect(model.RedirectUrl);
+                    }
+                    else
+                    {
+                        // Send email
+                        var token = await _userManager.GenerateTwoFactorTokenAsync(applicationUser, "Email");
+                        await _userService.SendVerificationCodeEmailAsync(actualUser, token);
+
+                        // Redirect to Two form auth page
+                        var twoFormAuthViewModel = new TwoFormAuthenticationViewModel()
+                        {
+                            UserName = actualUser?.UserName,
+                            RedirectUrl = returnUrl,
+                            StayLoggedIn = model.StayLogedIn
+                        };
+
+                        // Clear login state
+                        _modelStateService.ClearViewModel<LogInViewModel>(TempData);
+
+                        // Store model state, then redirect
+                        _modelStateService.StoreViewModel(TempData, twoFormAuthViewModel);
+                        return Redirect("/" + _twoFormAuthenticationUrl);
+                    }
+                }
+
+                // Normal sign in
+                model.Result = await _signInManager.PasswordSignInAsync(actualUser.UserName, model.Password, model.StayLogedIn, false);
             }
             catch (Exception ex)
             {
@@ -107,33 +153,60 @@ namespace Generic.Features.Account.LogIn
                 return Redirect(loginUrl);
             }
 
-            if (await _siteSettingsRepository.GetAccountRedirectToAccountAfterLoginAsync())
-            {
-                // Redirectig away from Login, clear TempData so if they return to login it doesn't persist
-                _modelStateService.ClearViewModel<LogInViewModel>(TempData);
-                ModelState.Clear();
+            return await LoggedInRedirect(model.RedirectUrl);
+        }
 
-                string redirectUrl = "";
-                // Try to get returnUrl from query
-                if (!string.IsNullOrWhiteSpace(model.RedirectUrl))
-                {
-                    redirectUrl = model.RedirectUrl;
-                }
-                if (string.IsNullOrWhiteSpace(redirectUrl))
-                {
-                    redirectUrl = await _siteSettingsRepository.GetAccountMyAccountUrlAsync(MyAccountController.GetUrl());
-                }
-                if (string.IsNullOrWhiteSpace(redirectUrl))
-                {
-                    redirectUrl = "/";
-                }
-                return Redirect(redirectUrl);
-            }
-            else
+        [HttpGet]
+        [Route(_twoFormAuthenticationUrl)]
+        public async Task<IActionResult> TwoFormAuthentication()
+        {
+            var model = _modelStateService.GetViewModel<TwoFormAuthenticationViewModel>(TempData) ?? new TwoFormAuthenticationViewModel();
+
+            // Handle no user found
+            var user = await _userManager.FindByNameAsync(model?.UserName ?? "");
+            if (user == null)
             {
+                string loginUrl = await _siteSettingsRepository.GetAccountLoginUrlAsync(GetUrl());
                 return Redirect(loginUrl);
             }
+
+            return View("~/Features/Account/Login/TwoFormAuthentication.cshtml", model);
         }
+
+        [HttpPost]
+        [Route(_twoFormAuthenticationUrl)]
+        public async Task<IActionResult> TwoFormAuthentication(TwoFormAuthenticationViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                // This always returns failed, can't figure out why.
+                //var result = await  _signInManager.TwoFactorAuthenticatorSignInAsync(model.TwoFormCode, false, false);// model.StayLoggedIn, model.RememberComputer);
+
+                var user = await _userManager.FindByNameAsync(model.UserName);
+                if(user == null)
+                {
+                    return Redirect($"/{_routeUrl}");
+                }
+
+                // Verify token is correct
+                var tokenValid = await _userManager.VerifyTwoFactorTokenAsync(user, "Email", model.TwoFormCode);
+                if (tokenValid)
+                {
+                    await _signInManager.SignInAsync(user, model.StayLoggedIn);
+                    // Redirectig away from Login, clear TempData so if they return to login it doesn't persist
+                    _modelStateService.ClearViewModel<TwoFormAuthenticationViewModel>(TempData);
+                    ModelState.Clear();
+                    return await LoggedInRedirect(model.RedirectUrl);
+                }
+
+                // Invalid token
+                model.Failure = true;
+                return View("~/Features/Account/Login/TwoFormAuthentication.cshtml", model);
+            }
+
+            return View("~/Features/Account/Login/TwoFormAuthentication.cshtml", model);
+        }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -186,7 +259,7 @@ namespace Generic.Features.Account.LogIn
                     updateUser = true;
                 }
 
-                if(updateUser)
+                if (updateUser)
                 {
                     await _userManager.UpdateAsync(applicationUser);
                 }
@@ -213,7 +286,7 @@ namespace Generic.Features.Account.LogIn
             await _signInManager.SignInAsync(applicationUser, model.StayLogedIn);
 
             var externalUserRoles = _authenticationConfigurations.AllExternalUserRoles().ToList();
-            
+
             switch (info.LoginProvider.ToLowerInvariant())
             {
                 case "microsoft":
@@ -239,30 +312,41 @@ namespace Generic.Features.Account.LogIn
             }
             model.Result = SignInResult.Success;
 
+            return await LoggedInRedirect(model.RedirectUrl);
+        }
+
+        /// <summary>
+        /// Logic to redirect upon authentication
+        /// </summary>
+        /// <param name="redirectUrl"></param>
+        /// <returns></returns>
+        private async Task<RedirectResult> LoggedInRedirect(string redirectUrl)
+        {
             if (await _siteSettingsRepository.GetAccountRedirectToAccountAfterLoginAsync())
             {
-                // Clear ModelState and TempData 
+                // Redirectig away from Login, clear TempData so if they return to login it doesn't persist
+                _modelStateService.ClearViewModel<LogInViewModel>(TempData);
+                ModelState.Clear();
 
-                string redirectUrl = "";
+                string actualRedirectUrl = "";
                 // Try to get returnUrl from query
-                if (!string.IsNullOrWhiteSpace(model.RedirectUrl))
+                if (!string.IsNullOrWhiteSpace(redirectUrl))
                 {
-                    redirectUrl = model.RedirectUrl;
+                    actualRedirectUrl = redirectUrl;
                 }
                 if (string.IsNullOrWhiteSpace(redirectUrl))
                 {
-                    redirectUrl = await _siteSettingsRepository.GetAccountMyAccountUrlAsync(MyAccountController.GetUrl());
+                    actualRedirectUrl = await _siteSettingsRepository.GetAccountMyAccountUrlAsync(MyAccountController.GetUrl());
                 }
                 if (string.IsNullOrWhiteSpace(redirectUrl))
                 {
-                    redirectUrl = "/";
+                    actualRedirectUrl = "/";
                 }
-                return Redirect(redirectUrl);
+                return Redirect(actualRedirectUrl);
             }
             else
             {
-                // Store the ViewModel in tempdata _modelStateService.StoreViewModel(TempData, model);
-                return Redirect(loginUrl);
+                return Redirect("/");
             }
         }
 

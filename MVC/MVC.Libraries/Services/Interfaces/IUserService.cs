@@ -70,6 +70,20 @@ namespace Generic.Services.Interfaces
         /// <param name="password"></param>
         /// <returns></returns>
         Task<bool> ValidatePasswordPolicyAsync(string password);
+
+        /// <summary>
+        /// Creates an external user
+        /// </summary>
+        /// <param name="user">The user</param>
+        /// <returns></returns>
         Task CreateExternalUserAsync(User user);
+
+        /// <summary>
+        /// Sends the verification token to the given user.
+        /// </summary>
+        /// <param name="actualUser"></param>
+        /// <param name="token"></param>
+        /// <returns></returns>
+        Task SendVerificationCodeEmailAsync(User actualUser, string token);
     }
 }
