@@ -237,6 +237,7 @@ namespace Generic.App_Start
                     opt.ClientSecret = microsoftAuth["ClientSecret"];
                     opt.EventsType = typeof(SiteSettingsOauthAuthenticationEvents);
                 })
+                // Baseline Configuration of External Authentication
                 .ConfigureAuthentication(config =>
                 {
                     config.ExistingInternalUserBehavior = Models.Account.ExistingInternalUserBehavior.SetToExternal;
