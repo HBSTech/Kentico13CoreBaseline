@@ -26,21 +26,18 @@ namespace Generic.Features.Account.LogIn
         private readonly IPageContextRepository _pageContextRepository;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IModelStateService _modelStateService;
-        private readonly IConfiguration _configuration;
 
         public LogInViewComponent(IHttpContextAccessor httpContextAccessor,
             ISiteSettingsRepository siteSettingsRepository,
             IPageContextRepository pageContextRepository,
             SignInManager<ApplicationUser> signInManager,
-            IModelStateService modelStateService,
-            IConfiguration configuration)
+            IModelStateService modelStateService)
         {
             _httpContextAccessor = httpContextAccessor;
             _siteSettingsRepository = siteSettingsRepository;
             _pageContextRepository = pageContextRepository;
             _signInManager = signInManager;
             _modelStateService = modelStateService;
-            _configuration = configuration;
         }
 
         /// <summary>
@@ -71,14 +68,6 @@ namespace Generic.Features.Account.LogIn
                 ForgotPassword = await _siteSettingsRepository.GetAccountForgotPasswordUrlAsync(ForgotPasswordController.GetUrl()),
                 ExternalLoginProviders = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList(),
             };
-
-            // Check google which requires additional configuration on login screen
-            var googleAuth = _configuration.GetSection("Authentication:Google");
-            if (googleAuth.Exists())
-            {
-                model.GoogleAuthEnabled = true;
-                model.GoogleAuthClientID = googleAuth["ClientId"];
-            }
 
             // Set this value fresh
             model.AlreadyLogedIn = !(await _pageContextRepository.IsEditModeAsync()) && User.Identity.IsAuthenticated;

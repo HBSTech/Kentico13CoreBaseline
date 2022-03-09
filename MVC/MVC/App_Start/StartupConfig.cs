@@ -16,6 +16,7 @@ using BootstrapLayoutTool;
 using PageBuilderContainers;
 using PageBuilderContainers.Base;
 using PartialWidgetPage;
+using XperienceCommunity.PageBuilderTagHelpers;
 using Kentico.Membership;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -28,8 +29,15 @@ using System.Reflection;
 using XperienceCommunity.Authorization;
 using XperienceCommunity.Localizer;
 using XperienceCommunity.PageBuilderUtilities;
-using XperienceCommunity.WidgetFilter;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.OAuth;
+using Microsoft.AspNetCore.WebUtilities;
+using System.Threading.Tasks;
+using Generic.Repositories.Interfaces;
+using Generic.Features.Account.LogIn;
+using Generic.Repositories.Implementation;
+using System.Collections.Generic;
+using XperienceCommunity.WidgetFilter;
 
 namespace Generic.App_Start
 {
@@ -57,9 +65,15 @@ namespace Generic.App_Start
             // Environment tag helper
             services.AddSingleton<IPageBuilderContext, XperiencePageBuilderContext>();
 
+            services.AddSingleton<IAuthenticationConfigurations>(new BaselineAuthenticationConfiguration()
+            {
+                FacebookUserRoles = new List<string>(){ "facebook-user" }
+            });
+
             // Add up IUrlHelper
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
-            services.AddScoped(x => {
+            services.AddScoped(x =>
+            {
                 var actionContext = x.GetRequiredService<IActionContextAccessor>().ActionContext;
                 var factory = x.GetRequiredService<IUrlHelperFactory>();
                 return factory.GetUrlHelper(actionContext);
@@ -77,6 +91,7 @@ namespace Generic.App_Start
             // Fluent Validator
             services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblies(new Assembly[] { typeof(Startup).Assembly, typeof(Generic.Libraries.AssemblyInfo).Assembly, typeof(Generic.Models.AssemblyInfo).Assembly }));
 
+            // Widget Filters
             services.AddWidgetFilter();
         }
 
@@ -187,8 +202,7 @@ namespace Generic.App_Start
                     .AddRoleStore<ApplicationRoleStore<ApplicationRole>>()
                     .AddUserManager<ApplicationUserManager<ApplicationUser>>()
                     .AddSignInManager<SignInManager<ApplicationUser>>();
-
-            // Authentication in AppSettings
+            // Get default 
             services.AddAuthentication()
                 // https://docs.microsoft.com/en-us/aspnet/core/security/authentication/social/?view=aspnetcore-6.0&tabs=visual-studio
                 .AddGoogle("Google", opt =>
@@ -198,6 +212,7 @@ namespace Generic.App_Start
                     opt.ClientId = googleAuth["ClientId"];
                     opt.ClientSecret = googleAuth["ClientSecret"];
                     opt.SignInScheme = IdentityConstants.ExternalScheme;
+                    opt.EventsType = typeof(SiteSettingsOauthAuthenticationEvents);
                 }).AddFacebook("Facebook", opt =>
                 {
                     var facebookAuth = Configuration.GetSection("Authentication:Facebook");
@@ -205,7 +220,7 @@ namespace Generic.App_Start
                     opt.AppId = facebookAuth["AppId"];
                     opt.AppSecret = facebookAuth["AppSecret"];
                     opt.SignInScheme = IdentityConstants.ExternalScheme;
-                    opt.AccessDeniedPath = "/Account/Login2";
+                    opt.EventsType = typeof(SiteSettingsFacebookOauthAuthenticationEvents);
                 }).AddTwitter(opt =>
                 {
                     var twitterAuth = Configuration.GetSection("Authentication:Twitter");
@@ -213,18 +228,26 @@ namespace Generic.App_Start
                     opt.ConsumerKey = twitterAuth["APIKey"];
                     opt.ConsumerSecret = twitterAuth["APIKeySecret"];
                     opt.RetrieveUserDetails = true;
+                    opt.EventsType = typeof(SiteSettingsTwitterOauthAuthenticationEvents);
                 }).AddMicrosoftAccount(opt =>
                 {
                     var microsoftAuth = Configuration.GetSection("Authentication:Microsoft");
 
                     opt.ClientId = microsoftAuth["ClientId"];
                     opt.ClientSecret = microsoftAuth["ClientSecret"];
+                    opt.EventsType = typeof(SiteSettingsOauthAuthenticationEvents);
+                })
+                .ConfigureAuthentication(config =>
+                {
+                    config.ExistingInternalUserBehavior = Models.Account.ExistingInternalUserBehavior.SetToExternal;
+                    config.FacebookUserRoles.Add("facebook-user");
                 });
             services.AddAuthorization();
 
             // Register authentication cookie
             // Overwrite login logout based on site settings, with fall back to the default controllers
-            services.AddScoped<SiteSettingsCookieAuthenticationEvents>();
+            services.AddAuthenticationServices();
+
             // Configures the application's authentication cookie
             services.ConfigureApplicationCookie(c =>
             {
@@ -239,7 +262,7 @@ namespace Generic.App_Start
                 c.Cookie.Name = AUTHENTICATION_COOKIE_NAME;
                 c.EventsType = typeof(SiteSettingsCookieAuthenticationEvents);
             });
-            
+
 
             CookieHelper.RegisterCookie(AUTHENTICATION_COOKIE_NAME, CookieLevel.Essential);
         }
@@ -259,11 +282,11 @@ namespace Generic.App_Start
             //////////////////////////////
             //////// ERROR HANDLING //////
             //////////////////////////////
-            
+
             // Standard HttpError handling
             // See Features/HttpErrors/HttpErrorsController.cs
             app.UseStatusCodePagesWithReExecute("/error/{0}");
-            
+
             // BizStream's Status Code Pages
             // See Features/HttpErrors/XperienceStausCodePage.cs
             // app.UseXperienceStatusCodePages();

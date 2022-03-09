@@ -28,7 +28,5 @@ namespace Generic.Features.Account.LogIn
         public SignInResult Result { get; set; }
         public string RedirectUrl { get; set; }
         public List<AuthenticationScheme> ExternalLoginProviders { get; set; } = new List<AuthenticationScheme>();
-        public bool GoogleAuthEnabled { get; set; } = false;
-        public string GoogleAuthClientID { get; set; } = string.Empty;
     }
 }

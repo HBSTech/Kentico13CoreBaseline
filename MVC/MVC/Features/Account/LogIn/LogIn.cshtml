@@ -68,30 +68,6 @@ else
                 </div>
             </div>
         </div>
-        @* TODO: Add to View Model*@
-        @if (Model.GoogleAuthEnabled)
-        {
-            @*Google Signin button generated at https://developers.google.com/identity/gsi/web/tools/configurator*@
-        <div id="g_id_onload"
-         data-client_id="@Model.GoogleAuthClientID"
-         data-context="signin"
-         data-ux_mode="popup"
-         data-login_uri="~/account/googleresponse"
-         data-auto_prompt="false">
-        </div>
-
-        <div class="g_id_signin"
-         data-type="standard"
-         data-shape="pill"
-         data-theme="outline"
-         data-text="signin_with"
-         data-size="large"
-         data-logo_alignment="left">
-        </div>
-        @* Google signin script, may not be needed *@
-        <script src="https://accounts.google.com/gsi/client" async defer></script>
-        }
-
     </form>
     @if (Model.ExternalLoginProviders.Any())
     {
