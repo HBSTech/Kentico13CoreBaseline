@@ -25,7 +25,11 @@ If you already had the Baseline for Admin, or are upgrading / hotfixing in the f
 # Bug Fixes / Features Added
 Bug fixes are mentioned here by date and MVC Version # (see MVC/MVC/MVC.csproj version #).  The commit history shows all changes.
 
-**Version 1.2.0 (March 9, 2022)** [link](https://github.com/HBSTech/Kentico13CoreBaseline/pull/11)
+**Version 1.2.1 (March 10, 2022)** [link](https://github.com/HBSTech/Kentico13CoreBaseline/commit/e4faa1ceee19c4ddeea7fe8870f9de10ba63d217)
+* Fixed one bug with NavigationRepsitory
+* Removed redundent call in Startup.config
+
+**Version 1.2.0 (MAJOR) (March 9, 2022)** [link](https://github.com/HBSTech/Kentico13CoreBaseline/pull/11)
 * Hotfixed to 13.0.62 (includes fix to DocumentQuery.WithPageUrlPaths() that now renders custom EnsureUrls() obsolete)
 * Replaced EnsureUrls() with WithPageUrlPaths() and removed PageRetrieverDocumentQueryExtension.cs)
 * Fixed missing end parenthesis on NavigationRepository if declaring dynamic menu of certain type.
@@ -44,7 +48,7 @@ Bug fixes are mentioned here by date and MVC Version # (see MVC/MVC/MVC.csproj v
 * Fixed PageCategoryRetriever.GetCategoriesByIdentifiersAsync usage of query.GetEnumerableResultAsync to be query.ExecuteReaderAsync and loaded into a DataTable (otherwise the reader would close before data retrieved)
 * Fixed PageCategoryRetriever.GetCategoriesByIdentifiersAsync changed _progressiveCache to be LoadAsync vs. Load.  It's invalid to call an Async method from within Load, must use LoadAsync
 
-**Version 1.0.0 (January 24, 2022)** [link] (https://github.com/HBSTech/Kentico13CoreBaseline/commit/a3e228b6b845c78d41ca4baddb85ec9ea54d7aa2)
+**Version 1.0.0 (MAJOR) (January 24, 2022)** [link] (https://github.com/HBSTech/Kentico13CoreBaseline/commit/a3e228b6b845c78d41ca4baddb85ec9ea54d7aa2)
 * Added ToPageIdentity<TreeNode>() and PageIdentity<Type>() that passed properties in pageIdentity.Data
 * Updated TabParentPageTemplate and TabParentViewComponent to show an optional leverage of typed identity and PageIdentityFactory conversion.
 
