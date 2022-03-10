@@ -2,7 +2,7 @@
 {
     public class SiteWidgetSets
     {
-        public const string TESTING = "Testing";
-        public const string TESTING2 = "Testing2";
+        // Add your own custom Widget Sets here
+        // public const string TESTING = "Testing";
     }
 }
