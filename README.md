@@ -25,7 +25,7 @@ If you already had the Baseline for Admin, or are upgrading / hotfixing in the f
 # Bug Fixes / Features Added
 Bug fixes are mentioned here by date and MVC Version # (see MVC/MVC/MVC.csproj version #).  The commit history shows all changes.
 
-**Version 1.2.0 (March 9, 2022)**
+**Version 1.2.0 (March 9, 2022)** [link](https://github.com/HBSTech/Kentico13CoreBaseline/pull/11)
 * Hotfixed to 13.0.62 (includes fix to DocumentQuery.WithPageUrlPaths() that now renders custom EnsureUrls() obsolete)
 * Replaced EnsureUrls() with WithPageUrlPaths() and removed PageRetrieverDocumentQueryExtension.cs)
 * Fixed missing end parenthesis on NavigationRepository if declaring dynamic menu of certain type.
