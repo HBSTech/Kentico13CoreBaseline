@@ -117,7 +117,7 @@ namespace Generic.Repositories.Implementations
             {
                 if (cs.Cached)
                 {
-                    cs.CacheDependency = CacheHelper.GetCacheDependency(builder.GetKeys().ToArray());
+                    cs.CacheDependency = builder.GetCMSCacheDependency();
                 }
                 return new Breadcrumb()
                 {

@@ -14,6 +14,7 @@ global using Generic.Services.Interfaces;
 // Caching
 global using MVCCaching;
 global using MVCCaching.Base.Core.Interfaces;
+global using Generic.Libraries.Helpers;
 
 // Models
 global using Generic.Models;
