@@ -6,6 +6,7 @@ global using XperienceCommunity.QueryExtensions.Documents;
 global using XperienceCommunity.QueryExtensions.Objects;
 global using XperienceCommunity.QueryExtensions.Collections;
 global using RelationshipsExtended;
+global using CMS.DocumentEngine.Routing;
 
 // Intefaces
 global using Generic.Repositories.Interfaces;

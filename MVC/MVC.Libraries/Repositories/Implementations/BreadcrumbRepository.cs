@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CMS.DataEngine;
 using CMS.DocumentEngine;
+
 using CMS.Helpers;
 using CMS.Localization;
 using CMS.SiteProvider;
@@ -137,7 +138,15 @@ namespace Generic.Repositories.Implementations
             // Cache dependency should not extend to the CacheDependenciesStore as only the matching breadcrumbs should apply.
             var results = await _pageRetriever.RetrieveAsync<TreeNode>(
                 query => query
-                    .Where($"NodeClassID not in (select ClassID from CMS_Class where ClassName in ('{string.Join("','", validClassNames.Select(x => SqlHelper.EscapeQuotes(x)))}'))"),
+                .Columns(new string[] {
+                    nameof(TreeNode.DocumentName), 
+                    nameof(TreeNode.NodeID), 
+                    nameof(TreeNode.NodeParentID)
+                })
+                .Where("NodeClassID not in (select ClassID from CMS_Class where ClassName = 'CMS.Root')")
+                .WithPageUrlPaths()
+                .If(validClassNames.Length > 0, query => query.Where($"NodeClassID in (select ClassID from CMS_Class where ClassName in ('{string.Join("','", validClassNames.Select(x => SqlHelper.EscapeQuotes(x)))}'))")),
+                
                 cacheSettings => cacheSettings
                     .Dependencies((items, csbuilder) => csbuilder.PagePath("/", PathTypeEnum.Section))
                     .Key($"GetNodeToBreadcrumbAndParent")
