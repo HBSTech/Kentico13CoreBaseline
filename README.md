@@ -1,10 +1,10 @@
 # Kentico13CoreBaseline
-Our Kentico 13 Baseline for MVC .Net Core 5.0 Site, the perfect starting point for your Kentico Xperience 13 Site to get up and running right away.
+Our Kentico 13 Baseline for MVC .Net Core 6.0 Site, the perfect starting point for your Kentico Xperience 13 Site to get up and running right away.
 
 # Installation
-Install a normal Kentico 13 Site, and hotfix it up to at least 13.0.57 (KX13 Refresh 3)
+Install a normal Kentico 13 Site, and hotfix it up to at least 13.0.62 (KX13 Refresh 3)
 
-Also make sure to install .Net 5.0 and .Net Core 3.1 onto your solution (you can install the Hosting Bundles as well if you plan on hosting via IIS)
+Also make sure to install .Net 6.0 and .Net Core 3.1 onto your solution (you can install the Hosting Bundles as well if you plan on hosting via IIS)
 
 ## Install NuGet Packages
 On the Kentico Admin (WebApp/Mother) solution, install the following NuGet Packages
@@ -17,7 +17,7 @@ Optionally install
 5. [HBS_CSVImport](https://www.nuget.org/packages/HBS_CSVImport/) (will be upgraded to 13 in near future)
 6. [HBS.AutomaticGeneratedUserRoles.Kentico](https://www.nuget.org/packages/HBS.AutomaticGeneratedUserRoles.Kentico/) (may not be needed with new Authorization plugin already installed)
 
-Make sure you have Visual Studio 2019 or higher, and the Visual Studio extension [Web Essentials 2019](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.WebEssentials2019) is recommended.
+Make sure you have Visual Studio 2022 or higher, and the Visual Studio extensions [Web Compiler 2022+](https://marketplace.visualstudio.com/items?itemName=Failwyn.WebCompiler64), [WebPack task Runner](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.WebPackTaskRunner), and optionally [NPM Task Runner](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.NPMTaskRunner).
 
 ## Upgrading / Hotfixing Admin
 If you already had the Baseline for Admin, or are upgrading / hotfixing in the future, make sure to update the `Kentico.Xperience.Libraries` nuget package on the admin to the version your site is either on or hotfixing to.  The NuGet packages this Baseline uses inherits this nuget package, and **if you fail to update this package after you hotfix, your Admin solution will probably not work.**
@@ -25,7 +25,7 @@ If you already had the Baseline for Admin, or are upgrading / hotfixing in the f
 # Bug Fixes / Features Added
 Bug fixes are mentioned here by date and MVC Version # (see MVC/MVC/MVC.csproj version #).  The commit history shows all changes.
 
-**Version 1.2.0 ()**
+**Version 1.2.0 (March 9, 2022)**
 * Hotfixed to 13.0.62 (includes fix to DocumentQuery.WithPageUrlPaths() that now renders custom EnsureUrls() obsolete)
 * Replaced EnsureUrls() with WithPageUrlPaths() and removed PageRetrieverDocumentQueryExtension.cs)
 * Fixed missing end parenthesis on NavigationRepository if declaring dynamic menu of certain type.
