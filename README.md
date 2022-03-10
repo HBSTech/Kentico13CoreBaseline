@@ -25,6 +25,17 @@ If you already had the Baseline for Admin, or are upgrading / hotfixing in the f
 # Bug Fixes / Features Added
 Bug fixes are mentioned here by date and MVC Version # (see MVC/MVC/MVC.csproj version #).  The commit history shows all changes.
 
+**Version 1.2.0 ()**
+* Hotfixed to 13.0.62 (includes fix to DocumentQuery.WithPageUrlPaths() that now renders custom EnsureUrls() obsolete)
+* Replaced EnsureUrls() with WithPageUrlPaths() and removed PageRetrieverDocumentQueryExtension.cs)
+* Fixed missing end parenthesis on NavigationRepository if declaring dynamic menu of certain type.
+* Upgraded solutions to .net 6.0
+* Added GlobalNamespace.cs files to solutions
+* Added External Authentication options (Facebook, Google, Microsoft, Twitter)
+* Added Two Factor Authentication (Email) option
+* Added AuthenticationBuilder.ConfigureAuthentication(options) Extenstion method to configure external Auth settings
+* Incorporated XperienceCommunity.WidgetFilter (removed UserWidgetProvider usage)
+
 **Version 1.1.1 (Feb 11, 2022)**
 * Fixed bug on CacheDependencyKeysBuilder.Object(string objectType, string name) which had !string.IsNullOrWhitespace instead of string.IsNullOrWhitespace, thus not adding the cache dependency key when called
 

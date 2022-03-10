@@ -385,7 +385,7 @@ namespace Generic.Repositories.Implementations
                             var pageTypes = navItem.PageTypes.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
                             if (pageTypes.Any())
                             {
-                                query.Where($"NodeClassID in (select ClassID from CMS_Class where ClassName in ('{string.Join("','", pageTypes)}')");
+                                query.Where($"NodeClassID in (select ClassID from CMS_Class where ClassName in ('{string.Join("','", pageTypes)}'))");
                             }
                         }, cacheSettings =>
                             cacheSettings.Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))

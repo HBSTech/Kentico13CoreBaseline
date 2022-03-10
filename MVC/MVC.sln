@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.30523.141
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVC", "MVC\MVC.csproj", "{D9E1B6C7-468C-4E8B-A869-502224CACF2F}"
 EndProject
@@ -10,6 +10,12 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVC.Models", "MVC.Models\MVC.Models.csproj", "{295FA1C7-D1E5-4512-836F-942BB33754C4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVC.Libraries", "MVC.Libraries\MVC.Libraries.csproj", "{9F43A1F1-109A-4C94-9162-8CCA8DEFDAC0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RepoFiles", "RepoFiles", "{5C40A323-A8AA-4606-AFDD-6D45820EFB27}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitignore = ..\.gitignore
+		..\README.md = ..\README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

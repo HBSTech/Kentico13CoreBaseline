@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Generic.Features.Account.LogIn
 {
-    [Serializable]
     public class LogInViewModel
     {
         
@@ -27,5 +27,6 @@ namespace Generic.Features.Account.LogIn
         public bool AlreadyLogedIn { get; set; } = false;
         public SignInResult Result { get; set; }
         public string RedirectUrl { get; set; }
+        public List<AuthenticationScheme> ExternalLoginProviders { get; set; } = new List<AuthenticationScheme>();
     }
 }

@@ -4,9 +4,9 @@
     <page-builder-mode exclude="Edit">
 
         <script type="text/javascript">
-    setTimeout(() => {
-        window.location = '@Model.MyAccountUrl';
-    }, 3000);
+            setTimeout(() => {
+                window.location = '@Model.MyAccountUrl';
+            }, 3000);
         </script>
     </page-builder-mode>
 }
@@ -28,7 +28,7 @@ else
             </page-data-context>
             <page-data-context initialized="true">
                 <page-data />
-                <editable-area area-identifier="main" area-options-allowed-widgets="@await UserWidgetProvider.GetUserAllowedWidgetsAsync()" />
+                <editable-area area-identifier="main" />
             </page-data-context>
             <div asp-validation-summary="All" class="alert alert-danger text-danger col-12" role="alert"></div>
 
@@ -69,5 +69,26 @@ else
             </div>
         </div>
     </form>
+    @if (Model.ExternalLoginProviders.Any())
+    {
+        <div class="col-md-4 offset-2">
+            <section>
+                <h4>Use different service for log in:</h4>
+                <hr />
+                @{
+                    <form asp-controller="Login" asp-action="ExternalLogin" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+                        <div>
+                            <p>
+                                @foreach (var provider in Model.ExternalLoginProviders)
+                                {
+                                    <input type="submit" class="btn btn-info" value="@provider.Name" name="provider" />
+                                }
+                            </p>
+                        </div>
+                    </form>
+                }
+            </section>
+        </div>
+    }
 }
 

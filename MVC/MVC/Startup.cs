@@ -52,13 +52,11 @@ namespace Generic
 
             StartupConfig.RegisterGzipFileHandling(services, Environment, Configuration);
 
-            StartupConfig.RegisterLocalization(services, Environment, Configuration);
+            StartupConfig.RegisterLocalizationAndControllerViews(services, Environment, Configuration);
 
             StartupConfig.RegisterIdentityHandlers(services, Environment, Configuration);
 
             services.AddHttpContextAccessor();
-
-            services.AddControllersWithViews();
 
             // Feature folders
             services.Configure<RazorViewEngineOptions>(options =>

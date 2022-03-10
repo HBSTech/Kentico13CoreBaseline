@@ -5,9 +5,12 @@ using Generic.Libraries.Attributes;
 using Generic.Libraries.Helpers;
 using Generic.Repositories.Interfaces;
 using Generic.Services.Interfaces;
+using Kentico.Membership;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Primitives;
 using System;
 using System.Linq;
@@ -21,16 +24,19 @@ namespace Generic.Features.Account.LogIn
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ISiteSettingsRepository _siteSettingsRepository;
         private readonly IPageContextRepository _pageContextRepository;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IModelStateService _modelStateService;
 
         public LogInViewComponent(IHttpContextAccessor httpContextAccessor,
             ISiteSettingsRepository siteSettingsRepository,
             IPageContextRepository pageContextRepository,
+            SignInManager<ApplicationUser> signInManager,
             IModelStateService modelStateService)
         {
             _httpContextAccessor = httpContextAccessor;
             _siteSettingsRepository = siteSettingsRepository;
             _pageContextRepository = pageContextRepository;
+            _signInManager = signInManager;
             _modelStateService = modelStateService;
         }
 
@@ -44,18 +50,23 @@ namespace Generic.Features.Account.LogIn
             _modelStateService.MergeModelState(ModelState, TempData);
 
             string redirectUrl = "";
+
             // Try to get returnUrl from query
             if (_httpContextAccessor.HttpContext.Request.Query.TryGetValue("returnUrl", out StringValues queryReturnUrl) && queryReturnUrl.Any())
             {
                 redirectUrl = queryReturnUrl.FirstOrDefault();
             }
 
-            var model = _modelStateService.GetViewModel<LogInViewModel>(TempData) ?? new LogInViewModel()
+            // Check google configuration
+            
+
+            var model = new LogInViewModel()
             {
                 RedirectUrl = redirectUrl,
                 MyAccountUrl = await _siteSettingsRepository.GetAccountMyAccountUrlAsync(MyAccountController.GetUrl()),
                 RegistrationUrl = await _siteSettingsRepository.GetAccountRegistrationUrlAsync(RegistrationController.GetUrl()),
-                ForgotPassword = await _siteSettingsRepository.GetAccountForgotPasswordUrlAsync(ForgotPasswordController.GetUrl())
+                ForgotPassword = await _siteSettingsRepository.GetAccountForgotPasswordUrlAsync(ForgotPasswordController.GetUrl()),
+                ExternalLoginProviders = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList(),
             };
 
             // Set this value fresh
