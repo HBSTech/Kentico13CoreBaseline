@@ -25,9 +25,10 @@ If you already had the Baseline for Admin, or are upgrading / hotfixing in the f
 # Bug Fixes / Features Added
 Bug fixes are mentioned here by date and MVC Version # (see MVC/MVC/MVC.csproj version #).  The commit history shows all changes.
 
-**Version 1.2.1 (March 10, 2022)** [link](https://github.com/HBSTech/Kentico13CoreBaseline/commit/e4faa1ceee19c4ddeea7fe8870f9de10ba63d217)
+**Version 1.2.1/1.2.2 (March 10, 2022)** [link 1.2.1](https://github.com/HBSTech/Kentico13CoreBaseline/commit/e4faa1ceee19c4ddeea7fe8870f9de10ba63d217) [link 1.2.2](https://github.com/HBSTech/Kentico13CoreBaseline/commit/a3f5f4e523a97f0c036deae046a64ee3169a50b8)
 * Fixed one bug with NavigationRepsitory
 * Removed redundent call in Startup.config
+* Fixed BreadcrumbRepository.cs returning the root node, as well as not handling properly the Valid ClassName setting. [issue #9](https://github.com/HBSTech/Kentico13CoreBaseline/issues/9)
 
 **Version 1.2.0 (MAJOR) (March 9, 2022)** [link](https://github.com/HBSTech/Kentico13CoreBaseline/pull/11)
 * Hotfixed to 13.0.62 (includes fix to DocumentQuery.WithPageUrlPaths() that now renders custom EnsureUrls() obsolete)
