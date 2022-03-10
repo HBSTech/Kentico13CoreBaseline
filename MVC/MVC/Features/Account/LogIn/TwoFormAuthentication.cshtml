@@ -27,7 +27,8 @@ else
                     </div>
                 </div>
             </div>
-            <div class="row">
+            @* Does not work due to TwoFactorAuthenticatorSignInAsync not working
+                <div class="row">
                 <div class="col-12 col-sm-6 m-auto">
                     <div class="checkbox">
                         <input type="checkbox" asp-for=RememberComputer autocomplete="off" />
@@ -36,6 +37,7 @@ else
                     </div>
                 </div>
             </div>
+            *@
             <div class="row">
                 <div class="col-12 col-sm-6 m-auto text-center">
                     <input type="submit" value="Log in" class="btn btn-primary btn-theme" style="width: 100%;" />
