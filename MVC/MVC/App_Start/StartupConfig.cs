@@ -65,11 +65,6 @@ namespace Generic.App_Start
             // Environment tag helper
             services.AddSingleton<IPageBuilderContext, XperiencePageBuilderContext>();
 
-            services.AddSingleton<IAuthenticationConfigurations>(new BaselineAuthenticationConfiguration()
-            {
-                FacebookUserRoles = new List<string>(){ "facebook-user" }
-            });
-
             // Add up IUrlHelper
             services.AddSingleton<IActionContextAccessor, ActionContextAccessor>();
             services.AddScoped(x =>
