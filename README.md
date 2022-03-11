@@ -25,7 +25,7 @@ If you already had the Baseline for Admin, or are upgrading / hotfixing in the f
 # Bug Fixes / Features Added
 Bug fixes are mentioned here by date and MVC Version # (see MVC/MVC/MVC.csproj version #).  The commit history shows all changes.
 
-**Version 1.2.3 (March 11, 2022)**
+**Version 1.2.3 (March 11, 2022)** [link 1.2.3](https://github.com/HBSTech/Kentico13CoreBaseline/commit/99457a8497fd35869b41ee2919006bdbd6cf98dd)
 * Swapped the BundlerMinifier package with the Core Variant to prevent SCSS Build errors
 
 **Version 1.2.1/1.2.2 (March 10, 2022)** [link 1.2.1](https://github.com/HBSTech/Kentico13CoreBaseline/commit/e4faa1ceee19c4ddeea7fe8870f9de10ba63d217) [link 1.2.2](https://github.com/HBSTech/Kentico13CoreBaseline/commit/a3f5f4e523a97f0c036deae046a64ee3169a50b8)
