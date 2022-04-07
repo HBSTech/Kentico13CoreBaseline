@@ -17,7 +17,6 @@
     <environment include="Development">
         <link href="~/css/bootstrap/bootstrap.min.css" rel="stylesheet" />
         <link href="~/css/Custom.css" rel="stylesheet" />
-        <link href="~/css/EditMode.css" rel="stylesheet" />
     </environment>
     <environment exclude="Development">
         <script src="~/js/bundles/HeaderJS.min.js.gz"></script>
@@ -29,7 +28,7 @@
     <page-builder-mode include="Edit">
         <!-- Edit Mode -->
         <page-builder-styles />
-        <link href="~/css/EditMode.min.css" rel="stylesheet" />
+        <link href="~/css/EditMode.css" rel="stylesheet" />
     </page-builder-mode>
     @*Page builder styles manually added here if needed*@
 
@@ -88,13 +87,9 @@
 
     <!-- Includes the jQuery Validator for MVC-->
     <script src="~/js/bundles/jqueryval.min.js"></script>
-
     <script type="text/javascript">
         $.validator.setDefaults({ ignore: null });
     </script>
-
-    <!-- Includes the AJAX Unobtrusive for MVC -->
-    <script src="~/js/bundles/jquery-unobtrusive-ajax.min.js.gz"></script>
 
     <page-builder-mode include="Edit">
         <!-- Edit mode-->
@@ -109,15 +104,15 @@
 
     <!-- Javascripts File -->
     <environment include="Development">
+        <!-- Includes the AJAX Unobtrusive for MVC -->
+        <script src="~/js/jquery.unobtrusive.ajax/jquery-unobtrusive-ajax.min.js"></script>
         <script src="~/js/Custom.js"></script>
+        <script src="~/js/bootstrap/popper.min.js"></script>
+        <script src="~/js/bootstrap/bootstrap.min.js"></script>
     </environment>
     <environment exclude="Development">
         <script src="~/js/bundles/FooterJS.min.js.gz"></script>
     </environment>
-
-    @* These are kept out of the minification as they alter the order, and they MUST appear in this order *@
-    <script src="~/js/bootstrap/popper.min.js"></script>
-    <script src="~/js/bootstrap/bootstrap.min.js"></script>
 
     @RenderSection("bottom", required: false)
 </body>

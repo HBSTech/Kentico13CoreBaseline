@@ -25,6 +25,10 @@ If you already had the Baseline for Admin, or are upgrading / hotfixing in the f
 # Bug Fixes / Features Added
 Bug fixes are mentioned here by date and MVC Version # (see MVC/MVC/MVC.csproj version #).  The commit history shows all changes.
 
+**Version 1.2.4 ()**
+* Hotfixed to 64 (Refresh 5) for easier first time installation.
+* 
+
 **Version 1.2.3 (March 11, 2022)**
 * Swapped the BundlerMinifier package with the Core Variant to prevent SCSS Build errors
 

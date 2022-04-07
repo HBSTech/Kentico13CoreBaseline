@@ -38,6 +38,8 @@ using Generic.Features.Account.LogIn;
 using Generic.Repositories.Implementation;
 using System.Collections.Generic;
 using XperienceCommunity.WidgetFilter;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace Generic.App_Start
 {
@@ -295,6 +297,27 @@ namespace Generic.App_Start
 
 
             app.UseStaticFiles();
+
+            // While IIS and IIS Express automatically handle StaticFiles from the root, default Kestrel doesn't, so safer to 
+            // add this for any Site Media Libraries if you ever plan on linking directly to the file.  /getmedia linkes are not
+            // impacted. 
+            //
+            // Also, if you ever need to bypass the IIS/IIS Express default StaticFile handling, you can add a web.config in the media folder 
+            // with the below:
+            // <?xml version="1.0"?>
+            // <configuration>
+            //     <system.webServer>
+            //         <handlers>
+            //             <add name="ForceStaticFileHandlingToNetCore" path="*" verb="*" modules="AspNetCoreModuleV2" resourceType="Either" requireAccess="Read" />
+            //         </handlers>
+            //     </system.webServer>
+            // </configuration>
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Baseline")),
+                RequestPath = "/Baseline"
+            });
+
 
             app.UseKentico();
 

@@ -14,6 +14,7 @@ GitHubGit
 MVC/packages/*
 MVC/MVC/bin/*
 MVC/MVC/obj/*
+MVC/MVC/node_modules/*
 KenticoAdmin/packages/*
 KenticoAdmin/CMS/bin/*
 KenticoAdmin/CMS/obj/*
@@ -39,3 +40,10 @@ MVC/MVC.Models/obj
 XperienceModels/bin
 XperienceModels/obj
 !README.md
+
+# Ignore files that automatically build from source using npm gulp
+MVC/MVC/wwroot/css/bundles/**/*
+MVC/MVC/wwroot/js/bundles/**/*
+MVC/MVC/wwroot/css/Custom.css
+MVC/MVC/wwroot/js/scripts/footer.js
+MVC/MVC/wwroot/js/scripts/header.js

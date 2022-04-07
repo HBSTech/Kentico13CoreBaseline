@@ -1,0 +1,35 @@
+{
+  "name": "mvc",
+  "version": "1.0.0",
+  "description": "This is the main .Net Core project.",
+  "main": "index.js",
+  "scripts": {
+    "development": "cross-env NODE_ENV=production=development gulp --color --gulpfile \"Gulpfile.js\" Watch",
+    "production": "cross-env NODE_ENV=production=production gulp --color --gulpfile \"Gulpfile.js\" build"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "del": "^6.0.0",
+    "gulp": "^4.0.2",
+    "gulp-autoprefixer": "^8.0.0",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-cssmin": "^0.2.0",
+    "gulp-gzip": "^1.4.2",
+    "gulp-htmlmin": "^5.0.1",
+    "gulp-if": "^3.0.0",
+    "gulp-imagemin": "^7.1.0",
+    "gulp-less": "^5.0.0",
+    "gulp-sourcemaps": "^3.0.0",
+    "gulp-terser": "^2.1.0",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "gulp-uglify": "^3.0.2",
+    "gulp-webp": "^4.0.1",
+    "merge-stream": "^2.0.0",
+    "merge2": "^1.4.1",
+    "typescript": "^4.6.3"
+  }
+, "-vs-binding":{"ProjectOpened":["development"]}
+}
