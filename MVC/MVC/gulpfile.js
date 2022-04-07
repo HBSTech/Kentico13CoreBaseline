@@ -1,4 +1,4 @@
-/// <binding />
+/// <binding ProjectOpened='Watch' />
 //list dependences
 const { src, dest, watch, series, task, parallel } = require('gulp');
 const gulpif = require('gulp-if');
