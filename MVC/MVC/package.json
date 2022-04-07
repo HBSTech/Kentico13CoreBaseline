@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "development": "cross-env NODE_ENV=production=development gulp --color --gulpfile \"Gulpfile.js\" Watch",
-    "production": "cross-env NODE_ENV=production=production gulp --color --gulpfile \"Gulpfile.js\" build"
+    "production": "cross-env NODE_ENV=production=production gulp --color --gulpfile \"Gulpfile.js\" Build"
   },
   "author": "",
   "license": "ISC",
