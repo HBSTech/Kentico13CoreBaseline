@@ -42,9 +42,11 @@ XperienceModels/obj
 !README.md
 
 # Ignore files that automatically build from source using npm gulp
-MVC/MVC/wwroot/css/bundles/**/*
-MVC/MVC/wwroot/js/bundles/**/*
-MVC/MVC/wwroot/css/Custom.css
-MVC/MVC/wwroot/css/EditMode.css
-MVC/MVC/wwroot/js/scripts/Custom.js
-MVC/MVC/wwroot/js/scripts/HeaderJS.js
+MVC/MVC/wwwroot/css/bundles/**/*
+MVC/MVC/wwwroot/js/bundles/**/*
+MVC/MVC/wwwroot/css/Custom.css
+MVC/MVC/wwwroot/css/EditMode.css
+MVC/MVC/wwwroot/js/scripts/Custom.js*
+MVC/MVC/wwwroot/js/scripts/HeaderCustom.js*
+MVC/MVC/wwwroot/js/scripts/helpers.js*
+MVC/MVC/wwwroot/js/scripts/samplereact.js*

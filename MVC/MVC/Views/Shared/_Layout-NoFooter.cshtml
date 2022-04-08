@@ -12,15 +12,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- JQUERY, added in header so available anywhere -->
-    <script src="~/js/scripts/jquery-3.5.1.min.js"></script>
     <environment include="Development">
+        @* Defined in gulpfile.js headerJS *@
+        <script src="~/js/scripts/jquery-3.5.1.min.js"></script>
+        <script src="~/js/scripts/HeaderCustom.js"></script>
+
+        @* Defined in gulpfile.js headerCss *@
         <link href="~/css/bootstrap/bootstrap.min.css" rel="stylesheet" />
         <link href="~/css/Custom.css" rel="stylesheet" />
-        <link href="~/css/EditMode.css" rel="stylesheet" />
     </environment>
     <environment exclude="Development">
+        @* Defined in gulpfile.js headerJS *@
         <script src="~/js/bundles/HeaderJS.min.js.gz"></script>
+
+        @* Defined in gulpfile.js headerCss *@
         <link href="~/css/bundles/HeaderStyles.min.css.gz" rel="stylesheet" />
     </environment>
 
@@ -63,8 +68,11 @@
         $.validator.setDefaults({ ignore: null });
     </script>
 
-    <!-- Includes the AJAX Unobtrusive for MVC -->
-    <script src="~/js/bundles/jquery-unobtrusive-ajax.min.js.gz"></script>
+    <!-- Includes the jQuery Validator for MVC-->
+    <script src="~/js/bundles/jqueryval.min.js"></script>
+    <script type="text/javascript">
+        $.validator.setDefaults({ ignore: null });
+    </script>
 
     <page-builder-mode include="Edit">
         <!-- Edit mode-->
@@ -79,15 +87,17 @@
 
     <!-- Javascripts File -->
     <environment include="Development">
+        @* Defined in gulpfile.js footerJS *@
+        <script src="~/js/jquery.unobtrusive.ajax/jquery-unobtrusive-ajax.min.js"></script>
+        <script src="~/js/helpers.js"></script>
         <script src="~/js/Custom.js"></script>
+        <script src="~/js/bootstrap/popper.min.js"></script>
+        <script src="~/js/bootstrap/bootstrap.min.js"></script>
     </environment>
     <environment exclude="Development">
+        @* Defined in gulpfile.js footerJS *@
         <script src="~/js/bundles/FooterJS.min.js.gz"></script>
     </environment>
-
-    @* These are kept out of the minification as they alter the order, and they MUST appear in this order *@
-    <script src="~/js/bootstrap/popper.min.js"></script>
-    <script src="~/js/bootstrap/bootstrap.min.js"></script>
 
     @RenderSection("bottom", required: false)
 </body>

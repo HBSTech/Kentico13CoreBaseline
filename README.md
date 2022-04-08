@@ -14,10 +14,10 @@ On the Kentico Admin (WebApp/Mother) solution, install the following NuGet Packa
 3. [XperienceCommunity.PageCustomDataControlExtender](https://github.com/wiredviews/xperience-page-custom-data-control-extender)
 
 Optionally install
-5. [HBS_CSVImport](https://www.nuget.org/packages/HBS_CSVImport/) (will be upgraded to 13 in near future)
+5. [XperienceCommunity.CSVImport.Admin](https://www.nuget.org/packages/XperienceCommunity.CSVImport.Admin/)
 6. [HBS.AutomaticGeneratedUserRoles.Kentico](https://www.nuget.org/packages/HBS.AutomaticGeneratedUserRoles.Kentico/) (may not be needed with new Authorization plugin already installed)
 
-Make sure you have Visual Studio 2022 or higher, and the Visual Studio extensions [Web Compiler 2022+](https://marketplace.visualstudio.com/items?itemName=Failwyn.WebCompiler64), [WebPack task Runner](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.WebPackTaskRunner), [Bundler & Minifier 2022+](https://marketplace.visualstudio.com/items?itemName=Failwyn.BundlerMinifier64), and optionally [NPM Task Runner](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.NPMTaskRunner).
+Make sure you have Visual Studio 2022 or higher.
 
 ## Upgrading / Hotfixing Admin
 If you already had the Baseline for Admin, or are upgrading / hotfixing in the future, make sure to update the `Kentico.Xperience.Libraries` nuget package on the admin to the version your site is either on or hotfixing to.  The NuGet packages this Baseline uses inherits this nuget package, and **if you fail to update this package after you hotfix, your Admin solution will probably not work.**
@@ -25,9 +25,17 @@ If you already had the Baseline for Admin, or are upgrading / hotfixing in the f
 # Bug Fixes / Features Added
 Bug fixes are mentioned here by date and MVC Version # (see MVC/MVC/MVC.csproj version #).  The commit history shows all changes.
 
-**Version 1.2.4 ()**
+**Version 1.3.0 ()**
 * Hotfixed to 64 (Refresh 5) for easier first time installation.
-* 
+* Replaced Bundler & Minifier with Node.js (package.json) + Gulp (gulpfile.js) + WebPack (various webpack.configs)
+* Added FrontEndDev with code to replace static CSS/JS with Less/Typescript/React:
+  * wwwroot/js/scripts/Custom.js built from FrontEndDev/typescript/Custom/custom.ts
+  * wwwroot/js/scripts/HeaderCustom.js built from FrontEndDev/typescript/Header/header.ts
+  * wwwroot/css/Custom.css built from FrontEndDev/less/Custom.less
+  * wwwroot/css/EditMode.css built from FrontEndDev/less/EditMode.less
+* Added Sample React component (FrontEndDev/react/sampleapp)
+* Added Site Method Helper example (FrontEndDev/typescript/helper/index.ts)
+* Added Image Optimization in Gulp + "optimize" taghelper attribute for img tags.
 
 **Version 1.2.3 (March 11, 2022)**
 * Swapped the BundlerMinifier package with the Core Variant to prevent SCSS Build errors
@@ -102,6 +110,8 @@ Kentico uses Webfarm to sync media file changes, event triggers, and more import
 4. Restore Nuget Packages (May have to run `Update-Package -reinstall` in nuget command prompt)
 5. Update any nuget packages for custom tools (usually `Something.Kentico.Core`) installed if needed, however do **not** update non-custom Kentico Nuget Packages as this could break your solution if Kentico's code depends on certain versions.
 6. Rebuild solution
+7. Install Node.js on your computer (if you don't have it)
+8. In a powershell in the MVC/MVC folder, run "npm install"
 
 If using IIS, there is also a `web.config`, you will have to update the aspNetCore processPath to point to the project's .exe file.  It is recommended however you use either `IIS Express` for your MVC Site or straight up `Kuberneties`
 
@@ -125,6 +135,8 @@ the Kentico12Baseline uses the [Dynamic Routing](https://github.com/KenticoDevTr
 ## Upgrade from previous Kentico 13 Baseline
 
 Upgrading from an existing Kentico Xperience 13 Core Baseline may prove a bit difficult as the entire repository was revamped.  Features wise and Admin/Database wise not much has changed (aside from how SEO meta data is stored/retrieved), however the whole project structure was revamped.  It may be easier if you want to upgrade your baseline to simply start with the new baseline and add in your features / custom code and views.
+
+You can also look at the pull requests for each version into master and see what files were modified.
 
 ## MetaData to DocumentCustomData
 In KX 12 MVC we used a tool for the SEO Meta Data that serialized / deserialized the MetaData into a long text field.  In the knew KX 13 baseline, we leverage the DocumentCustomData to assign Key-Values of the SEO Data.  If you are upgrading from KX12, please do the following:

@@ -15,7 +15,7 @@ const webpack = require('webpack');
 
 const isDevelopment = (typeof(process.env.NODE_ENV) === 'undefined' || process.env.NODE_ENV.toLowerCase() === "development" ? true : false);
 
-// This will make a .css for each less file found
+
 function headerLess() {
     return src("FrontEndDev/less/*.less")
         .pipe(less())
@@ -24,6 +24,20 @@ function headerLess() {
         .pipe(dest("wwwroot/css"));
 }
 
+const webpackConfigHeader = require('./FrontEndDev/typescript/Header/webpack.config');
+function headerTypescript() {
+    return new Promise((resolve, reject) => {
+        webpack(webpackConfigHeader, (err, stats) => {
+            if (err) {
+                return reject(err)
+            }
+            if (stats.hasErrors()) {
+                return reject(new Error(stats.compilation.errors.join('\n')))
+            }
+            resolve()
+        })
+    });
+}
 
 const webpackConfigHelper = require('./FrontEndDev/typescript/Helper/webpack.config');
 function helperTypescript(cb) {
@@ -55,20 +69,7 @@ function customTypescript(cb) {
     });
 }
 
-const webpackConfigHeader = require('./FrontEndDev/typescript/Header/webpack.config');
-function headerTypescript() {
-    return new Promise((resolve, reject) => {
-        webpack(webpackConfigHeader, (err, stats) => {
-            if (err) {
-                return reject(err)
-            }
-            if (stats.hasErrors()) {
-                return reject(new Error(stats.compilation.errors.join('\n')))
-            }
-            resolve()
-        })
-    });
-}
+
 
 const webpackConfigReactSample = require('./FrontEndDev/react/sampleapp/webpack.config');
 function sampleReactApp() {
@@ -90,7 +91,7 @@ function sampleReactApp() {
 function headerCss() {
     return src([
         "wwwroot/css/bootstrap/bootstrap.min.css",
-        "wwwroot/css/custom.css"
+        "wwwroot/css/Custom.css"
     ], { base: "wwwroot/" })
         .pipe(concat("HeaderStyles.css"))
         .pipe(dest('wwwroot/css/bundles'))
@@ -155,6 +156,16 @@ function imageWebp() {
         .pipe(dest('wwwroot/images/webp'));
 }
 
+// packages.json's development task (npm run development) is set to execute this watch on visual studio open.
+task("Watch", function () {
+    watch(["FrontEndDev/less/*.less"], series(headerLess, headerCss));
+    watch(["FrontEndDev/typescript/Header/*.{js,ts}"], series(headerTypescript, headerJs));
+    watch(["FrontEndDev/typescript/Custom/*.{js,ts}"], series(customTypescript, footerJs));
+    watch(["FrontEndDev/typescript/Helper/*.{js,ts}"], series(helperTypescript, footerJs));
+    watch(["FrontEndDev/react/sampleapp/*.{ts,tsx,js,jsx}"], series(sampleReactApp, footerJs));
+    watch(["wwwroot/css/images/src/*.{jpg,jpeg,png}"], series(imageOptimize, imageWebp));
+})
+
 // Individual Tasks that can be ran from Task Runner Explorer
 task("Build",
     parallel(
@@ -165,15 +176,7 @@ task("Build",
     )
 );
 
-// packages.json's development task (npm run development) is set to execute this watch on visual studio open.
-task("Watch", function () {
-    watch(["FrontEndDev/less/*.less"], series(headerLess, headerCss));
-    watch(["FrontEndDev/typescript/Header/*.{js,ts}"], series(headerTypescript, headerJs));
-    watch(["FrontEndDev/typescript/Custom/*.{js,ts}"], series(customTypescript, footerJs));
-    watch(["FrontEndDev/typescript/Helper/*.{js,ts}"], series(helperTypescript, footerJs));
-    watch(["FrontEndDev/react/sampleapp/*.{ts,tsx,js,jsx}"], series(sampleReactApp, footerJs));
-    watch(["wwwroot/css/images/src/*.{jpg,jpeg,png}"], series(imageOptimize, imageWebp));
-})
+
 
 // Helper Function
 function gulpTaskIf(condition, task) {
