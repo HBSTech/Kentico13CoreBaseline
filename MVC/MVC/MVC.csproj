@@ -8,30 +8,14 @@
     <RootNamespace>Generic</RootNamespace>
     <AssemblyName>MVC</AssemblyName>
     <Version>1.3.0</Version>
-    <PackageReleaseNotes>Fixed bug on CacheDependencyKeysBuilder.Object(string objectType, string name) which had !string.IsNullOrWhitespace instead of string.IsNullOrWhitespace</PackageReleaseNotes>
+    <PackageReleaseNotes>Node.js + Gulp + Webpack refactoring</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <Optimize>false</Optimize>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="FrontEndDev\typescript\React\**" />
-    <Content Remove="FrontEndDev\typescript\React\**" />
-    <EmbeddedResource Remove="FrontEndDev\typescript\React\**" />
-    <None Remove="FrontEndDev\typescript\React\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="FrontEndDev\less\Custom.less" />
-    <Content Include="FrontEndDev\less\EditMode.less" />
-    <Content Include="FrontEndDev\typescript\Custom\custom.js" />
-    <Content Include="FrontEndDev\typescript\Custom\custom.js.map" />
-    <Content Include="FrontEndDev\typescript\Custom\custom.ts" />
-    <Content Include="FrontEndDev\typescript\Header\header.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
+	<ItemGroup>
 	  <PackageReference Include="BundlerMinifier.Core" Version="3.2.449" />
 	  <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="5.0.13" />
 	  <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="5.0.13" />

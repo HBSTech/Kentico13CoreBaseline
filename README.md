@@ -111,7 +111,7 @@ Kentico uses Webfarm to sync media file changes, event triggers, and more import
 5. Update any nuget packages for custom tools (usually `Something.Kentico.Core`) installed if needed, however do **not** update non-custom Kentico Nuget Packages as this could break your solution if Kentico's code depends on certain versions.
 6. Rebuild solution
 7. Install Node.js on your computer (if you don't have it)
-8. In a powershell in the MVC/MVC folder, run "npm install"
+8. In a powershell in the MVC/MVC folder, run "npm install" (see [Wiki for CSS/JS Parsing](https://github.com/HBSTech/Kentico13CoreBaseline/wiki/Front-End-Assets-(CSS-JS-Parsing)))
 
 If using IIS, there is also a `web.config`, you will have to update the aspNetCore processPath to point to the project's .exe file.  It is recommended however you use either `IIS Express` for your MVC Site or straight up `Kuberneties`
 
