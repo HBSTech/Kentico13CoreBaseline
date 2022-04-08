@@ -13,16 +13,100 @@
 // under the terms set out in this paragraph. All notices and licenses
 // below are for informational purposes only.
 !function(t){function a(t,a){for(var e=window,r=(t||"").split(".");e&&r.length;)e=e[r.shift()];return"function"==typeof e?e:(a.push(t),Function.constructor.apply(null,a))}function e(t){return"GET"===t||"POST"===t}function r(t,a){e(a)||t.setRequestHeader("X-HTTP-Method-Override",a)}function n(a,e,r){var n;r.indexOf("application/x-javascript")===-1&&(n=(a.getAttribute("data-ajax-mode")||"").toUpperCase(),t(a.getAttribute("data-ajax-update")).each(function(a,r){switch(n){case"BEFORE":t(r).prepend(e);break;case"AFTER":t(r).append(e);break;case"REPLACE-WITH":t(r).replaceWith(e);break;default:t(r).html(e)}}))}function u(u,i){var o,d,c,s;o=u.getAttribute("data-ajax-confirm"),o&&!window.confirm(o)||(d=t(u.getAttribute("data-ajax-loading")),s=parseInt(u.getAttribute("data-ajax-loading-duration"),10)||0,t.extend(i,{type:u.getAttribute("data-ajax-method")||void 0,url:u.getAttribute("data-ajax-url")||void 0,cache:"true"===(u.getAttribute("data-ajax-cache")||"").toLowerCase(),beforeSend:function(t){var e;return r(t,c),e=a(u.getAttribute("data-ajax-begin"),["xhr"]).apply(u,arguments),e!==!1&&d.show(s),e},complete:function(){d.hide(s),a(u.getAttribute("data-ajax-complete"),["xhr","status"]).apply(u,arguments)},success:function(t,e,r){n(u,t,r.getResponseHeader("Content-Type")||"text/html"),a(u.getAttribute("data-ajax-success"),["data","status","xhr"]).apply(u,arguments)},error:function(){a(u.getAttribute("data-ajax-failure"),["xhr","status","error"]).apply(u,arguments)}}),i.data.push({name:"X-Requested-With",value:"XMLHttpRequest"}),c=i.type.toUpperCase(),e(c)||(i.type="POST",i.data.push({name:"X-HTTP-Method-Override",value:c})),t.ajax(i))}function i(a){var e=t(a).data(c);return!e||!e.validate||e.validate()}var o="unobtrusiveAjaxClick",d="unobtrusiveAjaxClickTarget",c="unobtrusiveValidation";t(document).on("click","a[data-ajax=true]",function(t){t.preventDefault(),u(this,{url:this.href,type:"GET",data:[]})}),t(document).on("click","form[data-ajax=true] input[type=image]",function(a){var e=a.target.name,r=t(a.target),n=t(r.parents("form")[0]),u=r.offset();n.data(o,[{name:e+".x",value:Math.round(a.pageX-u.left)},{name:e+".y",value:Math.round(a.pageY-u.top)}]),setTimeout(function(){n.removeData(o)},0)}),t(document).on("click","form[data-ajax=true] :submit",function(a){var e=a.currentTarget.name,r=t(a.target),n=t(r.parents("form")[0]);n.data(o,e?[{name:e,value:a.currentTarget.value}]:[]),n.data(d,r),setTimeout(function(){n.removeData(o),n.removeData(d)},0)}),t(document).on("submit","form[data-ajax=true]",function(a){var e=t(this).data(o)||[],r=t(this).data(d),n=r&&(r.hasClass("cancel")||void 0!==r.attr("formnovalidate"));a.preventDefault(),(n||i(this))&&u(this,{url:this.action,type:this.method||"GET",data:e.concat(t(this).serializeArray())})})}(jQuery);
-"use strict";
-exports.__esModule = true;
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+/******/ 	var __webpack_modules__ = ({
+
+/***/ 93:
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.SiteMethods = void 0;
+var SiteMethods = /** @class */ (function () {
+    function SiteMethods() {
+    }
+    SiteMethods.hello = function () {
+        return "Hello";
+    };
+    SiteMethods.world = function () {
+        return "World";
+    };
+    return SiteMethods;
+}());
+exports.SiteMethods = SiteMethods;
+
+
+/***/ })
+
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			// no module.id needed
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId](module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+(() => {
+var exports = __webpack_exports__;
+var __webpack_unused_export__;
+
+__webpack_unused_export__ = ({ value: true });
+var SiteMethods_1 = __webpack_require__(93);
+// Can access your methods with window.SiteMethods.theMethodName()
+window.SiteMethods = SiteMethods_1.SiteMethods;
+
+})();
+
+/******/ })()
+;
+//# sourceMappingURL=helpers.js.map
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it uses a non-standard name for the exports (exports).
+(() => {
+var exports = __webpack_exports__;
+var __webpack_unused_export__;
+
+__webpack_unused_export__ = ({ value: true });
+__webpack_unused_export__ = void 0;
 /* Content here */
-function test() {
-    var testing = { message: "Hello World2" };
-    alert(testing.message);
-    alert("Hello World!6");
+function testCustom() {
+    var testing = { message: "Hello World" };
     return testing;
 }
+__webpack_unused_export__ = testCustom;
+document.addEventListener("ready", function () {
+    var test = testCustom();
+});
 
+})();
+
+/******/ })()
+;
+//# sourceMappingURL=Custom.js.map
 /*
  Copyright (C) Federico Zivolo 2017
  Distributed under the MIT License (license terms are at http://opensource.org/licenses/MIT).

@@ -16,6 +16,22 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="FrontEndDev\typescript\React\**" />
+    <Content Remove="FrontEndDev\typescript\React\**" />
+    <EmbeddedResource Remove="FrontEndDev\typescript\React\**" />
+    <None Remove="FrontEndDev\typescript\React\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="FrontEndDev\less\Custom.less" />
+    <Content Include="FrontEndDev\less\EditMode.less" />
+    <Content Include="FrontEndDev\typescript\Custom\custom.js" />
+    <Content Include="FrontEndDev\typescript\Custom\custom.js.map" />
+    <Content Include="FrontEndDev\typescript\Custom\custom.ts" />
+    <Content Include="FrontEndDev\typescript\Header\header.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
 	  <PackageReference Include="BundlerMinifier.Core" Version="3.2.449" />
 	  <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="5.0.13" />
 	  <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="5.0.13" />
@@ -49,6 +65,7 @@
     <Folder Include="wwwroot\css\bundles\" />
     <Folder Include="wwwroot\js\bundles\maps\" />
     <Folder Include="wwwroot\js\jquery.unobtrusive.ajax\" />
+    <Folder Include="wwwroot\js\typescript\" />
     <Folder Include="wwwroot\PageBuilder\Admin\InlineEditors\ColorPickerEditor\" />
   </ItemGroup>
 

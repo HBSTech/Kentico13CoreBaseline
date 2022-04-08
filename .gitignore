@@ -45,5 +45,6 @@ XperienceModels/obj
 MVC/MVC/wwroot/css/bundles/**/*
 MVC/MVC/wwroot/js/bundles/**/*
 MVC/MVC/wwroot/css/Custom.css
-MVC/MVC/wwroot/js/scripts/footer.js
-MVC/MVC/wwroot/js/scripts/header.js
+MVC/MVC/wwroot/css/EditMode.css
+MVC/MVC/wwroot/js/scripts/Custom.js
+MVC/MVC/wwroot/js/scripts/HeaderJS.js
