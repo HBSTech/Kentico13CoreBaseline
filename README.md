@@ -4,6 +4,19 @@ Our Kentico 13 Baseline for MVC .Net Core 6.0 Site, the perfect starting point f
 # Bug Fixes / Features Added
 Bug fixes are mentioned here by date and MVC Version # (see MVC/MVC/MVC.csproj version #).  The commit history shows all changes.
 
+**Version 1.3.0 ()**
+* Hotfixed to 64 (Refresh 5) for easier first time installation.
+* Replaced Bundler & Minifier with Node.js (package.json) + Gulp (gulpfile.js) + WebPack (various webpack.configs)
+  * This also removed need for extensions in Visual Studio previously needed.  Base Visual Studio 2022 will suffice now.
+* Added FrontEndDev with code to replace static CSS/JS with Less/Typescript/React:
+  * wwwroot/js/scripts/Custom.js built from FrontEndDev/typescript/Custom/custom.ts
+  * wwwroot/js/scripts/HeaderCustom.js built from FrontEndDev/typescript/Header/header.ts
+  * wwwroot/css/Custom.css built from FrontEndDev/less/Custom.less
+  * wwwroot/css/EditMode.css built from FrontEndDev/less/EditMode.less
+* Added Sample React component (FrontEndDev/react/sampleapp)
+* Added Site Method Helper example (FrontEndDev/typescript/helper/index.ts)
+* Added Image Optimization in Gulp + "optimize" taghelper attribute for img tags.
+
 **Version 1.2.3 (March 11, 2022)** [link 1.2.3](https://github.com/HBSTech/Kentico13CoreBaseline/commit/99457a8497fd35869b41ee2919006bdbd6cf98dd)
 * Swapped the BundlerMinifier package with the Core Variant to prevent SCSS Build errors
 
@@ -72,10 +85,10 @@ On the Kentico Admin (WebApp/Mother) solution, install the following NuGet Packa
 5. Check for any ".Base" package updates from the ones mentioned here, do NOT update other packages though as you may kill Kentico Xperience in doing so.
 
 Optionally install
-5. [HBS_CSVImport](https://www.nuget.org/packages/HBS_CSVImport/) (will be upgraded to 13 in near future)
+5. [XperienceCommunity.CSVImport.Admin](https://www.nuget.org/packages/XperienceCommunity.CSVImport.Admin/)
 6. [HBS.AutomaticGeneratedUserRoles.Kentico](https://www.nuget.org/packages/HBS.AutomaticGeneratedUserRoles.Kentico/) (may not be needed with new Authorization plugin already installed)
 
-Make sure you have Visual Studio 2022 or higher, and the Visual Studio extensions [Web Compiler 2022+](https://marketplace.visualstudio.com/items?itemName=Failwyn.WebCompiler64), [WebPack task Runner](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.WebPackTaskRunner), [Bundler & Minifier 2022+](https://marketplace.visualstudio.com/items?itemName=Failwyn.BundlerMinifier64), and optionally [NPM Task Runner](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.NPMTaskRunner).
+Make sure you have Visual Studio 2022 or higher.
  
 ## Install Site Objects / Settings
 When starting fresh, please perform the following operations in your Kentico Xperience Admin instance:
