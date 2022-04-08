@@ -1,4 +1,3 @@
-const TerserPlugin = require("terser-webpack-plugin");
 const path = require('path');
 const isDevelopment = (process.env.NODE_ENV !== undefined && process.env.NODE_ENV.toLowerCase() === "development" ? true : false);
 
