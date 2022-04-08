@@ -1,43 +1,10 @@
 # Kentico13CoreBaseline
 Our Kentico 13 Baseline for MVC .Net Core 6.0 Site, the perfect starting point for your Kentico Xperience 13 Site to get up and running right away.
 
-# Installation
-Install a normal Kentico 13 Site, and hotfix it up to at least 13.0.62 (KX13 Refresh 3)
-
-Also make sure to install .Net 6.0 and .Net Core 3.1 onto your solution (you can install the Hosting Bundles as well if you plan on hosting via IIS)
-
-## Install NuGet Packages
-On the Kentico Admin (WebApp/Mother) solution, install the following NuGet Packages
-
-1. [RelationshipsExtended](https://www.nuget.org/packages/RelationshipsExtended/)
-2. [PageBuilderContainers.Kentico](https://www.nuget.org/packages/PageBuilderContainers.Kentico/)
-3. [XperienceCommunity.PageCustomDataControlExtender](https://github.com/wiredviews/xperience-page-custom-data-control-extender)
-
-Optionally install
-5. [XperienceCommunity.CSVImport.Admin](https://www.nuget.org/packages/XperienceCommunity.CSVImport.Admin/)
-6. [HBS.AutomaticGeneratedUserRoles.Kentico](https://www.nuget.org/packages/HBS.AutomaticGeneratedUserRoles.Kentico/) (may not be needed with new Authorization plugin already installed)
-
-Make sure you have Visual Studio 2022 or higher.
-
-## Upgrading / Hotfixing Admin
-If you already had the Baseline for Admin, or are upgrading / hotfixing in the future, make sure to update the `Kentico.Xperience.Libraries` nuget package on the admin to the version your site is either on or hotfixing to.  The NuGet packages this Baseline uses inherits this nuget package, and **if you fail to update this package after you hotfix, your Admin solution will probably not work.**
-
 # Bug Fixes / Features Added
 Bug fixes are mentioned here by date and MVC Version # (see MVC/MVC/MVC.csproj version #).  The commit history shows all changes.
 
-**Version 1.3.0 ()**
-* Hotfixed to 64 (Refresh 5) for easier first time installation.
-* Replaced Bundler & Minifier with Node.js (package.json) + Gulp (gulpfile.js) + WebPack (various webpack.configs)
-* Added FrontEndDev with code to replace static CSS/JS with Less/Typescript/React:
-  * wwwroot/js/scripts/Custom.js built from FrontEndDev/typescript/Custom/custom.ts
-  * wwwroot/js/scripts/HeaderCustom.js built from FrontEndDev/typescript/Header/header.ts
-  * wwwroot/css/Custom.css built from FrontEndDev/less/Custom.less
-  * wwwroot/css/EditMode.css built from FrontEndDev/less/EditMode.less
-* Added Sample React component (FrontEndDev/react/sampleapp)
-* Added Site Method Helper example (FrontEndDev/typescript/helper/index.ts)
-* Added Image Optimization in Gulp + "optimize" taghelper attribute for img tags.
-
-**Version 1.2.3 (March 11, 2022)**
+**Version 1.2.3 (March 11, 2022)** [link 1.2.3](https://github.com/HBSTech/Kentico13CoreBaseline/commit/99457a8497fd35869b41ee2919006bdbd6cf98dd)
 * Swapped the BundlerMinifier package with the Core Variant to prevent SCSS Build errors
 
 **Version 1.2.1/1.2.2 (March 10, 2022)** [link 1.2.1](https://github.com/HBSTech/Kentico13CoreBaseline/commit/e4faa1ceee19c4ddeea7fe8870f9de10ba63d217) [link 1.2.2](https://github.com/HBSTech/Kentico13CoreBaseline/commit/a3f5f4e523a97f0c036deae046a64ee3169a50b8)
@@ -86,7 +53,30 @@ Bug fixes are mentioned here by date and MVC Version # (see MVC/MVC/MVC.csproj v
 **Version 1.0.0 (January 12)** [link](https://github.com/HBSTech/Kentico13CoreBaseline/commit/97679a9674676a194066eedd89f8080160d157d8)
 * Fixed typo on TreeNodeExtension that if the error on getting the Urls for PageIdentity fail, to use the fullPage instead of the page to retrieve.
 
+# Upgrading / Hotfixing Admin
+If you already had the Baseline for Admin, or are upgrading / hotfixing in the future, make sure to update the `Kentico.Xperience.Libraries` nuget package on the admin to the version your site is either on or hotfixing to.  The NuGet packages this Baseline uses inherits this nuget package, and **if you fail to update this package after you hotfix, your Admin solution will probably not work.**
+ 
 # FRESH INSTALL
+
+Install a normal Kentico 13 Site, and hotfix it up to at least 13.0.62 (KX13 Refresh 3)
+
+Also make sure to install .Net 6.0 and .Net Core 3.1 onto your solution (you can install the Hosting Bundles as well if you plan on hosting via IIS)
+ 
+## Install NuGet Packages
+On the Kentico Admin (WebApp/Mother) solution, install the following NuGet Packages
+
+1. [RelationshipsExtended](https://www.nuget.org/packages/RelationshipsExtended/)
+2. [PageBuilderContainers.Kentico](https://www.nuget.org/packages/PageBuilderContainers.Kentico/)
+3. [XperienceCommunity.PageCustomDataControlExtender](https://github.com/wiredviews/xperience-page-custom-data-control-extender)
+4. Update Kentico.Xperience.Libraries to hotfix 62
+5. Check for any ".Base" package updates from the ones mentioned here, do NOT update other packages though as you may kill Kentico Xperience in doing so.
+
+Optionally install
+5. [HBS_CSVImport](https://www.nuget.org/packages/HBS_CSVImport/) (will be upgraded to 13 in near future)
+6. [HBS.AutomaticGeneratedUserRoles.Kentico](https://www.nuget.org/packages/HBS.AutomaticGeneratedUserRoles.Kentico/) (may not be needed with new Authorization plugin already installed)
+
+Make sure you have Visual Studio 2022 or higher, and the Visual Studio extensions [Web Compiler 2022+](https://marketplace.visualstudio.com/items?itemName=Failwyn.WebCompiler64), [WebPack task Runner](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.WebPackTaskRunner), [Bundler & Minifier 2022+](https://marketplace.visualstudio.com/items?itemName=Failwyn.BundlerMinifier64), and optionally [NPM Task Runner](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.NPMTaskRunner).
+ 
 ## Install Site Objects / Settings
 When starting fresh, please perform the following operations in your Kentico Xperience Admin instance:
 
@@ -110,8 +100,6 @@ Kentico uses Webfarm to sync media file changes, event triggers, and more import
 4. Restore Nuget Packages (May have to run `Update-Package -reinstall` in nuget command prompt)
 5. Update any nuget packages for custom tools (usually `Something.Kentico.Core`) installed if needed, however do **not** update non-custom Kentico Nuget Packages as this could break your solution if Kentico's code depends on certain versions.
 6. Rebuild solution
-7. Install Node.js on your computer (if you don't have it)
-8. In a powershell in the MVC/MVC folder, run "npm install" (see [Wiki for CSS/JS Parsing](https://github.com/HBSTech/Kentico13CoreBaseline/wiki/Front-End-Assets-(CSS-JS-Parsing)))
 
 If using IIS, there is also a `web.config`, you will have to update the aspNetCore processPath to point to the project's .exe file.  It is recommended however you use either `IIS Express` for your MVC Site or straight up `Kuberneties`
 
@@ -135,8 +123,6 @@ the Kentico12Baseline uses the [Dynamic Routing](https://github.com/KenticoDevTr
 ## Upgrade from previous Kentico 13 Baseline
 
 Upgrading from an existing Kentico Xperience 13 Core Baseline may prove a bit difficult as the entire repository was revamped.  Features wise and Admin/Database wise not much has changed (aside from how SEO meta data is stored/retrieved), however the whole project structure was revamped.  It may be easier if you want to upgrade your baseline to simply start with the new baseline and add in your features / custom code and views.
-
-You can also look at the pull requests for each version into master and see what files were modified.
 
 ## MetaData to DocumentCustomData
 In KX 12 MVC we used a tool for the SEO Meta Data that serialized / deserialized the MetaData into a long text field.  In the knew KX 13 baseline, we leverage the DocumentCustomData to assign Key-Values of the SEO Data.  If you are upgrading from KX12, please do the following:
