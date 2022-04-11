@@ -7,7 +7,7 @@ Bug fixes are mentioned here by date and MVC Version # (see MVC/MVC/MVC.csproj v
 **Version 1.3.0 ()**
 * Hotfixed to 64 (Refresh 5) for easier first time installation.
 * Replaced Bundler & Minifier with Node.js (package.json) + Gulp (gulpfile.js) + WebPack (various webpack.configs)
-  * This also removed need for extensions in Visual Studio previously needed.  Base Visual Studio 2022 will suffice now.
+  * This also removed need for extensions in Visual Studio previously needed.  Base Visual Studio 2022 will suffice now, although NPM Task Runner is beneficial.
 * Added FrontEndDev with code to replace static CSS/JS with Less/Typescript/React:
   * wwwroot/js/scripts/Custom.js built from FrontEndDev/typescript/Custom/custom.ts
   * wwwroot/js/scripts/HeaderCustom.js built from FrontEndDev/typescript/Header/header.ts
@@ -88,7 +88,7 @@ Optionally install
 5. [XperienceCommunity.CSVImport.Admin](https://www.nuget.org/packages/XperienceCommunity.CSVImport.Admin/)
 6. [HBS.AutomaticGeneratedUserRoles.Kentico](https://www.nuget.org/packages/HBS.AutomaticGeneratedUserRoles.Kentico/) (may not be needed with new Authorization plugin already installed)
 
-Make sure you have Visual Studio 2022 or higher.
+Make sure you have Visual Studio 2022 or higher, recommended to install the extension "NPM Task Rnner" so you can run the npm install and npm dev/production from the Task Runner Explorer.
  
 ## Install Site Objects / Settings
 When starting fresh, please perform the following operations in your Kentico Xperience Admin instance:
@@ -109,10 +109,11 @@ Kentico uses Webfarm to sync media file changes, event triggers, and more import
 ## Replace MVC Solution with Baseline
 1. Remove the default MVC site folder and replace it with this repository
 2. Copy `appsettings.json` and rename it `appsettings.Development.json`, update the empty fields with your connection string, Signature hash salt, and your Admin url.
-3. Open the MVC Solution
-4. Restore Nuget Packages (May have to run `Update-Package -reinstall` in nuget command prompt)
-5. Update any nuget packages for custom tools (usually `Something.Kentico.Core`) installed if needed, however do **not** update non-custom Kentico Nuget Packages as this could break your solution if Kentico's code depends on certain versions.
-6. Rebuild solution
+3. run "npm install" in command/powershell in the MVC/MVC folder (must have `NodeJS` installed on your computer)
+4. Open the MVC Solution
+5. Restore Nuget Packages (May have to run `Update-Package -reinstall` in nuget command prompt)
+6. Update any nuget packages for custom tools (usually `Something.Kentico.Core`) installed if needed, however do **not** update non-custom Kentico Nuget Packages as this could break your solution if Kentico's code depends on certain versions.
+7. Rebuild solution
 
 If using IIS, there is also a `web.config`, you will have to update the aspNetCore processPath to point to the project's .exe file.  It is recommended however you use either `IIS Express` for your MVC Site or straight up `Kuberneties`
 
