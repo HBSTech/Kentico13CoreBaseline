@@ -163,7 +163,7 @@ task("Watch", function () {
     watch(["FrontEndDev/typescript/Custom/*.{js,ts}"], series(customTypescript, footerJs));
     watch(["FrontEndDev/typescript/Helper/*.{js,ts}"], series(helperTypescript, footerJs));
     watch(["FrontEndDev/react/sampleapp/*.{ts,tsx,js,jsx}"], series(sampleReactApp, footerJs));
-    watch(["wwwroot/css/images/src/*.{jpg,jpeg,png}"], series(imageOptimize, imageWebp));
+    watch(["wwwroot/images/src/*.{jpg,jpeg,png}"], series(imageOptimize, imageWebp));
 })
 
 // Individual Tasks that can be ran from Task Runner Explorer
