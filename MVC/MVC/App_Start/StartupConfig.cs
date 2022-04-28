@@ -319,6 +319,7 @@ namespace Generic.App_Start
                     RequestPath = "/Baseline"
                 });
             */
+            app.UseStaticFiles();
             
 
             app.UseKentico();
