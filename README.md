@@ -4,7 +4,7 @@ Our Kentico 13 Baseline for MVC .Net Core 6.0 Site, the perfect starting point f
 # Bug Fixes / Features Added
 Bug fixes are mentioned here by date and MVC Version # (see MVC/MVC/MVC.csproj version #).  The commit history shows all changes.
 
-**Version 1.3.0 ()**
+**Version 1.3.0 (April 8, 2022)** [link 1.3.0](https://github.com/HBSTech/Kentico13CoreBaseline/pull/12)
 * Hotfixed to 64 (Refresh 5) for easier first time installation.
 * Replaced Bundler & Minifier with Node.js (package.json) + Gulp (gulpfile.js) + WebPack (various webpack.configs)
   * This also removed need for extensions in Visual Studio previously needed.  Base Visual Studio 2022 will suffice now, although NPM Task Runner is beneficial.
@@ -88,7 +88,9 @@ Optionally install
 5. [XperienceCommunity.CSVImport.Admin](https://www.nuget.org/packages/XperienceCommunity.CSVImport.Admin/)
 6. [HBS.AutomaticGeneratedUserRoles.Kentico](https://www.nuget.org/packages/HBS.AutomaticGeneratedUserRoles.Kentico/) (may not be needed with new Authorization plugin already installed)
 
-Make sure you have Visual Studio 2022 or higher, recommended to install the extension "NPM Task Rnner" so you can run the npm install and npm dev/production from the Task Runner Explorer.
+Make sure you have Visual Studio 2022 or higher, recommended to install the extension "NPM Task Runner" so you can run the npm install and npm dev/production from the Task Runner Explorer.
+ 
+**Typescript Error on Build:** Some users have reported seeing typescript errors on build.  If you see this, please install the [`Microsoft.TypeScript.MSBuild`](https://www.nuget.org/packages/Microsoft.TypeScript.MSBuild/) nuget package on the MVC Project.
  
 ## Install Site Objects / Settings
 When starting fresh, please perform the following operations in your Kentico Xperience Admin instance:

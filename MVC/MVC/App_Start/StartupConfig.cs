@@ -312,12 +312,15 @@ namespace Generic.App_Start
             //         </handlers>
             //     </system.webServer>
             // </configuration>
-            app.UseStaticFiles(new StaticFileOptions()
-            {
-                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Baseline")),
-                RequestPath = "/Baseline"
-            });
-
+            /*
+                app.UseStaticFiles(new StaticFileOptions()
+                {
+                    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Baseline")),
+                    RequestPath = "/Baseline"
+                });
+            */
+            app.UseStaticFiles();
+            
 
             app.UseKentico();
 
