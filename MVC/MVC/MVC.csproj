@@ -46,7 +46,6 @@
   <ItemGroup>
     <Folder Include="Repositories\Implementation\" />
     <Folder Include="Views\Shared\PageTypes\" />
-    <Folder Include="wwwroot\css\bundles\" />
     <Folder Include="wwwroot\js\jquery.unobtrusive.ajax\" />
     <Folder Include="wwwroot\js\typescript\" />
     <Folder Include="wwwroot\PageBuilder\Admin\InlineEditors\ColorPickerEditor\" />

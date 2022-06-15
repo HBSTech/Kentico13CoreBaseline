@@ -34,7 +34,8 @@ msbuild.err
 msbuild.wrn
 
 # Visual Studio 2015
-.vs/
+/.vs
+.vs
 
 packages
 
@@ -82,8 +83,8 @@ packages
 **/DancingGoatCore/media/**/*
 **/DancingGoatMvc/media/**/*
 
-
 # Ignore files that automatically build from source using npm gulp
+MVC/MVC/node_modules/**/*
 MVC/MVC/package-lock.json
 MVC/MVC/wwwroot/css/bundles/**/*
 MVC/MVC/wwwroot/js/bundles/**/*
