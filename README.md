@@ -4,6 +4,11 @@ Our Kentico 13 Baseline for MVC .Net Core 6.0 Site, the perfect starting point f
 # Bug Fixes / Features Added
 Bug fixes are mentioned here by date and MVC Version # (see MVC/MVC/MVC.csproj version #).  The commit history shows all changes.
 
+
+**Version 1.4.0 (August 19, 2022)** [link 1.4.0](#)
+* Hotfixed to 79 (Refresh 6+)
+* Hotfix and upgrade various nuget packages
+
 **Version 1.3.0 (April 8, 2022)** [link 1.3.0](https://github.com/HBSTech/Kentico13CoreBaseline/pull/12)
 * Hotfixed to 64 (Refresh 5) for easier first time installation.
 * Replaced Bundler & Minifier with Node.js (package.json) + Gulp (gulpfile.js) + WebPack (various webpack.configs)

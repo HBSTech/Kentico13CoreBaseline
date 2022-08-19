@@ -7,7 +7,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>Generic</RootNamespace>
     <AssemblyName>MVC</AssemblyName>
-    <Version>1.3.0</Version>
+    <Version>1.4.0</Version>
     <PackageReleaseNotes>Node.js + Gulp + Webpack refactoring</PackageReleaseNotes>
   </PropertyGroup>
 
@@ -27,7 +27,7 @@
     <PackageReference Include="BootstrapLayoutTool.PageBuilderContainered.Kentico.MVC.Core" Version="13.31.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.6" />
     <PackageReference Include="HBS.AutomaticGeneratedUserRoles.Kentico" Version="13.0.0" />
-    <PackageReference Include="kentico.xperience.aspnetcore.webapp" Version="13.0.64" />
+    <PackageReference Include="kentico.xperience.aspnetcore.webapp" Version="13.0.79" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.4" />
     <PackageReference Include="MVCCaching.Base.Core" Version="2.1.1" />
     <PackageReference Include="MVCCaching.Kentico.Core" Version="13.0.2" />
@@ -40,7 +40,7 @@
     <PackageReference Include="XperienceCommunity.PageBuilderTagHelpers" Version="1.1.0" />
     <PackageReference Include="XperienceCommunity.PageNavigationRedirects" Version="1.1.0" />
     <PackageReference Include="XperienceCommunity.PageTemplateUtilities" Version="1.0.0" />
-    <PackageReference Include="XperienceCommunity.WidgetFilter" Version="13.0.1" />
+    <PackageReference Include="XperienceCommunity.WidgetFilter" Version="13.0.2" />
   </ItemGroup>
 
   <ItemGroup>
