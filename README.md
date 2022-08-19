@@ -5,7 +5,7 @@ Our Kentico 13 Baseline for MVC .Net Core 6.0 Site, the perfect starting point f
 Bug fixes are mentioned here by date and MVC Version # (see MVC/MVC/MVC.csproj version #).  The commit history shows all changes.
 
 
-**Version 1.4.0 (August 19, 2022)** [link 1.4.0](#)
+**Version 1.4.0 (August 19, 2022)** [link 1.4.0](https://github.com/HBSTech/Kentico13CoreBaseline/commit/39b9e826a1d6409c155061c77f838f58940d4534)
 * Hotfixed to 79 (Refresh 6+)
 * Hotfix and upgrade various nuget packages
 
