@@ -27,13 +27,13 @@
     <PackageReference Include="BootstrapLayoutTool.PageBuilderContainered.Kentico.MVC.Core" Version="13.31.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.6" />
     <PackageReference Include="HBS.AutomaticGeneratedUserRoles.Kentico" Version="13.0.0" />
-    <PackageReference Include="kentico.xperience.aspnetcore.webapp" Version="13.0.79" />
+    <PackageReference Include="kentico.xperience.aspnetcore.webapp" Version="13.0.83" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.4" />
     <PackageReference Include="MVCCaching.Base.Core" Version="2.1.1" />
-    <PackageReference Include="MVCCaching.Kentico.Core" Version="13.0.2" />
+    <PackageReference Include="MVCCaching.Kentico.Core" Version="13.0.3" />
     <PackageReference Include="PageBuilderContainers.Kentico.MVC.Core" Version="13.0.3" />
-    <PackageReference Include="PartialWidgetPage.Kentico.MVC.Core" Version="13.0.3" />
-    <PackageReference Include="PartialWidgetPage.Kentico.MVC.Core.Widget" Version="13.0.1" />
+    <PackageReference Include="PartialWidgetPage.Kentico.MVC.Core" Version="13.1.0" />
+    <PackageReference Include="PartialWidgetPage.Kentico.MVC.Core.Widget" Version="13.1.0" />
     <PackageReference Include="RelationshipsExtended.MVC.Standard" Version="13.0.1" />
     <PackageReference Include="XperienceCommunity.Authorization" Version="13.5.0" />
     <PackageReference Include="XperienceCommunity.Localizer" Version="13.5.0" />
