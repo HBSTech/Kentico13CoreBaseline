@@ -111,10 +111,7 @@ namespace Generic.Repositories.Implementations
             var results = await _pageRetriever.RetrieveAsync<TreeNode>(
                 query => query
                     .WhereEquals(nameof(TreeNode.DocumentID), documentID),
-                cacheSettings => cacheSettings
-                    .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
-                    .Key($"GetPageAttachmentsAsync|{documentID}")
-                    .Expiration(TimeSpan.FromMinutes(15))
+                cs => cs.Configure(builder, 15, "GetPageAttachmentsAsync", documentID)
                 );
 
             if (results.Any())

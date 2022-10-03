@@ -48,10 +48,7 @@ namespace Generic.Repositories.Implementations
                     .WhereEquals(nameof(TreeNode.DocumentID), documentId)
                     .Columns(nameof(TreeNode.DocumentCustomData), nameof(TreeNode.DocumentPageTitle), nameof(TreeNode.DocumentPageDescription), nameof(TreeNode.DocumentPageKeyWords))
                     .TopN(1),
-                cacheSettings => cacheSettings
-                    .Dependencies((result, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
-                    .Key($"GetMetaDataAsync|{documentId}")
-                    .Expiration(TimeSpan.FromMinutes(1440))
+                cs => cs.Configure(builder, 1440, "GetMetaDataAsync", documentId)
             );
             return GetMetaDataInternal(page.FirstOrDefault(), thumbnail);
         }
@@ -66,10 +63,7 @@ namespace Generic.Repositories.Implementations
                     .WhereEquals(nameof(TreeNode.DocumentGUID), documentGuid)
                     .Columns(nameof(TreeNode.DocumentCustomData), nameof(TreeNode.DocumentPageTitle), nameof(TreeNode.DocumentPageDescription), nameof(TreeNode.DocumentPageKeyWords))
                     .TopN(1),
-                cacheSettings => cacheSettings
-                    .Dependencies((result, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
-                    .Key($"GetMetaDataAsync|{documentGuid}")
-                    .Expiration(TimeSpan.FromDays(1))
+                cs => cs.Configure(builder, 1440, "GetMetaDataAsync", documentGuid)
             );
             return GetMetaDataInternal(page.FirstOrDefault(), thumbnail);
         }

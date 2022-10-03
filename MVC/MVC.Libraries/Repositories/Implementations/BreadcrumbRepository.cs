@@ -147,10 +147,7 @@ namespace Generic.Repositories.Implementations
                 .WithPageUrlPaths()
                 .If(validClassNames.Length > 0, query => query.Where($"NodeClassID in (select ClassID from CMS_Class where ClassName in ('{string.Join("','", validClassNames.Select(x => SqlHelper.EscapeQuotes(x)))}'))")),
                 
-                cacheSettings => cacheSettings
-                    .Dependencies((items, csbuilder) => csbuilder.PagePath("/", PathTypeEnum.Section))
-                    .Key($"GetNodeToBreadcrumbAndParent")
-                    .Expiration(TimeSpan.FromMinutes(60))
+                cs => cs.Configure(builder, 60, "GetNodeToBreadcrumbAndParent")
                 );
             return results.GroupBy(x => x.NodeID)
                 .ToDictionary(key => key.Key, values => values.Select(x => new Tuple<Breadcrumb, int>(_mapper.Map<Breadcrumb>(x), x.NodeParentID)).FirstOrDefault());

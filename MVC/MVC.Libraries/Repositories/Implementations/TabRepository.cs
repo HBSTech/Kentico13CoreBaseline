@@ -56,10 +56,7 @@ namespace Generic.Repositories.Implementations
                         nameof(TabParent.TabParentName),
                         nameof(TabParent.NodeAliasPath)
                    }),
-               cacheSettings => cacheSettings
-                   .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
-                   .Key($"GetTabParentAsync|{nodeID}")
-                   .Expiration(TimeSpan.FromMinutes(60))
+               cs => cs.Configure(builder, 60, "GetTabParentAsync", nodeID)
                );
 
             return retriever.Select(x => _mapper.Map<TabParentItem>(x)).FirstOrDefault();
@@ -67,8 +64,8 @@ namespace Generic.Repositories.Implementations
 
         public async Task<IEnumerable<TabItem>> GetTabsAsync(string path)
         {
-            var builder = new CacheDependencyKeysBuilder(_siteRepository, _cacheDependenciesStore);
-            builder.PagePath(path, PathTypeEnum.Children);
+            var builder = new CacheDependencyKeysBuilder(_siteRepository, _cacheDependenciesStore)
+                .PagePath(path, PathTypeEnum.Children);
 
             var retriever = await _pageRetriever.RetrieveAsync<Tab>(
                 query => query
@@ -78,10 +75,7 @@ namespace Generic.Repositories.Implementations
                         nameof(Tab.TabName)
                     })
                     .OrderBy(nameof(TreeNode.NodeLevel), nameof(TreeNode.NodeOrder)),
-                cacheSettings => cacheSettings
-                    .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
-                    .Key($"GetTabsAsync|{path}")
-                    .Expiration(TimeSpan.FromMinutes(60))
+                cs => cs.Configure(builder, 60, "GetTabsAsync", path)
                 );
 
             return retriever.Select(x => _mapper.Map<TabItem>(x));
