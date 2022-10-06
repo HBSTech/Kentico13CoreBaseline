@@ -59,7 +59,7 @@ packages
 !**/CMS/CMSAdminControls/*/
 !**/CMS/CMSModules/System/*/
 !**/CMS/App_Data/CIRepository/**
-!**/CMS/App_Data/CMSModules/CMSInstallation/**
+!**/CMS/App_Data/CMSModules/CMSInstallation/Packages/Installed/**
 !**/CMS/CMSWebParts/Media/**
 !**/CMS/CMSFormControls/Media/**
 
