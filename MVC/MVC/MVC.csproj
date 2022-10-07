@@ -16,7 +16,6 @@
   </PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="BundlerMinifier.Core" Version="3.2.449" />
 	  <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="5.0.13" />
 	  <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="5.0.13" />
 	  <PackageReference Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="5.0.13" />
