@@ -90,7 +90,7 @@ On the Kentico Admin (WebApp/Mother) solution, install the following NuGet Packa
 1. [RelationshipsExtended](https://www.nuget.org/packages/RelationshipsExtended/)
 2. [PageBuilderContainers.Kentico](https://www.nuget.org/packages/PageBuilderContainers.Kentico/)
 3. [XperienceCommunity.PageCustomDataControlExtender](https://github.com/wiredviews/xperience-page-custom-data-control-extender)
-4. Update Kentico.Xperience.Libraries to hotfix 62
+4. Update Kentico.Xperience.Libraries to hotfix 83
 5. Check for any ".Base" package updates from the ones mentioned here, do NOT update other packages though as you may kill Kentico Xperience in doing so.
 
 Optionally install
