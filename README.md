@@ -4,6 +4,10 @@ Our Kentico 13 Baseline for MVC .Net Core 6.0 Site, the perfect starting point f
 # Bug Fixes / Features Added
 Bug fixes are mentioned here by date and MVC Version # (see MVC/MVC/MVC.csproj version #).  The commit history shows all changes.
 
+**Version 1.5.0 (August 19, 2022)** [link 1.5.0](https://github.com/HBSTech/Kentico13CoreBaseline/commit/bd7be0a4680c526cc9f35b014c8f0e9c297e3607)
+* Hotfixed to 83 (Refresh 7)
+* Hotfix and upgrade MVCCaching and PartialWidgetPage packages
+* Added IPageCacheBuilder Configure extension method to simplify IPageRetriever cache hookup.
 
 **Version 1.4.0 (August 19, 2022)** [link 1.4.0](https://github.com/HBSTech/Kentico13CoreBaseline/commit/39b9e826a1d6409c155061c77f838f58940d4534)
 * Hotfixed to 79 (Refresh 6+)
@@ -76,7 +80,7 @@ If you already had the Baseline for Admin, or are upgrading / hotfixing in the f
  
 # FRESH INSTALL
 
-Install a normal Kentico 13 Site, and hotfix it up to at least 13.0.62 (KX13 Refresh 3)
+Install a normal Kentico 13 Site on Refresh 7 (hotfix 83), or install a normal Kentico 13 site and hotfix to Refresh 7 (83)
 
 Also make sure to install .Net 6.0 and .Net Core 3.1 onto your solution (you can install the Hosting Bundles as well if you plan on hosting via IIS)
  
@@ -86,7 +90,7 @@ On the Kentico Admin (WebApp/Mother) solution, install the following NuGet Packa
 1. [RelationshipsExtended](https://www.nuget.org/packages/RelationshipsExtended/)
 2. [PageBuilderContainers.Kentico](https://www.nuget.org/packages/PageBuilderContainers.Kentico/)
 3. [XperienceCommunity.PageCustomDataControlExtender](https://github.com/wiredviews/xperience-page-custom-data-control-extender)
-4. Update Kentico.Xperience.Libraries to hotfix 62
+4. Update Kentico.Xperience.Libraries to hotfix 83
 5. Check for any ".Base" package updates from the ones mentioned here, do NOT update other packages though as you may kill Kentico Xperience in doing so.
 
 Optionally install
