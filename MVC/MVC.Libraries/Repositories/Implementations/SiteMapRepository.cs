@@ -52,7 +52,7 @@ namespace Generic.Repositories.Implementations
                     .WhereEquals(nameof(TreeNode.DocumentShowInMenu), true)
                     .OrderBy(nameof(TreeNode.NodeLevel), nameof(TreeNode.NodeOrder))
                     .WithPageUrlPaths(),
-                cacheSettings => cacheSettings
+                cs => cs
                     .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
                     .Key($"GetSiteMapUrlSetAsync|Custom")
                     .Expiration(TimeSpan.FromMinutes(60))
@@ -124,6 +124,9 @@ namespace Generic.Repositories.Implementations
             var documents = await GetSiteMapUrlSetForClassBase(path, className, options);
             var siteMapItems = new List<SitemapNode>();
 
+            var builder = new CacheDependencyKeysBuilder(_siteRepository, _cacheDependenciesStore)
+                .PagePath(path, PathTypeEnum.Single);
+
             foreach (var page in documents)
             {
                 var relativeUrl = page.GetStringValue(options.UrlColumnName, _pageUrlRetriever.Retrieve(page).RelativePath);
@@ -135,10 +138,7 @@ namespace Generic.Repositories.Implementations
                         .Path(relativeUrl, PathTypeEnum.Single)
                         .Columns(nameof(TreeNode.DocumentModifiedWhen))
                         ,
-                    cacheSettings => cacheSettings
-                        .Dependencies((items, csbuilder) => csbuilder.Pages(items))
-                        .Key($"GetDocumentModified|{relativeUrl}")
-                        .Expiration(TimeSpan.FromMinutes(15))
+                    cs => cs.Configure(builder, 15, "GetDocumentModified", relativeUrl)
                         );
                     
                 if (actualPage.Any())
@@ -196,11 +196,8 @@ namespace Generic.Repositories.Implementations
                     .CombineWithDefaultCulture()
                     .CombineWithAnyCulture()
                     .WithPageUrlPaths();
-            }, cacheSettings =>
-                cacheSettings
-                    .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
-                    .Key($"GetSiteMapUrlSetForClassBase|{path}{className}|{options.GetCacheKey()}")
-                    .Expiration(TimeSpan.FromMinutes(1440))
+            }, cs =>
+                cs.Configure(builder, 1440, "GetSiteMapUrlSetForClassBase", path, className, options)
                 );
             return results;
         }
@@ -219,50 +216,31 @@ namespace Generic.Repositories.Implementations
             }
 
             // Get the actual items
-            var results = await _pageRetriever.RetrieveAsync<TreeNode>(query =>
-            {
-                query.Path(path, PathTypeEnum.Section);
-                if (options.CheckDocumentPermissions.HasValue)
-                {
-                    query.CheckPermissions(options.CheckDocumentPermissions.Value);
-                }
-                if (options.CombineWithDefaultCulture.HasValue)
-                {
-                    query.CombineWithDefaultCulture(options.CombineWithDefaultCulture.Value);
-                }
-                if (options.MaxRelativeLevel > -1)
-                {
-                    // Get the nesting level of the give path
-                    query.NestingLevel(options.MaxRelativeLevel + nodeLevel);
-                }
-                if (!string.IsNullOrWhiteSpace(options.WhereCondition))
-                {
-                    query.Where(options.WhereCondition);
-                }
-                query.Culture(culture)
-                    .CombineWithDefaultCulture()
-                    .CombineWithAnyCulture()
-                    .WithPageUrlPaths();
-            }, cacheSettings =>
-                cacheSettings
-                    .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
-                    .Key($"GetSiteMapUrlSetBaseAsync|{path}|{options.GetCacheKey()}")
-                    .Expiration(TimeSpan.FromMinutes(1440))
+            var results = await _pageRetriever.RetrieveAsync<TreeNode>(query => query
+                .Path(path, PathTypeEnum.Section)
+                .If(options.CheckDocumentPermissions.HasValue, query => query.CheckPermissions(options.CheckDocumentPermissions.Value))
+                .If(options.CombineWithDefaultCulture.HasValue, query => query.CombineWithDefaultCulture(options.CombineWithDefaultCulture.Value))
+                .If(options.MaxRelativeLevel > -1, query => query.NestingLevel(options.MaxRelativeLevel + nodeLevel))
+                .If(!string.IsNullOrWhiteSpace(options.WhereCondition), query => query.Where(options.WhereCondition))
+                .Culture(culture)
+                .CombineWithDefaultCulture()
+                .CombineWithAnyCulture()
+                .WithPageUrlPaths()
+            , cs => cs.Configure(builder, 1440, "GetSiteMapUrlSetBaseAsync", path, options)
                 );
             return results;
         }
 
         private async Task<int> GetNodeLevelAsync(string path)
         {
+            var builder = new CacheDependencyKeysBuilder(_siteRepository, _cacheDependenciesStore)
+                .PagePath(path, PathTypeEnum.Single);
+
             var levelResult = await _pageRetriever.RetrieveAsync<TreeNode>(query =>
                query
                    .Path(path, PathTypeEnum.Single)
                    .Columns(nameof(TreeNode.NodeLevel)),
-               cacheSettings =>
-               cacheSettings
-                   .Dependencies((items, csbuilder) => csbuilder.PagePath(path, PathTypeEnum.Single))
-                   .Key($"GetNodeLevelByPath|{path}")
-                   .Expiration(TimeSpan.FromMinutes(60))
+               cs =>  cs.Configure(builder, 60, "GetNodeLevelByPath", path)
                );
             return levelResult.FirstOrDefault()?.NodeLevel ?? 0;
         }

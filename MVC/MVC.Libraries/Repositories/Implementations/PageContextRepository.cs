@@ -81,10 +81,7 @@ namespace Generic.Repositories.Implementations
                         nameof(TreeNode.NodeLevel)
                         })
                     .WithPageUrlPaths(),
-                cacheSettings => cacheSettings
-                    .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
-                    .Key($"GetPageAsync|{path}")
-                    .Expiration(TimeSpan.FromMinutes(15))
+                cs => cs.Configure(builder, 15, "GetPageAsync", path)
                 );
             return (page.Any() ? page.FirstOrDefault().ToPageIdentity() : null);
         }
@@ -115,10 +112,7 @@ namespace Generic.Repositories.Implementations
                         nameof(TreeNode.NodeLevel)
                         })
                     .WithPageUrlPaths(),
-                cacheSettings => cacheSettings
-                    .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
-                    .Key($"GetPageAsync|{documentID}")
-                    .Expiration(TimeSpan.FromMinutes(15))
+                cs => cs.Configure(builder, 15, "GetPageAsync", documentID)
                 );
             return (page.Any() ? page.FirstOrDefault().ToPageIdentity() : null);
         }
@@ -149,10 +143,7 @@ namespace Generic.Repositories.Implementations
                         nameof(TreeNode.NodeLevel)
                         })
                     .WithPageUrlPaths(),
-                cacheSettings => cacheSettings
-                    .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
-                    .Key($"GetPageAsync|{documentGUID}")
-                    .Expiration(TimeSpan.FromMinutes(15))
+                cs => cs.Configure(builder, 15, "GetPageAsync", documentGUID)
                 );
             return (page.Any() ? page.FirstOrDefault().ToPageIdentity() : null);
         }
@@ -183,10 +174,7 @@ namespace Generic.Repositories.Implementations
                         nameof(TreeNode.NodeLevel)
                         })
                     .WithPageUrlPaths(),
-                cacheSettings => cacheSettings
-                    .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
-                    .Key($"GetPageByNodeAsync|{nodeID}")
-                    .Expiration(TimeSpan.FromMinutes(15))
+                cs => cs.Configure(builder, 15, "GetPageByNodeAsync", nodeID)
                 );
             return (page.Any() ? page.FirstOrDefault().ToPageIdentity() : null);
         }
@@ -217,10 +205,7 @@ namespace Generic.Repositories.Implementations
                         nameof(TreeNode.NodeLevel)
                         })
                     .WithPageUrlPaths(),
-                cacheSettings => cacheSettings
-                    .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
-                    .Key($"GetPageByNodeAsync|{nodeGUID}")
-                    .Expiration(TimeSpan.FromMinutes(15))
+                cs => cs.Configure(builder, 15, "GetPageByNodeAsync", nodeGUID)
                 );
             return (page.Any() ? page.FirstOrDefault().ToPageIdentity() : null);
         }

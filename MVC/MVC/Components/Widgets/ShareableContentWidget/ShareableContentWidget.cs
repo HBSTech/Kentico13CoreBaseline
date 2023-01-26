@@ -3,6 +3,7 @@ using CMS.DocumentEngine;
 using CMS.DocumentEngine.Types.Generic;
 using CMS.Helpers;
 using Generic.Components.Widgets.ShareableContentWidget;
+using Generic.Libraries.Helpers;
 using Kentico.Components.Web.Mvc.FormComponents;
 using Kentico.Content.Web.Mvc;
 using Kentico.Forms.Web.Mvc;
@@ -27,10 +28,14 @@ namespace Generic.Components.Widgets.ShareableContentWidget
     {
         public const string IDENTITY = "Generic.ShareableContentWidget";
         private readonly IPageRetriever _pageRetriever;
+        private readonly ISiteRepository _siteRepository;
+        private readonly ICacheDependenciesStore _cacheDependenciesStore;
 
-        public ShareableContentWidgetViewComponent(IPageRetriever pageRetriever)
+        public ShareableContentWidgetViewComponent(IPageRetriever pageRetriever, ISiteRepository siteRepository, ICacheDependenciesStore cacheDependenciesStore)
         {
             _pageRetriever = pageRetriever;
+            _siteRepository = siteRepository;
+            _cacheDependenciesStore = cacheDependenciesStore;
         }
 
 
@@ -80,6 +85,8 @@ namespace Generic.Components.Widgets.ShareableContentWidget
                 return 0;
             }
             var pageGUID = Properties.Pages.FirstOrDefault().NodeGuid;
+            var builder = new CacheDependencyKeysBuilder(_siteRepository, _cacheDependenciesStore)
+                .Node(pageGUID);
 
             string culture = !string.IsNullOrWhiteSpace(Properties.Culture) ? Properties.Culture : System.Globalization.CultureInfo.CurrentCulture.Name;
             var foundPage = await _pageRetriever.RetrieveAsync<ShareableContent>(
@@ -89,10 +96,7 @@ namespace Generic.Components.Widgets.ShareableContentWidget
                         .CombineWithDefaultCulture()
                         .CombineWithAnyCulture()
                         .Columns(nameof(TreeNode.DocumentID)),
-                    cacheSettings => cacheSettings
-                        .Dependencies((items, csbuilder) => csbuilder.Custom($"nodeguid|{pageGUID}"))
-                        .Key($"ShareableContentWidgetGetDocumentID|{pageGUID}")
-                        .Expiration(TimeSpan.FromMinutes(60))
+                    cs => cs.Configure(builder, 60, "ShareableContentWidgetGetDocumentID", pageGUID)
                 );
             return foundPage.FirstOrDefault()?.DocumentID ?? 0;
         }

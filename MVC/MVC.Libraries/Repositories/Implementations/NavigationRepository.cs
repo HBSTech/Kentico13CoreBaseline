@@ -85,33 +85,14 @@ namespace Generic.Repositories.Implementations
             builder.PagePath(startingPath, pathTypeEnum);
 
             var nodes = await _pageRetriever.RetrieveAsync<TreeNode>(query =>
-            {
-                query.Path(startingPath, pathTypeEnum);
-                if (!string.IsNullOrWhiteSpace(orderBy))
-                {
-                    query.OrderBy(orderBy);
-                }
-                if (!string.IsNullOrWhiteSpace(whereCondition))
-                {
-                    query.Where(whereCondition);
-                }
-                if (maxLevel > 0)
-                {
-                    query.NestingLevel(maxLevel);
-                }
-                if (topNumber > 0)
-                {
-                    query.TopN(topNumber);
-                }
-                query.Columns(new string[] { nameof(TreeNode.DocumentName), nameof(TreeNode.ClassName), nameof(TreeNode.DocumentCulture), nameof(TreeNode.NodeID), nameof(TreeNode.DocumentID), nameof(TreeNode.DocumentGUID), nameof(TreeNode.NodeParentID), nameof(TreeNode.NodeLevel), nameof(TreeNode.NodeGUID), nameof(TreeNode.NodeAliasPath) });
-                if (pageTypes.Any())
-                {
-                    query.Where($"NodeClassID in (select ClassID from CMS_Class where ClassName in ('{string.Join("','", pageTypes.Select(x => SqlHelper.EscapeQuotes(x)))}'))");
-                }
-            }, cacheSettings => cacheSettings
-             .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
-             .Key($"GetSecondaryNavigationItemsAsync|{orderBy}|{whereCondition}|{maxLevel}|{topNumber}|{(int)pathTypeEnum}|{startingPath}|{string.Join(",", pageTypes ?? Array.Empty<string>())}")
-             .Expiration(TimeSpan.FromMinutes(30))
+            query.Path(startingPath, pathTypeEnum)
+            .If(!string.IsNullOrWhiteSpace(orderBy), query => query.OrderBy(orderBy))
+            .If(!string.IsNullOrWhiteSpace(whereCondition), query => query.Where(whereCondition))
+            .If(maxLevel > 0, query => query.NestingLevel(maxLevel))
+            .If(topNumber > 0, query => query.TopN(topNumber))
+            .Columns(new string[] { nameof(TreeNode.DocumentName), nameof(TreeNode.ClassName), nameof(TreeNode.DocumentCulture), nameof(TreeNode.NodeID), nameof(TreeNode.DocumentID), nameof(TreeNode.DocumentGUID), nameof(TreeNode.NodeParentID), nameof(TreeNode.NodeLevel), nameof(TreeNode.NodeGUID), nameof(TreeNode.NodeAliasPath) })
+            .If(pageTypes.Any(), query => query.Where($"NodeClassID in (select ClassID from CMS_Class where ClassName in ('{string.Join("','", pageTypes.Select(x => SqlHelper.EscapeQuotes(x)))}'))"))
+            , cs => cs.Configure(builder, 30, "GetSecondaryNavigationItemsAsync", orderBy, whereCondition, maxLevel, topNumber, (int)pathTypeEnum, startingPath, pageTypes)
             );
 
             // populate parentNodeIDToTreeNode
@@ -178,15 +159,15 @@ namespace Generic.Repositories.Implementations
 
         public async Task<string> GetAncestorPathAsync(Guid nodeGuid, int levels, bool levelIsRelative = true, int minAbsoluteLevel = 2)
         {
+            var builder = new CacheDependencyKeysBuilder(_siteRepository, _cacheDependenciesStore)
+                .Node(nodeGuid);
+
             // Do not need to include in global cache, just a lookup for the path
             var result = await _pageRetriever.RetrieveAsync<TreeNode>(query =>
                     query.WhereEquals(nameof(TreeNode.NodeGUID), nodeGuid)
                     .Columns(nameof(TreeNode.NodeAliasPath))
-                    , cacheSettings =>
-                        cacheSettings
-                        .Dependencies((items, csbuilder) => csbuilder.Custom($"nodeguid|{_siteRepository.CurrentSiteName()}|{nodeGuid}"))
-                        .Key($"GetAncestorPathAsync|{nodeGuid}")
-                        .Expiration(TimeSpan.FromMinutes(15))
+                    , cs =>
+                        cs.Configure(builder, 15, "GetAncestorPathAsync", nodeGuid)
                         );
 
             return await GetAncestorPathAsync(result.FirstOrDefault()?.NodeAliasPath ?? "/", levels, levelIsRelative);
@@ -194,15 +175,15 @@ namespace Generic.Repositories.Implementations
 
         public async Task<string> GetAncestorPathAsync(int nodeID, int levels, bool levelIsRelative = true, int minAbsoluteLevel = 2)
         {
+            var builder = new CacheDependencyKeysBuilder(_siteRepository, _cacheDependenciesStore)
+                .Node(nodeID);
+
             // Do not need to include in global cache, just a lookup for the path
             var result = await _pageRetriever.RetrieveAsync<TreeNode>(query =>
                     query.WhereEquals(nameof(TreeNode.NodeID), nodeID)
                     .Columns(nameof(TreeNode.NodeAliasPath))
-                    , cacheSettings =>
-                        cacheSettings
-                        .Dependencies((items, csbuilder) => csbuilder.Custom($"nodeguid|{_siteRepository.CurrentSiteName()}|{nodeID}"))
-                        .Key($"GetAncestorPathAsync|{nodeID}")
-                        .Expiration(TimeSpan.FromMinutes(15))
+                    , cs =>
+                        cs.Configure(builder, 15, "GetAncestorPathAsync", nodeID)
                         );
 
             return await GetAncestorPathAsync(result.FirstOrDefault()?.NodeAliasPath ?? "/", levels, levelIsRelative);
@@ -290,10 +271,7 @@ namespace Generic.Repositories.Implementations
                     .Columns(new string[] {
                         nameof(TreeNode.DocumentName), nameof(TreeNode.ClassName), nameof(TreeNode.DocumentCulture), nameof(TreeNode.NodeID), nameof(TreeNode.DocumentID), nameof(TreeNode.DocumentGUID), nameof(TreeNode.NodeGUID), nameof(TreeNode.NodeAliasPath)
                      }),
-               cacheSettings => cacheSettings
-                .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
-                .Key($"GetTreeNodeToNavAsync|{linkPageIdentifier}")
-                .Expiration(TimeSpan.FromMinutes(60))
+               cs => cs.Configure(builder, 50, "GetTreeNodeToNavAsync", linkPageIdentifier)
             );
 
             if (document.Any())
@@ -327,10 +305,7 @@ namespace Generic.Repositories.Implementations
                 {
                     query.TreeCategoryCondition(navTypes);
                 }
-            }, cacheSettings => cacheSettings
-                .Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
-                .Key($"GetNavigationItemsAsync|{navPath}|{string.Join(",", navTypes ?? Array.Empty<string>())}")
-                .Expiration(TimeSpan.FromMinutes(1440))
+            }, cs => cs.Configure(builder, 1440, "GetNavigationItemsAsync", navPath, navTypes)
             );
 
             return results;
@@ -363,35 +338,15 @@ namespace Generic.Repositories.Implementations
                             .PagePath(path);
 
                         var dynamicNodes = await _pageRetriever.RetrieveAsync<TreeNode>(query =>
-                        {
-                            query.Path(path, PathTypeEnum.Children);
-                            if (!string.IsNullOrWhiteSpace(navItem.OrderBy))
-                            {
-                                query.OrderBy(navItem.OrderBy);
-                            }
-                            if (!string.IsNullOrWhiteSpace(navItem.WhereCondition))
-                            {
-                                query.Where(navItem.WhereCondition);
-                            }
-                            if (navItem.TryGetValue("MaxLevel", out var maxLevel))
-                            {
-                                query.NestingLevel(ValidationHelper.GetInteger(maxLevel, -1));
-                            }
-                            if (navItem.TryGetValue("TopNumber", out var topN))
-                            {
-                                query.TopN(ValidationHelper.GetInteger(topN, -1));
-                            }
-                            query.Columns(new string[] { nameof(TreeNode.DocumentName), nameof(TreeNode.ClassName), nameof(TreeNode.DocumentCulture), nameof(TreeNode.NodeID), nameof(TreeNode.DocumentID), nameof(TreeNode.DocumentGUID), nameof(TreeNode.NodeParentID), nameof(TreeNode.NodeLevel), nameof(TreeNode.NodeGUID), nameof(TreeNode.NodeAliasPath) });
-                            var pageTypes = navItem.PageTypes.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                            if (pageTypes.Any())
-                            {
-                                query.Where($"NodeClassID in (select ClassID from CMS_Class where ClassName in ('{string.Join("','", pageTypes.Select(x => SqlHelper.EscapeQuotes(x)))}'))");
-                            }
-                        }, cacheSettings =>
-                            cacheSettings.Dependencies((items, csbuilder) => builder.ApplyDependenciesTo(key => csbuilder.Custom(key)))
-                            .Key($"NodeListToHierarchyTreeNodesAsync|{navItem.NodeGUID}")
-                            .Expiration(TimeSpan.FromMinutes(60))
-                            );
+                        query.Path(path, PathTypeEnum.Children)
+                        .If(!string.IsNullOrWhiteSpace(navItem.OrderBy), query => query.OrderBy(navItem.OrderBy))
+                        .If(!string.IsNullOrWhiteSpace(navItem.WhereCondition), query => query.Where(navItem.WhereCondition))
+                        .If(navItem.TryGetValue("MaxLevel", out var maxLevel), quey => query.NestingLevel(ValidationHelper.GetInteger(maxLevel, -1)))
+                        .If(navItem.TryGetValue("TopNumber", out var topN), query => query.TopN(ValidationHelper.GetInteger(topN, -1)))
+                        .Columns(new string[] { nameof(TreeNode.DocumentName), nameof(TreeNode.ClassName), nameof(TreeNode.DocumentCulture), nameof(TreeNode.NodeID), nameof(TreeNode.DocumentID), nameof(TreeNode.DocumentGUID), nameof(TreeNode.NodeParentID), nameof(TreeNode.NodeLevel), nameof(TreeNode.NodeGUID), nameof(TreeNode.NodeAliasPath) })
+                        .If((navItem.PageTypes?.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries) ?? Array.Empty<string>()).Any(), query => query.Where($"NodeClassID in (select ClassID from CMS_Class where ClassName in ('{string.Join("','", navItem.PageTypes.Split(";".ToCharArray(), StringSplitOptions.RemoveEmptyEntries).Select(x => SqlHelper.EscapeQuotes(x)))}'))"))
+                        , cs => cs.Configure(builder, 60, "NodeListToHierarchyTreeNodesAsync", navItem.NodeGUID)
+                        );
 
                         if (dynamicNodes.Any())
                         {
