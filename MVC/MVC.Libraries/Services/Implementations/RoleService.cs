@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace Generic.Services.Implementation
 {
+    [AutoDependencyInjection]
     public class RoleService : IRoleService
     {
         readonly IRoleRepository _roleRepository;

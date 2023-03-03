@@ -4,6 +4,7 @@ using System;
 
 namespace Generic.Services.Implementations
 {
+    [AutoDependencyInjection]
     public class UrlResolver : IUrlResolver
     {
         private readonly IHttpContextAccessor _httpContextAccessor;

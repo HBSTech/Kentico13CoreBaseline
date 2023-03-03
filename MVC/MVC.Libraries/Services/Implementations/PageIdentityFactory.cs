@@ -4,6 +4,7 @@ using Generic.Services.Interfaces;
 
 namespace Generic.Services.Implementations
 {
+    [AutoDependencyInjection]
     public class PageIdentityFactory : IPageIdentityFactory
     {
         private readonly IMapper _mapper;

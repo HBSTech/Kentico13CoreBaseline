@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace Generic.Repositories.Implementations
 {
+    [AutoDependencyInjection]
     public class MetaDataRepository : IMetaDataRepository
     {
         private readonly ISiteRepository _siteRepository;

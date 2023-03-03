@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Generic.Repositories.Implementations
 {
+    [AutoDependencyInjection]
     public class SearchRepository : ISearchRepository
     {
         private readonly IHttpContextAccessor _httpContextAccessor;

@@ -9,6 +9,7 @@ using Generic.Services.Interfaces;
 
 namespace Generic.Repositories.Implementations
 {
+    [AutoDependencyInjection]
     public class SiteSettingsRepository : ISiteSettingsRepository
     {
         private readonly ICacheDependenciesStore _cacheDependenciesStore;

@@ -8,7 +8,7 @@ using Kentico.Content.Web.Mvc;
 using System;
 using System.Linq;
 
-namespace Generic.Libraries.Extensions
+namespace Core.Extensions
 {
     public static class TreeNodeExtensions
     {

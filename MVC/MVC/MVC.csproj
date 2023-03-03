@@ -10,33 +10,42 @@
     <Version>1.4.0</Version>
     <PackageReleaseNotes>Node.js + Gulp + Webpack refactoring</PackageReleaseNotes>
   </PropertyGroup>
-
+<PropertyGroup>
+  <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+  <RestoreLockedMode>true</RestoreLockedMode>
+  <NoWarn>NU1603</NoWarn>
+  <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
+</PropertyGroup>
+<ItemGroup>
+    <Content Remove="packages.lock.json" />
+	<None Remove="packages.lock.json" />
+  </ItemGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <Optimize>false</Optimize>
   </PropertyGroup>
 
 	<ItemGroup>
 	  <PackageReference Include="BundlerMinifier.Core" Version="3.2.449" />
-	  <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="5.0.13" />
-	  <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="5.0.13" />
-	  <PackageReference Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="5.0.13" />
-	  <PackageReference Include="Microsoft.AspNetCore.Authentication.Twitter" Version="5.0.13" />
+	  <PackageReference Include="Microsoft.AspNetCore.Authentication.Facebook" Version="6.0.14" />
+	  <PackageReference Include="Microsoft.AspNetCore.Authentication.Google" Version="6.0.14" />
+	  <PackageReference Include="Microsoft.AspNetCore.Authentication.MicrosoftAccount" Version="6.0.14" />
+	  <PackageReference Include="Microsoft.AspNetCore.Authentication.Twitter" Version="6.0.14" />
 	  <PackageReference Include="Google.Apis.Auth" Version="1.55.0" />
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
     <PackageReference Include="BootstrapLayoutTool.PageBuilderContainered.Kentico.MVC.Core" Version="13.31.0" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.6" />
     <PackageReference Include="HBS.AutomaticGeneratedUserRoles.Kentico" Version="13.0.0" />
-    <PackageReference Include="kentico.xperience.aspnetcore.webapp" Version="13.0.83" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.4" />
-    <PackageReference Include="MVCCaching.Base.Core" Version="2.1.1" />
+    <PackageReference Include="kentico.xperience.aspnetcore.webapp" Version="13.0.94" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.14" />
+    <PackageReference Include="MVCCaching.Base.Core" Version="3.0.2" />
     <PackageReference Include="MVCCaching.Kentico.Core" Version="13.0.3" />
     <PackageReference Include="PageBuilderContainers.Kentico.MVC.Core" Version="13.0.3" />
     <PackageReference Include="PartialWidgetPage.Kentico.MVC.Core" Version="13.1.0" />
     <PackageReference Include="PartialWidgetPage.Kentico.MVC.Core.Widget" Version="13.1.0" />
     <PackageReference Include="RelationshipsExtended.MVC.Standard" Version="13.0.1" />
     <PackageReference Include="XperienceCommunity.Authorization" Version="13.5.0" />
-    <PackageReference Include="XperienceCommunity.Localizer" Version="13.5.0" />
+    <PackageReference Include="XperienceCommunity.Localizer" Version="13.5.4" />
     <PackageReference Include="XperienceCommunity.PageBuilderTagHelpers" Version="1.1.0" />
     <PackageReference Include="XperienceCommunity.PageNavigationRedirects" Version="1.1.0" />
     <PackageReference Include="XperienceCommunity.PageTemplateUtilities" Version="1.0.0" />
@@ -52,9 +61,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\XperienceModels\XperienceModels.csproj" />
     <ProjectReference Include="..\MVC.Libraries\MVC.Libraries.csproj" />
-    <ProjectReference Include="..\MVC.Models\MVC.Models.csproj" />
   </ItemGroup>
 
   <ItemGroup>

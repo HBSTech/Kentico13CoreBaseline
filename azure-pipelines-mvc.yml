@@ -1,0 +1,120 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+  branches:
+    include:
+    - release
+  paths:
+    include:
+    - 'MVC/*' # same as '/' for the repository root
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/Brands.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+  npm_config_cache: $(Pipeline.Workspace)/.npm
+  nuget_config_cache: $(Pipeline.Workspace)/.npm
+
+
+steps:
+  - task: UseDotNet@2
+    displayName: Using .Net 6.0
+    inputs:
+      version: '6.0.x'
+      includePreviewVersions: true 
+
+  - task: Cache@2
+    displayName: Npm Cache
+    inputs:
+      key: 'npm | "$(Agent.OS)" |$(System.DefaultWorkingDirectory)/MVC/MVC/package-lock.json'
+      path: '$(System.DefaultWorkingDirectory)/MVC/MVC/node_modules'
+      cacheHitVar: NpmCacheRestored
+
+  - task: Npm@1
+    displayName: restore Node Packages (npm install)
+    condition: ne(variables.NpmCacheRestored, 'true')
+    inputs:
+      command: 'custom'
+      workingDir: '$(System.DefaultWorkingDirectory)/MVC/MVC'
+      customCommand: 'install'
+
+  - task: Npm@1
+    displayName: NPM run Gulp build
+    inputs:
+      command: 'custom'
+      workingDir: '$(System.DefaultWorkingDirectory)/MVC/MVC'
+      customCommand: 'run production'
+
+# this requires you to add a NuGet.Config at the same position at the .sln file and contain the following so it uses a local package vs. global
+#<?xml version="1.0" encoding="utf-8"?>
+#<configuration>
+#  <config>
+#    <add key="globalPackagesFolder" value=".\packages" />
+#  </config>
+#  <packageSources>
+#    <clear />
+#    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" protocolVersion="3" />
+#  </packageSources>
+#</configuration>
+#
+# Also requires you add below to your csproj files so the lock files are set, and those lock files make it into the repo, but not added in publish
+#<PropertyGroup>
+#  <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+#  <RestoreLockedMode>true</RestoreLockedMode>
+#  <NoWarn>NU1603</NoWarn>
+#  <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
+#</PropertyGroup>
+#<ItemGroup>
+#    <Content Remove="packages.lock.json" />
+#  </ItemGroup>
+  - task: Cache@2
+    displayName: NuGet Package Cache
+    inputs:
+      key: 'nuget | "$(Agent.OS)" | **/packages.lock.json,!**/bin/**,!**/obj/**'
+      path: '$(System.DefaultWorkingDirectory)/MVC/packages'
+      cacheHitVar: NugetCacheRestored
+
+  - task: DotNetCoreCLI@2
+    displayName: restore NuGet Packages
+    condition: ne(Variables.NugetCacheRestored, 'true')
+    inputs:
+      command: 'restore'
+      projects: |
+        XperienceModels/XperienceModels.csproj
+        MVC/Models/Models.csproj
+        MVC/Libraries/Libraries.csproj
+        MVC/MVC/MVC.csproj
+
+  - task: DotNetCoreCLI@2
+    displayName: Build Project
+    inputs:
+      command: 'build'
+      arguments: '--configuration $(buildConfiguration)'
+      projects: 'MVC/MVC/MVC.csproj'
+
+#  - task: DotNetCoreCLI@2
+#    inputs:
+#      command: 'test'
+#      projects: '**/MVC/MVC/MVC.csproj'
+
+  - task: DotNetCoreCLI@2
+    displayName: Publish Project
+    inputs:
+      command: publish
+      publishWebProjects: False
+      arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+      projects: 'MVC/MVC/MVC.csproj'
+      zipAfterPublish: True
+
+  - task: PublishBuildArtifacts@1
+    displayName: Publish to Container
+    inputs:
+      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+      ArtifactName: 'drop'
+      publishLocation: 'Container'

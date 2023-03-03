@@ -20,6 +20,7 @@ using System.Threading.Tasks;
 
 namespace Generic.Repositories.Implementations
 {
+    [AutoDependencyInjection]
     public class NavigationRepository : INavigationRepository
     {
         private readonly IPageRetriever _pageRetriever;

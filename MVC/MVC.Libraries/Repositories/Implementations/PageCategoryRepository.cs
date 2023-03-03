@@ -16,6 +16,7 @@ using System.Data;
 
 namespace Generic.Repositories.Implementations
 {
+    [AutoDependencyInjection]
     public class PageCategoryRepository : IPageCategoryRepository
     {
         private readonly ICacheDependenciesStore _cacheDependenciesStore;

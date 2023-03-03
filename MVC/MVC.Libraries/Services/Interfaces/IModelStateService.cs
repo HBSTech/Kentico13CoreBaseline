@@ -5,7 +5,7 @@ using System;
 
 namespace Generic.Services.Interfaces
 {
-    public interface IModelStateService : IService
+    public interface IModelStateService
     {
         /// <summary>
         /// Merges the Model State (Validation state and errors) from the TempData, this should be called in Post-Redirect-Get methedology so the model state can persist between the POST action and the redirected GET.

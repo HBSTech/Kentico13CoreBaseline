@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace Generic.Repositories.Implementations
 {
+    [AutoDependencyInjection]
     public class UserRepository : IUserRepository
     {
         private readonly IUserInfoProvider _userInfoProvider;

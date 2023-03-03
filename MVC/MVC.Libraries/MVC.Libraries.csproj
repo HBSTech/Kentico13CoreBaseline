@@ -4,24 +4,28 @@
     <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>Generic</RootNamespace>
   </PropertyGroup>
-
+<PropertyGroup>
+  <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+  <RestoreLockedMode>true</RestoreLockedMode>
+  <NoWarn>NU1603</NoWarn>
+  <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
+</PropertyGroup>
+<ItemGroup>
+    <Content Remove="packages.lock.json" />
+	<None Remove="packages.lock.json" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
-    <PackageReference Include="Kentico.Xperience.AspNetCore.WebApp" Version="13.0.83" />
-    <PackageReference Include="MVCCaching.Base.Core" Version="2.1.1" />
+    <PackageReference Include="Kentico.Xperience.AspNetCore.WebApp" Version="13.0.94" />
+    <PackageReference Include="MVCCaching.Base.Core" Version="3.0.2" />
     <PackageReference Include="MVCCaching.Kentico.Core" Version="13.0.3" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="PartialWidgetPage.Kentico.MVC.Core" Version="13.1.0" />
-    <PackageReference Include="RelationshipsExtended.Base" Version="13.0.2" />
+    <PackageReference Include="RelationshipsExtended.Base" Version="13.0.3" />
     <PackageReference Include="RelationshipsExtended.MVC.Standard" Version="13.0.1" />
     <PackageReference Include="TypeMerger" Version="2.1.1" />
-    <PackageReference Include="XperienceCommunity.QueryExtensions" Version="1.1.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\XperienceModels\XperienceModels.csproj" />
-    <ProjectReference Include="..\MVC.Models\MVC.Models.csproj" />
+    <PackageReference Include="XperienceCommunity.QueryExtensions" Version="1.2.0" />
   </ItemGroup>
 
   <ItemGroup>

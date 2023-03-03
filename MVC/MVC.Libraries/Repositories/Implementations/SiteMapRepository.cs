@@ -16,6 +16,7 @@ using CMS.DocumentEngine.Routing;
 
 namespace Generic.Repositories.Implementations
 {
+    [AutoDependencyInjection]
     public class SiteMapRepository : ISiteMapRepository
     {
         private readonly IPageUrlRetriever _pageUrlRetriever;

@@ -13,6 +13,7 @@ using System.Web;
 
 namespace Generic.Services.Implementation
 {
+    [AutoDependencyInjection]
     public class UserService : IUserService
     {
         private readonly ApplicationUserManager<ApplicationUser> _UserManager;

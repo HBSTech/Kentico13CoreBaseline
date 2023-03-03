@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Generic.Repositories.Implementations
 {
+    [AutoDependencyInjection]
     public class SiteRepository : ISiteRepository
     {
         private readonly ISiteInfoProvider _siteInfoProvider;

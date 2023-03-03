@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace Generic.Repositories.Implementations
 {
+    [AutoDependencyInjection]
     public class TabRepository : ITabRepository
     {
         private readonly IPageDataContextRetriever _pageDataContextRetriever;

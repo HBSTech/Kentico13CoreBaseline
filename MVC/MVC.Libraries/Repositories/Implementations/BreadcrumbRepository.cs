@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 
 namespace Generic.Repositories.Implementations
 {
+    [AutoDependencyInjection]
     public class BreadcrumbRepository : IBreadcrumbRepository
     {
         private readonly ISiteRepository _siteRepository;

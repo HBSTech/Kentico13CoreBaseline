@@ -11,6 +11,7 @@ using CMS.Modules;
 
 namespace Generic.Repositories.Implementations
 {
+    [AutoDependencyInjection]
     public class RoleRepository : IRoleRepository
     {
         private readonly IRoleInfoProvider _roleInfoProvider;

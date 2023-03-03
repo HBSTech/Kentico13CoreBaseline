@@ -51,3 +51,7 @@ MVC/MVC/wwwroot/js/scripts/Custom.js*
 MVC/MVC/wwwroot/js/scripts/HeaderCustom.js*
 MVC/MVC/wwwroot/js/scripts/helpers.js*
 MVC/MVC/wwwroot/js/scripts/samplereact.js*
+
+**/FrontEndDev/**/*.map
+obj
+bin

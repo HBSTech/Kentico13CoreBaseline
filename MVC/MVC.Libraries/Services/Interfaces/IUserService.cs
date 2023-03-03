@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Generic.Services.Interfaces
 {
-    public interface IUserService : IService
+    public interface IUserService
     {
         /// <summary>
         /// Creates a user on the website.

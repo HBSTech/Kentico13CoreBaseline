@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 
 namespace Generic.Repositories.Implementations
 {
+    [AutoDependencyInjection]
     public class MediaRepository : IMediaRepository
     {
         

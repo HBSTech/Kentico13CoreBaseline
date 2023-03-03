@@ -1,17 +1,21 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>XperienceModels</RootNamespace>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Kentico.Xperience.Libraries" Version="13.0.83" />
+<PropertyGroup>
+  <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+  <RestoreLockedMode>true</RestoreLockedMode>
+  <NoWarn>NU1603</NoWarn>
+  <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
+</PropertyGroup>
+<ItemGroup>
+    <Content Remove="packages.lock.json" />
+	<None Remove="packages.lock.json" />
   </ItemGroup>
-
   <ItemGroup>
-    <Folder Include="CustomTables\" />
-    <Folder Include="Global\" />
+    <PackageReference Include="Kentico.Xperience.Libraries" Version="13.0.94" />
   </ItemGroup>
 
 </Project>

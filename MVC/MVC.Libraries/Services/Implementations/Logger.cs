@@ -5,6 +5,7 @@ using System;
 
 namespace Generic.Services.Implementation
 {
+    [AutoDependencyInjection]
     public class Logger : ILogger
     {
         private ISiteService _siteRepo;

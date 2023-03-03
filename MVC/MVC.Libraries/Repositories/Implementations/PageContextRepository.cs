@@ -17,6 +17,7 @@ using CMS.DocumentEngine.Routing;
 
 namespace Generic.Repositories.Implementations
 {
+    [AutoDependencyInjection]
     public class PageContextRepository : IPageContextRepository
     {
         private readonly IPageDataContextRetriever _pageDataContextRetriever;

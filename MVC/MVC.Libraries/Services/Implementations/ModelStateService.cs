@@ -8,6 +8,7 @@ using System.Text.Json;
 
 namespace Generic.Services.Implementations
 {
+    [AutoDependencyInjection]
     public class ModelStateService : IModelStateService
     {
         public void MergeModelState(ModelStateDictionary modelState, ITempDataDictionary tempData)
