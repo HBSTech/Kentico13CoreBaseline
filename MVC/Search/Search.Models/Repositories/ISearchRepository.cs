@@ -1,4 +1,4 @@
-﻿namespace Generic.Repositories.Interfaces
+﻿namespace Search.Repositories
 {
     public interface ISearchRepository
     {

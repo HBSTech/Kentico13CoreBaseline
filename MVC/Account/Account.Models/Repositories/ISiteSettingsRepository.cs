@@ -1,4 +1,4 @@
-﻿namespace Generic.Repositories.Interfaces
+﻿namespace Account.Repositories
 {
     /// <summary>
     /// Add Site Settings retrieval methods here

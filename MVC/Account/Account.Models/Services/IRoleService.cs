@@ -1,4 +1,4 @@
-﻿namespace Generic.Services.Interfaces
+﻿namespace Account.Services
 {
     public interface IRoleService
     {

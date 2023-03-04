@@ -1,6 +1,6 @@
-﻿using Generic.Enums;
+﻿using Navigation.Enums;
 
-namespace Generic.Repositories.Interfaces
+namespace Navigation.Repositories
 {
     public interface INavigationRepository
     {

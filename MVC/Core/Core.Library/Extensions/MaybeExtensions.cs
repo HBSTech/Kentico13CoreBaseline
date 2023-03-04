@@ -1,6 +1,6 @@
 ﻿using CSharpFunctionalExtensions;
 
-namespace Core.Extensions
+namespace CSharpFunctionalExtensions
 {
     public static class MaybeExtensions
     {
@@ -86,25 +86,13 @@ namespace Core.Extensions
             value == null || value.Equals(default(T)) || value.Equals(noneValue)
                 ? Maybe<T>.None
                 : value;
-
-        public static Maybe<string> WithNullOrWhiteSpaceAsNone(this string value) =>
-            string.IsNullOrWhiteSpace(value)
-                ? Maybe<string>.None
-                : Maybe.From(value);
-
-
-        public static Maybe<IEnumerable<T>> WithEmptyAsNone<T>(this IEnumerable<T> value) =>
-            value == null || !value.Any() ?
-            Maybe<IEnumerable<T>>.None :
-            Maybe.From(value);
-
+     
 
         public static string GetValueOrDefaultIfEmpty(this Maybe<string> value, string defaultValue) => value.HasNonEmptyValue() ? value.Value : defaultValue;
         public static IEnumerable<T> GetValueOrDefaultIfEmpty<T>(this Maybe<IEnumerable<T>> value, IEnumerable<T> defaultValue) => value.HasNonEmptyValue() ? value.Value : defaultValue;
 
         public static bool HasNonEmptyValue(this Maybe<string> value) => value.HasValue && !string.IsNullOrWhiteSpace(value.Value);
         public static bool HasNonEmptyValue<T>(this Maybe<IEnumerable<T>> value) => value.HasValue && value.Value.Any();
-
 
         public static bool TryGetValueNonEmpty(this Maybe<string> maybeValue, out string value)
         {

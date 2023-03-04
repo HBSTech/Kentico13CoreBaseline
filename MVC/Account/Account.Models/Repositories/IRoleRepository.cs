@@ -1,4 +1,4 @@
-﻿namespace Generic.Repositories.Interfaces
+﻿namespace Account.Repositories
 {
     public interface IRoleRepository
     {

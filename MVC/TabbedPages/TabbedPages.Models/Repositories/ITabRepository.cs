@@ -1,4 +1,4 @@
-﻿namespace Welbilt.Repositories.Interfaces
+﻿namespace TabbedPages.Repositories
 {
     public interface ITabRepository
     {

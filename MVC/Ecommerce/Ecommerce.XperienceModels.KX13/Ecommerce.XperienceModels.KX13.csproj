@@ -1,10 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+	  <TargetFramework>net6.0</TargetFramework>
+	  <ImplicitUsings>enable</ImplicitUsings>
+	  <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Core\Core.Library\Core.Library.csproj" />
+    <ProjectReference Include="..\..\Core\Core.Models\Core.Models.csproj" />
     <ProjectReference Include="..\..\Core\Core.XperienceModels.KX13\Core.XperienceModels.KX13.csproj" />
   </ItemGroup>
 

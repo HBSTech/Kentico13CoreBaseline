@@ -35,20 +35,5 @@
         /// <param name="userGuid"></param>
         /// <returns></returns>
         Task<Result<User>> GetUserAsync(Guid userGuid);
-
-        /// <summary>
-        /// Checks the request header and or query parameters for the given user code, then returns the given user (or current user if not found), used in external API authentication calls
-        /// </summary>
-        /// <param name="headerParameter"></param>
-        /// <param name="queryParameter"></param>
-        /// <returns></returns>
-        Task<User> GetUserByAuthenticationCodeAsync(string headerParameter, string queryParameter);
-
-        /// <summary>
-        /// Gets the user by the given user authentication code, (or current user if not found), used for user hash calls
-        /// </summary>
-        /// <param name="userCode"></param>
-        /// <returns></returns>
-        Task<User> GetUserByAuthenticationCodeAsync(string userCode);
     }
 }

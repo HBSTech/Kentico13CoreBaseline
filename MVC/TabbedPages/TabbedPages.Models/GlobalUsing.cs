@@ -1,4 +1,4 @@
 ﻿global using System;
 
-global using Core;
+global using TabbedPages.Models;
 global using CSharpFunctionalExtensions;

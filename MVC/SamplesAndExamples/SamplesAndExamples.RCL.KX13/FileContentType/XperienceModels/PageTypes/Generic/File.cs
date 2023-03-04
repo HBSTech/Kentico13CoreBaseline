@@ -9,14 +9,11 @@
 // </auto-generated>
 //--------------------------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
 using CMS;
 using CMS.Base;
 using CMS.Helpers;
 using CMS.DataEngine;
-using CMS.DocumentEngine;
-using CMS.DocumentEngine.Types.Generic;
+using File = CMS.DocumentEngine.Types.Generic.File;
 
 [assembly: RegisterDocumentType(File.CLASS_NAME, typeof(File))]
 

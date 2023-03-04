@@ -39,7 +39,6 @@
     <PackageReference Include="kentico.xperience.aspnetcore.webapp" Version="13.0.94" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.14" />
     <PackageReference Include="MVCCaching.Base.Core" Version="3.0.2" />
-    <PackageReference Include="MVCCaching.Kentico.Core" Version="13.0.3" />
     <PackageReference Include="PageBuilderContainers.Kentico.MVC.Core" Version="13.0.3" />
     <PackageReference Include="PartialWidgetPage.Kentico.MVC.Core" Version="13.1.0" />
     <PackageReference Include="PartialWidgetPage.Kentico.MVC.Core.Widget" Version="13.1.0" />

@@ -9,6 +9,9 @@
 
   <ItemGroup>
     <PackageReference Include="Kentico.Xperience.AspNetCore.WebApp" Version="13.0.94" />
+    <PackageReference Include="RelationshipsExtended.Base" Version="13.0.3" />
+    <PackageReference Include="XperienceCommunity.MVCCaching" Version="13.5.3" />
+    <PackageReference Include="XperienceCommunity.QueryExtensions" Version="1.2.0" />
   </ItemGroup>
 
   <ItemGroup>

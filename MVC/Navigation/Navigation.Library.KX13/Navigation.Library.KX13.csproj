@@ -4,7 +4,15 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <RootNamespace>Navigation</RootNamespace>
+    <RootNamespace>Navigation.KX13</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Core.Library.KX13\Core.Library.KX13.csproj" />
+    <ProjectReference Include="..\..\Core\Core.Library\Core.Library.csproj" />
+    <ProjectReference Include="..\..\Core\Core.Models\Core.Models.csproj" />
+    <ProjectReference Include="..\Navigation.Models\Navigation.Models.csproj" />
+    <ProjectReference Include="..\Navigation.XperienceModels.KX13\Navigation.XperienceModels.KX13.csproj" />
+  </ItemGroup>
 
 </Project>

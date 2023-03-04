@@ -1,8 +1,4 @@
-﻿
-using Core.Interfaces;
-using CSharpFunctionalExtensions;
-
-namespace Account.Models
+﻿namespace Account.Models
 {
     public class RoleItem : IObjectIdentifiable
     {
