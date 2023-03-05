@@ -231,7 +231,6 @@ namespace Navigation.Repositories.Implementations
                             navItem.LinkPageID = navTreeNode.NodeID;
                             navItem.LinkPageGUID = navTreeNode.NodeGUID;
                             navItem.LinkDocumentGUID = navTreeNode.DocumentGUID;
-                            navItem.LinkDescription = Maybe.None;
                         }
                         break;
                     case NavigationTypeEnum.Manual:
@@ -247,7 +246,6 @@ namespace Navigation.Repositories.Implementations
                         navItem.LinkPageID = navTreeNode.NodeID;
                         navItem.LinkPageGUID = navTreeNode.NodeGUID;
                         navItem.LinkDocumentGUID = navTreeNode.DocumentGUID;
-                        navItem.LinkDescription = Maybe.None;
                         break;
                 }
                 // Add additional items
@@ -300,7 +298,6 @@ namespace Navigation.Repositories.Implementations
                 LinkTarget = navItem.LinkTarget,
                 LinkOnClick = navItem.LinkOnClick,
                 LinkAlt = navItem.LinkAlt,
-                LinkDescription = navItem.LinkDescription,
                 LinkPagePath = navItem.LinkPagePath,
                 LinkPageGUID = navItem.LinkPageGUID,
                 LinkDocumentGUID = navItem.LinkDocumentGUID,

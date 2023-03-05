@@ -15,9 +15,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RepoFiles", "RepoFiles", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{AEA84302-1508-420C-85C3-E0AF8016CBB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.RCL", "Core\Core.RCL\Core.RCL.csproj", "{EB5B30EC-BA9C-4909-8416-60BF9C6C375C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.RCL", "Core\Core.RCL\Core.RCL.csproj", "{EB5B30EC-BA9C-4909-8416-60BF9C6C375C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Models", "Core\Core.Models\Core.Models.csproj", "{227F2495-3FD6-44D1-84CC-95643914BCEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Models", "Core\Core.Models\Core.Models.csproj", "{227F2495-3FD6-44D1-84CC-95643914BCEC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Navigation", "Navigation", "{389F825B-1B60-4DB6-91D7-DD3AEAF4B7CD}"
 	ProjectSection(SolutionItems) = preProject
@@ -26,63 +26,67 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Navigation", "Navigation", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Library.KX13", "Core\Core.Library.KX13\Core.Library.KX13.csproj", "{6F16469A-320E-408B-9259-F2DCD1AA7AE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Navigation.RCL", "Navigation\Navigation.RCL\Navigation.RCL.csproj", "{CC3694EB-8E74-43CB-ACD9-BD0333595996}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Navigation.RCL", "Navigation\Navigation.RCL\Navigation.RCL.csproj", "{CC3694EB-8E74-43CB-ACD9-BD0333595996}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Navigation.Models", "Navigation\Navigation.Models\Navigation.Models.csproj", "{9D9E1C44-E585-4824-B973-B9EDAFDE1F13}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Navigation.Models", "Navigation\Navigation.Models\Navigation.Models.csproj", "{9D9E1C44-E585-4824-B973-B9EDAFDE1F13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Navigation.Library.KX13", "Navigation\Navigation.Library.KX13\Navigation.Library.KX13.csproj", "{592C992D-A512-4C15-A65C-029215EDF6E5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Navigation.Library.KX13", "Navigation\Navigation.Library.KX13\Navigation.Library.KX13.csproj", "{592C992D-A512-4C15-A65C-029215EDF6E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Library", "Core\Core.Library\Core.Library.csproj", "{BCAFBCA8-8296-449D-A8DE-E81B3E2B69F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Library", "Core\Core.Library\Core.Library.csproj", "{BCAFBCA8-8296-449D-A8DE-E81B3E2B69F7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Account", "Account", "{B07197E6-E2CC-4510-9127-FB37B3A24319}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Account.RCL", "Account\Account.RCL\Account.RCL.csproj", "{A95F7D76-F829-4645-8527-BCD3123321A4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Account.RCL", "Account\Account.RCL\Account.RCL.csproj", "{A95F7D76-F829-4645-8527-BCD3123321A4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Account.Models", "Account\Account.Models\Account.Models.csproj", "{40AC3A01-6590-4BB7-91B3-F57319C96CE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Account.Models", "Account\Account.Models\Account.Models.csproj", "{40AC3A01-6590-4BB7-91B3-F57319C96CE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Account.Library.KX13", "Account\Account.Library.KX13\Account.Library.KX13.csproj", "{FD021D67-E8EF-43D3-85FA-73523EAA4A02}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Account.Library.KX13", "Account\Account.Library.KX13\Account.Library.KX13.csproj", "{FD021D67-E8EF-43D3-85FA-73523EAA4A02}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Search", "Search", "{B26A1966-8BA9-40B7-879E-084CEDC94988}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Search.RCL", "Search\Search.RCL\Search.RCL.csproj", "{4BD4268B-063C-4532-B2F9-CE3C9C483AC1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Search.RCL", "Search\Search.RCL\Search.RCL.csproj", "{4BD4268B-063C-4532-B2F9-CE3C9C483AC1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Search.Models", "Search\Search.Models\Search.Models.csproj", "{23B7BF64-DFFB-4B74-91E9-522B1A614CF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Search.Models", "Search\Search.Models\Search.Models.csproj", "{23B7BF64-DFFB-4B74-91E9-522B1A614CF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Search.Library.KX13", "Search\Search.Library.KX13\Search.Library.KX13.csproj", "{88176EFC-9AFE-4A83-8E8C-2FCAF3D4393F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Search.Library.KX13", "Search\Search.Library.KX13\Search.Library.KX13.csproj", "{88176EFC-9AFE-4A83-8E8C-2FCAF3D4393F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TabbedPages", "TabbedPages", "{671D5FE6-4178-473F-B272-ADC344D8EA39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TabbedPages.RCL", "TabbedPages\TabbedPages.RCL\TabbedPages.RCL.csproj", "{98BFD85F-CA9E-40BA-8D9B-01123F63A0B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TabbedPages.RCL", "TabbedPages\TabbedPages.RCL\TabbedPages.RCL.csproj", "{98BFD85F-CA9E-40BA-8D9B-01123F63A0B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TabbedPages.Models", "TabbedPages\TabbedPages.Models\TabbedPages.Models.csproj", "{641E16EC-36E5-4958-A9E7-1B5D6954F4A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TabbedPages.Models", "TabbedPages\TabbedPages.Models\TabbedPages.Models.csproj", "{641E16EC-36E5-4958-A9E7-1B5D6954F4A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TabbedPages.Library.KX13", "TabbedPages\TabbedPages.Library.KX13\TabbedPages.Library.KX13.csproj", "{D4A84710-66F4-4FEF-A8E7-B452471CA55F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TabbedPages.Library.KX13", "TabbedPages\TabbedPages.Library.KX13\TabbedPages.Library.KX13.csproj", "{D4A84710-66F4-4FEF-A8E7-B452471CA55F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Account.XperienceModels.KX13", "Account\Account.XperienceModels.KX13\Account.XperienceModels.KX13.csproj", "{74D11757-EDBD-49F8-8DA1-69136C4DE371}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Account.XperienceModels.KX13", "Account\Account.XperienceModels.KX13\Account.XperienceModels.KX13.csproj", "{74D11757-EDBD-49F8-8DA1-69136C4DE371}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ecommerce", "Ecommerce", "{ACD268B1-7130-47BF-B3E0-07A0FEC71C05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecommerce.RCL", "Ecommerce\Ecommerce.RCL\Ecommerce.RCL.csproj", "{495081CD-805F-4B84-A65C-56630AE931A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommerce.RCL", "Ecommerce\Ecommerce.RCL\Ecommerce.RCL.csproj", "{495081CD-805F-4B84-A65C-56630AE931A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ecommerce.XperienceModels.KX13", "Ecommerce\Ecommerce.XperienceModels.KX13\Ecommerce.XperienceModels.KX13.csproj", "{04F3E66E-771E-4AD8-A5C2-1CADDEE16EAF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ecommerce.XperienceModels.KX13", "Ecommerce\Ecommerce.XperienceModels.KX13\Ecommerce.XperienceModels.KX13.csproj", "{04F3E66E-771E-4AD8-A5C2-1CADDEE16EAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TabbedPages.XperienceModels.KX13", "TabbedPages\TabbedPages.XperienceModels.KX13\TabbedPages.XperienceModels.KX13.csproj", "{CDB0D417-209B-483C-9863-250134DF174D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TabbedPages.XperienceModels.KX13", "TabbedPages\TabbedPages.XperienceModels.KX13\TabbedPages.XperienceModels.KX13.csproj", "{CDB0D417-209B-483C-9863-250134DF174D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Navigation.XperienceModels.KX13", "Navigation\Navigation.XperienceModels.KX13\Navigation.XperienceModels.KX13.csproj", "{2C9DD3A5-5207-480A-BE23-5279A3B3BADD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Navigation.XperienceModels.KX13", "Navigation\Navigation.XperienceModels.KX13\Navigation.XperienceModels.KX13.csproj", "{2C9DD3A5-5207-480A-BE23-5279A3B3BADD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.XperienceModels.KX13", "Core\Core.XperienceModels.KX13\Core.XperienceModels.KX13.csproj", "{5307067D-7EC3-4B57-9DE0-7AD92A836743}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.XperienceModels.KX13", "Core\Core.XperienceModels.KX13\Core.XperienceModels.KX13.csproj", "{5307067D-7EC3-4B57-9DE0-7AD92A836743}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SampleAndExamples", "SampleAndExamples", "{D8AC3EF2-CA24-4442-9CEA-D9EB110C249C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SamplesAndExamples.RCL.KX13", "SamplesAndExamples\SamplesAndExamples.RCL.KX13\SamplesAndExamples.RCL.KX13.csproj", "{487B92AD-FF25-4E67-A680-16F74F8B617C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SamplesAndExamples.RCL.KX13", "SamplesAndExamples\SamplesAndExamples.RCL.KX13\SamplesAndExamples.RCL.KX13.csproj", "{487B92AD-FF25-4E67-A680-16F74F8B617C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BaselineSiteElements", "BaselineSiteElements", "{39AE71E0-78BA-41CD-8EDA-11CA42C6E889}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaselineSiteElements.KX13", "BaselineSiteElements\BaselineSiteElements.KX13\BaselineSiteElements.KX13.csproj", "{2E3AB958-DFF1-485F-8E5F-0F49006C62DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BaselineSiteElements.KX13", "BaselineSiteElements\BaselineSiteElements.KX13\BaselineSiteElements.KX13.csproj", "{2E3AB958-DFF1-485F-8E5F-0F49006C62DF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Localization", "Localization", "{4C17DB56-301F-411F-90E2-DBEC4849324A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Localization.Library", "Localization\Localization.Library\Localization.Library.csproj", "{9F460353-9223-49B3-8E25-A8A60B5789A3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Localization.Library", "Localization\Localization.Library\Localization.Library.csproj", "{9F460353-9223-49B3-8E25-A8A60B5789A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Localization.Models", "Localization\Localization.Models\Localization.Models.csproj", "{A34151AC-8D88-4DBE-9191-976674613F77}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Localization.Library.KX13", "Localization\Localization.Library.KX13\Localization.Library.KX13.csproj", "{D6A7D20D-0332-454B-821F-7BDE0F86694D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -418,6 +422,30 @@ Global
 		{9F460353-9223-49B3-8E25-A8A60B5789A3}.Release|x64.Build.0 = Release|Any CPU
 		{9F460353-9223-49B3-8E25-A8A60B5789A3}.Release|x86.ActiveCfg = Release|Any CPU
 		{9F460353-9223-49B3-8E25-A8A60B5789A3}.Release|x86.Build.0 = Release|Any CPU
+		{A34151AC-8D88-4DBE-9191-976674613F77}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A34151AC-8D88-4DBE-9191-976674613F77}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A34151AC-8D88-4DBE-9191-976674613F77}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A34151AC-8D88-4DBE-9191-976674613F77}.Debug|x64.Build.0 = Debug|Any CPU
+		{A34151AC-8D88-4DBE-9191-976674613F77}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A34151AC-8D88-4DBE-9191-976674613F77}.Debug|x86.Build.0 = Debug|Any CPU
+		{A34151AC-8D88-4DBE-9191-976674613F77}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A34151AC-8D88-4DBE-9191-976674613F77}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A34151AC-8D88-4DBE-9191-976674613F77}.Release|x64.ActiveCfg = Release|Any CPU
+		{A34151AC-8D88-4DBE-9191-976674613F77}.Release|x64.Build.0 = Release|Any CPU
+		{A34151AC-8D88-4DBE-9191-976674613F77}.Release|x86.ActiveCfg = Release|Any CPU
+		{A34151AC-8D88-4DBE-9191-976674613F77}.Release|x86.Build.0 = Release|Any CPU
+		{D6A7D20D-0332-454B-821F-7BDE0F86694D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6A7D20D-0332-454B-821F-7BDE0F86694D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6A7D20D-0332-454B-821F-7BDE0F86694D}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D6A7D20D-0332-454B-821F-7BDE0F86694D}.Debug|x64.Build.0 = Debug|Any CPU
+		{D6A7D20D-0332-454B-821F-7BDE0F86694D}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D6A7D20D-0332-454B-821F-7BDE0F86694D}.Debug|x86.Build.0 = Debug|Any CPU
+		{D6A7D20D-0332-454B-821F-7BDE0F86694D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6A7D20D-0332-454B-821F-7BDE0F86694D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6A7D20D-0332-454B-821F-7BDE0F86694D}.Release|x64.ActiveCfg = Release|Any CPU
+		{D6A7D20D-0332-454B-821F-7BDE0F86694D}.Release|x64.Build.0 = Release|Any CPU
+		{D6A7D20D-0332-454B-821F-7BDE0F86694D}.Release|x86.ActiveCfg = Release|Any CPU
+		{D6A7D20D-0332-454B-821F-7BDE0F86694D}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -448,6 +476,8 @@ Global
 		{487B92AD-FF25-4E67-A680-16F74F8B617C} = {D8AC3EF2-CA24-4442-9CEA-D9EB110C249C}
 		{2E3AB958-DFF1-485F-8E5F-0F49006C62DF} = {39AE71E0-78BA-41CD-8EDA-11CA42C6E889}
 		{9F460353-9223-49B3-8E25-A8A60B5789A3} = {4C17DB56-301F-411F-90E2-DBEC4849324A}
+		{A34151AC-8D88-4DBE-9191-976674613F77} = {4C17DB56-301F-411F-90E2-DBEC4849324A}
+		{D6A7D20D-0332-454B-821F-7BDE0F86694D} = {4C17DB56-301F-411F-90E2-DBEC4849324A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8EFC1B12-4B51-451A-8051-FBA2C799FE5D}

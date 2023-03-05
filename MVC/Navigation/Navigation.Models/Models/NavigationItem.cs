@@ -18,8 +18,6 @@
         public Maybe<string> LinkTarget { get; set; }
         public Maybe<string> LinkOnClick { get; set; }
         public Maybe<string> LinkAlt { get; set; }
-        public Maybe<string> LinkDescription { get; set; }
-
         public Maybe<string> LinkPagePath { get; set; }
         public Maybe<Guid> LinkPageGUID { get; set; }
         public Maybe<Guid> LinkDocumentGUID { get; set; }
