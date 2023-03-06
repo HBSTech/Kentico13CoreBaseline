@@ -27,9 +27,4 @@
     <PackageReference Include="XperienceCommunity.QueryExtensions" Version="1.2.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Libraries\Extensions\" />
-    <Folder Include="Repositories\Interfaces\" />
-  </ItemGroup>
-
 </Project>

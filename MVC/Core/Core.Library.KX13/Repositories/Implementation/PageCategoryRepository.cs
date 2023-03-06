@@ -1,5 +1,7 @@
 ﻿using CMS;
+using CMS.DataEngine;
 using CMS.Taxonomy;
+using Core.Comparers;
 
 namespace Generic.Repositories.Implementations
 {
@@ -8,16 +10,16 @@ namespace Generic.Repositories.Implementations
     {
         private readonly ICacheDependencyBuilderFactory _cacheDependencyBuilderFactory;
         private readonly IProgressiveCache _progressiveCache;
-        private readonly ICustomCategoryHelper _customCategoryHelper;
+        private readonly ICategoryCachedRepository _categoryCachedRepository;
 
         public PageCategoryRepository(
             ICacheDependencyBuilderFactory cacheDependencyBuilderFactory,
             IProgressiveCache progressiveCache,
-            ICustomCategoryHelper customCategoryHelper)
+            ICategoryCachedRepository categoryCachedRepository)
         {
             _cacheDependencyBuilderFactory = cacheDependencyBuilderFactory;
             _progressiveCache = progressiveCache;
-            _customCategoryHelper = customCategoryHelper;
+            _categoryCachedRepository = categoryCachedRepository;
         }
 
         public async Task<IEnumerable<CategoryItem>> GetCategoriesByNodeAsync(int nodeID)
@@ -85,10 +87,11 @@ namespace Generic.Repositories.Implementations
                 var retriever = await query.GetEnumerableResultAsync(System.Data.CommandBehavior.Default);
 
                 // Group into two dictionaries
-                var items = retriever.Where(x => _customCategoryHelper.GetCategoryCached().ContainsKey((int)x[nameof(CategoryInfo.CategoryID)])).Select(x => new PageCategoryItem(
+                var categoriesById = _categoryCachedRepository.GetCategoryCachedById();
+                var items = retriever.Where(x => categoriesById.ContainsKey((int)x[nameof(CategoryInfo.CategoryID)])).Select(x => new PageCategoryItem(
                     nodeID: (int)x[nameof(TreeNode.NodeID)],
                     path: (string)x[nameof(TreeNode.NodeAliasPath)],
-                    categoryItem: _customCategoryHelper.GetCategoryIdentifiertoCategoryCached((int)x[nameof(CategoryInfo.CategoryID)]).Value
+                    categoryItem: categoriesById[(int)x[nameof(CategoryInfo.CategoryID)]]
                 ));
 
                 var dictionaryByNodeID = items.GroupBy(x => x.NodeID).ToDictionary(key => key.Key, value => value.Select(x => x.CategoryItem));

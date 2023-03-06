@@ -4,7 +4,7 @@ namespace Core.Models
 {
     public record PageIdentity : ICacheKey
     {
-        public PageIdentity(string name, string alias, int nodeID, Guid nodeGUID, int documentID, Guid documentGUID, string path, string relativeUrl, string absoluteUrl, int nodeLevel, int nodeSiteID)
+        public PageIdentity(string name, string alias, int nodeID, Guid nodeGUID, int documentID, Guid documentGUID, string path, string culture, string relativeUrl, string absoluteUrl, int nodeLevel, int nodeSiteID)
         {
             Name = name;
             Alias = alias;
@@ -17,6 +17,7 @@ namespace Core.Models
             AbsoluteUrl = absoluteUrl;
             NodeLevel = nodeLevel;
             NodeSiteID = nodeSiteID;
+            Culture = culture;
         }
 
         /// <summary>
@@ -74,6 +75,34 @@ namespace Core.Models
         /// </summary>
         public int NodeSiteID { get; init; }
 
+        public string Culture { get; set; }
+
+        public DocumentIdentity DocumentIdentity
+        {
+            get
+            {
+                return new DocumentIdentity()
+                {
+                    DocumentId = DocumentID,
+                    DocumentGuid = DocumentGUID,
+                    NodeAliasPathAndMaybeCultureAndSiteId = new Tuple<string, Maybe<string>, Maybe<int>>(Path, Culture, NodeSiteID)
+                };
+            }
+        }
+
+        public NodeIdentity NodeIdentity
+        {
+            get
+            {
+                return new NodeIdentity()
+                {
+                    NodeId = NodeID,
+                    NodeGuid = NodeGUID,
+                    NodeAliasPathAndSiteId = new Tuple<string, Maybe<int>>(Path, NodeSiteID)
+                };
+            }
+        }
+
         public string GetCacheKey()
         {
             return $"doc-{DocumentGUID}";
@@ -85,7 +114,7 @@ namespace Core.Models
         /// <returns></returns>
         public static PageIdentity Empty()
         {
-            return new PageIdentity("", "", 0, Guid.Empty, 0, Guid.Empty, "/", "/", "/", 0, 0);
+            return new PageIdentity("", "", 0, Guid.Empty, 0, Guid.Empty, "/", "en-US", "/", "/", 0, 0);
         }
 
         /// <summary>
@@ -94,13 +123,13 @@ namespace Core.Models
         /// <returns></returns>
         public static PageIdentity Random()
         {
-            return new PageIdentity("", "", 0, Guid.NewGuid(), 0, Guid.NewGuid(), "/", "/", "/", 0, 0);
+            return new PageIdentity("", "", 0, Guid.NewGuid(), 0, Guid.NewGuid(), "/", "en-US", "/", "/", 0, 0);
         }
     }
 
     public record PageIdentity<T> : PageIdentity
     {
-        public PageIdentity(string name, string alias, int nodeID, Guid nodeGUID, int documentID, Guid documentGUID, string path, string relativeUrl, string absoluteUrl, int nodeLevel, int nodeSiteID, T data) : base(name, alias, nodeID, nodeGUID, documentID, documentGUID, path, relativeUrl, absoluteUrl, nodeLevel, nodeSiteID)
+        public PageIdentity(string name, string alias, int nodeID, Guid nodeGUID, int documentID, Guid documentGUID, string path, string culture, string relativeUrl, string absoluteUrl, int nodeLevel, int nodeSiteID, T data) : base(name, alias, nodeID, nodeGUID, documentID, documentGUID, path, culture, relativeUrl, absoluteUrl, nodeLevel, nodeSiteID)
         {
             Data = data;
         }

@@ -12,12 +12,15 @@ namespace Localization.Repositories.Implementations
     {
         private readonly ICacheDependencyBuilderFactory _cacheDependencyBuilderFactory;
         private readonly IProgressiveCache _progressiveCache;
+        private readonly LocalizationConfiguration _configuration;
 
         public LocalizedCategoryCachedRepository(ICacheDependencyBuilderFactory cacheDependencyBuilderFactory,
-            IProgressiveCache progressiveCache)
+            IProgressiveCache progressiveCache,
+            LocalizationConfiguration configuration)
         {
             _cacheDependencyBuilderFactory = cacheDependencyBuilderFactory;
             _progressiveCache = progressiveCache;
+            _configuration = configuration;
         }
 
         public LocalizedCategoryItem LocalizeCategoryItem(CategoryItem categoryItem, string cultureCode)
@@ -37,6 +40,8 @@ namespace Localization.Repositories.Implementations
             var localizedCategoryItem = categoryItem.ToLocalizedCategoryItem();
             string cultureOrLanguage = cultureCode.ToLower();
             string language = cultureCode.Split('-')[0];
+            string defaultCulture = _configuration.DefaultCulture.ToLower();
+            string defaultLanguage = defaultCulture.Split("-")[0];
             if (localizationDictionary.TryGetValue(categoryItem.CategoryID, out var localizationValues))
             {
                 var properKey = localizationValues.DisplayNames.Keys.OrderBy(cultureKey =>
@@ -50,11 +55,11 @@ namespace Localization.Repositories.Implementations
                     {
                         return 1;
                     }
-                    if (cultureKey.Equals("en-us"))
+                    if (cultureKey.Equals(defaultCulture))
                     {
                         return 2;
                     }
-                    else if (cultureKey.Equals("en"))
+                    else if (cultureKey.Equals(defaultLanguage))
                     {
                         return 3;
                     }
@@ -74,11 +79,11 @@ namespace Localization.Repositories.Implementations
                     {
                         return 1;
                     }
-                    if (cultureKey.Equals("en-us"))
+                    if (cultureKey.Equals(defaultCulture))
                     {
                         return 2;
                     }
-                    else if (cultureKey.Equals("en"))
+                    else if (cultureKey.Equals(defaultLanguage))
                     {
                         return 3;
                     }

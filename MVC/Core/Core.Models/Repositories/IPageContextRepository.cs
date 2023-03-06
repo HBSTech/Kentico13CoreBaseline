@@ -17,36 +17,16 @@
         /// <summary>
         /// Gets the PageIdentity information based on the given identifier
         /// </summary>
-        /// <param name="path">Path (NodeAliasPath)</param>
+        /// <param name="identity">The Node Identity (you can use string/int/guid .ToNodeIdentity() extension)</param>
         /// <returns>The Page Identity</returns>
-        Task<Result<PageIdentity>> GetPageAsync(string path);
+        Task<Result<PageIdentity>> GetPageAsync(NodeIdentity identity);
 
         /// <summary>
         /// Gets the PageIdentity information based on the given identifier
         /// </summary>
-        /// <param name="documentID">Document ID</param>
+        /// <param name="identity">The Document Identity (you can use string/int/guid .ToDocumentIdentity() extension)</param>
         /// <returns>The Page Identity </returns>
-        Task<Result<PageIdentity>> GetPageAsync(int documentID);
+        Task<Result<PageIdentity>> GetPageAsync(DocumentIdentity identity);
 
-        /// <summary>
-        /// Gets the PageIdentity information based on the given identifier
-        /// </summary>
-        /// <param name="documentGUID">Document GUID</param>
-        /// <returns>The Page Identity</returns>
-        Task<Result<PageIdentity>> GetPageAsync(Guid documentGUID);
-
-        /// <summary>
-        /// Gets the PageIdentity information based on the given identifier
-        /// </summary>
-        /// <param name="nodeID">Node ID</param>
-        /// <returns>The Page Identity</returns>
-        Task<Result<PageIdentity>> GetPageByNodeAsync(int nodeID);
-
-        /// <summary>
-        /// Gets the PageIdentity information based on the given identifier
-        /// </summary>
-        /// <param name="nodeGUID">Node GUID</param>
-        /// <returns>The Page Identity</returns>
-        Task<Result<PageIdentity>> GetPageByNodeAsync(Guid nodeGUID);
-    }
+        }
 }

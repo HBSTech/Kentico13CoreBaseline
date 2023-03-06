@@ -18,8 +18,4 @@
     <ProjectReference Include="..\Account.XperienceModels.KX13\Account.XperienceModels.KX13.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Repositories\Implementation\" />
-  </ItemGroup>
-
 </Project>

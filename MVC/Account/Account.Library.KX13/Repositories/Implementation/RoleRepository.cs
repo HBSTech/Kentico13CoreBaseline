@@ -1,87 +1,94 @@
-﻿using CMS.Membership;
-using Generic.Repositories.Interfaces;
-using Generic.Libraries.Helpers;
-using Generic.Models;
-using System.Threading.Tasks;
-using AutoMapper;
-using CMS.Helpers;
-using System.Reflection;
-using MVCCaching.Base.Core.Interfaces;
+﻿using CMS.Helpers;
+using CMS.Membership;
 using CMS.Modules;
+using MVCCaching.Base.Core.Interfaces;
+using MVCCaching;
+using Core;
 
-namespace Generic.Repositories.Implementations
+namespace Account.Repositories.Implementations
 {
-    [AutoDependencyInjection]
     public class RoleRepository : IRoleRepository
     {
         private readonly IRoleInfoProvider _roleInfoProvider;
         private readonly ISiteRepository _siteRepository;
-        private readonly IMapper _mapper;
         private readonly IProgressiveCache _progressiveCache;
-        private readonly ICacheDependenciesStore _cacheDependenciesStore;
+        private readonly ICacheDependencyBuilderFactory _cacheDependencyBuilderFactory;
         private readonly IUserInfoProvider _userInfoProvider;
 
         public RoleRepository(IRoleInfoProvider roleInfoProvider,
             ISiteRepository siteRepository,
-            IMapper mapper,
             IProgressiveCache progressiveCache,
-            ICacheDependenciesStore cacheDependenciesStore,
+            ICacheDependencyBuilderFactory cacheDependencyBuilderFactory,
             IUserInfoProvider userInfoProvider)
         {
             _roleInfoProvider = roleInfoProvider;
             _siteRepository = siteRepository;
-            _mapper = mapper;
             _progressiveCache = progressiveCache;
-            _cacheDependenciesStore = cacheDependenciesStore;
+            _cacheDependencyBuilderFactory = cacheDependencyBuilderFactory;
             _userInfoProvider = userInfoProvider;
         }
 
-        public async Task<RoleItem> GetRoleAsync(string roleName, string siteName)
+        public async Task<Result<RoleItem>> GetRoleAsync(string roleName, string siteName)
         {
-            var builder = new CacheDependencyKeysBuilder(_siteRepository, _cacheDependenciesStore);
+            var builder = _cacheDependencyBuilderFactory.Create();
             builder.Object(RoleInfo.OBJECT_TYPE, roleName);
 
             var role = await _progressiveCache.LoadAsync(async cs =>
             {
-                if(cs.Cached)
+                if (cs.Cached)
                 {
                     cs.CacheDependency = builder.GetCMSCacheDependency();
                 }
                 return await _roleInfoProvider.GetAsync(roleName, await _siteRepository.GetSiteIDAsync(siteName));
             }, new CacheSettings(60, "GetRoleAsync", roleName, siteName));
 
-            if(role != null)
+            if (role != null)
             {
-                return _mapper.Map<RoleItem>(role);
-            }else
+                return new RoleItem(
+                    siteID: role.SiteID.ToObjectIdentity(),
+                    roleID: role.RoleID,
+                    roleDisplayName: role.RoleDisplayName,
+                    roleName: role.RoleName,
+                    roleGUID: role.RoleGUID
+                    )
+                {
+                    RoleIsDomain = role.RoleIsDomain,
+                    RoleDescription = role.RoleDescription.AsNullOrWhitespaceMaybe()
+                };
+            }
+            else
             {
-                return null;
+                return Result.Failure<RoleItem>("Could not find role");
             }
         }
 
 
         public async Task<bool> UserInRoleAsync(int userID, string roleName, string siteName)
         {
-            var builder = new CacheDependencyKeysBuilder(_siteRepository, _cacheDependenciesStore);
+            var builder = _cacheDependencyBuilderFactory.Create();
             builder.ObjectType(UserRoleInfo.OBJECT_TYPE);
 
-            var roleItem = await GetRoleAsync(roleName, siteName);           
-            return UserRoleInfoProvider.IsUserInRole(userID, roleItem.RoleID);
+            var roleItem = await GetRoleAsync(roleName, siteName);
+            if (roleItem.TryGetValue(out var role))
+            {
+                return UserRoleInfoProvider.IsUserInRole(userID, role.RoleID);
+            }
+            return false;
         }
 
         public async Task<bool> UserHasPermissionAsync(int userID, string resourceName, string permissionName, string siteName)
         {
-            var builder = new CacheDependencyKeysBuilder(_siteRepository, _cacheDependenciesStore);
-            builder.ObjectType(UserRoleInfo.OBJECT_TYPE)
+            var builder = _cacheDependencyBuilderFactory.Create()
+                .ObjectType(UserRoleInfo.OBJECT_TYPE)
                 .ObjectType(RolePermissionInfo.OBJECT_TYPE)
-                .CustomKey("cms.permission|all");
+                .AddKey("cms.permission|all");
 
             // For next call, only cache on user id
-            builder.Clear()
+            builder = _cacheDependencyBuilderFactory.Create()
                 .Object(UserInfo.OBJECT_TYPE, userID);
             var user = await _progressiveCache.LoadAsync(async cs =>
             {
-                if(cs.Cached)
+                if (cs.Cached)
                 {
                     cs.CacheDependency = builder.GetCMSCacheDependency();
                 }

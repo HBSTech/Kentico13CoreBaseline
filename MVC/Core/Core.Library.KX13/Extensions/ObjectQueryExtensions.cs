@@ -75,8 +75,10 @@ public static class ObjectQueryExtensions
                         nameof(TreeNode.DocumentGUID),
                         nameof(TreeNode.NodeAlias),
                         nameof(TreeNode.NodeAliasPath),
+                        nameof(TreeNode.DocumentCulture),
                         nameof(TreeNode.DocumentName),
-                        nameof(TreeNode.NodeLevel)
+                        nameof(TreeNode.NodeLevel),
+                        nameof(TreeNode.NodeSiteID)
                         })
                     .WithPageUrlPaths();
     }
@@ -90,8 +92,10 @@ public static class ObjectQueryExtensions
                         nameof(TreeNode.DocumentGUID),
                         nameof(TreeNode.NodeAlias),
                         nameof(TreeNode.NodeAliasPath),
+                        nameof(TreeNode.DocumentCulture),
                         nameof(TreeNode.DocumentName),
-                        nameof(TreeNode.NodeLevel)
+                        nameof(TreeNode.NodeLevel),
+                        nameof(TreeNode.NodeSiteID)
                         })
                     .WithPageUrlPaths(); ;
     }
@@ -105,8 +109,10 @@ public static class ObjectQueryExtensions
                         nameof(TreeNode.DocumentGUID),
                         nameof(TreeNode.NodeAlias),
                         nameof(TreeNode.NodeAliasPath),
+                        nameof(TreeNode.DocumentCulture),
                         nameof(TreeNode.DocumentName),
-                        nameof(TreeNode.NodeLevel)
+                        nameof(TreeNode.NodeLevel),
+                        nameof(TreeNode.NodeSiteID)
                         })
                     .WithPageUrlPaths(); ;
     }

@@ -73,10 +73,11 @@ namespace Core.Extensions
                 node.DocumentID,
                 node.DocumentGUID,
                 node.NodeAliasPath,
+                node.DocumentCulture,
                 relativeAndAbsoluteUrl.Item1,
                 relativeAndAbsoluteUrl.Item2,
                 node.NodeLevel,
-                node.GetValue("NodeLinkedNodeSiteID", node.NodeSiteID),
+                node.NodeSiteID,
                 node);
 
             return pageIdentity;
