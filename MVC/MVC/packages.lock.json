@@ -282,6 +282,11 @@
           "System.Threading.Tasks.Extensions": "4.5.2"
         }
       },
+      "CSharpFunctionalExtensions": {
+        "type": "Transitive",
+        "resolved": "2.37.0",
+        "contentHash": "he6h/0A+D//IY9GdIBaKABzThqcdTc7Jbrd5hVYIBIu+VtdnjRnzKpemiqX2EFV55um3XEDbI2sEIGjktYBE9g=="
+      },
       "DocumentFormat.OpenXml": {
         "type": "Transitive",
         "resolved": "2.7.2",
@@ -293,15 +298,15 @@
       },
       "FluentValidation": {
         "type": "Transitive",
-        "resolved": "10.3.6",
-        "contentHash": "iMd370ZDx6ydm8t7bIFdRbSKX0e42lpvCtifUSbTSXOk5iKjmgl7HU0PXBhIWQAyIRi3gCwfMI9luj8H6K+byw=="
+        "resolved": "11.5.1",
+        "contentHash": "0h1Q5lNOLLyYTWMJmyNoMqhY4CBRvvUWvJP1R4F2CnmmzuWwvB0A8aVmw5+lOuwYnwUwCRrdeMLbc81F38ahNQ=="
       },
       "FluentValidation.DependencyInjectionExtensions": {
         "type": "Transitive",
-        "resolved": "10.3.6",
-        "contentHash": "yMwmbr+sHP/VLRQPTBVcgbJmtP5PGmxzNsqVX7FccDRwDB2edP8XsXWLNTZ4UwrslU1qQUD07BNQLDh7WXzpNw==",
+        "resolved": "11.5.1",
+        "contentHash": "iWM0LS1MDYX06pcjMEQKqHirl2zkjHlNV23mEJSoR1IZI7KQmTa0RcTtGEJpj5+iHvBCfrzP2mYKM4FtRKVb+A==",
         "dependencies": {
-          "FluentValidation": "10.3.6",
+          "FluentValidation": "11.5.1",
           "Microsoft.Extensions.Dependencyinjection.Abstractions": "2.1.0"
         }
       },
@@ -1197,8 +1202,8 @@
       },
       "Newtonsoft.Json": {
         "type": "Transitive",
-        "resolved": "13.0.2",
-        "contentHash": "R2pZ3B0UjeyHShm9vG+Tu0EBb2lC8b0dFzV9gVn50ofHXh9Smjk6kTn7A/FdAsC8B5cKib1OnGYOXxRBz5XQDg=="
+        "resolved": "13.0.1",
+        "contentHash": "ppPFpBcvxdsfUonNcvITKqLl3bqxWbDCZIzDWHzjpdAHRFfZe0Dw9HmA0+za13IdyrgJwpkDTDA9fHaxOrt20A=="
       },
       "Newtonsoft.Json.Bson": {
         "type": "Transitive",
@@ -2481,15 +2486,20 @@
           "System.Threading.Tasks.Extensions": "4.0.0"
         }
       },
-      "TypeMerger": {
-        "type": "Transitive",
-        "resolved": "2.1.1",
-        "contentHash": "9rIhG7zNCzaDgYSZYJB0jO80Km+C0ipPttbSgj/TgcLOAgb/HCWDW4ozzAWyX+DtW+sH9UB8euaQokEzzjcliQ=="
-      },
       "Ude.NetStandard": {
         "type": "Transitive",
         "resolved": "1.2.0",
         "contentHash": "zRWpPAxBg3lNdm4UiKixTe+DFPoNid9CILggTCy/0WR2WKETe17kTWhiiIpLB2k5IEgnvA0QLfKlvd6Tvu0pzA=="
+      },
+      "XperienceCommunity.MVCCaching": {
+        "type": "Transitive",
+        "resolved": "13.5.3",
+        "contentHash": "E7Way4LhRavtgHGmj9VW6jAOQV+fQRleAtXEN21tOIMAKl1d5GOC6pEOvIQkjaSU6+pFrYaFsLlMjKx4Jctbjg==",
+        "dependencies": {
+          "Kentico.Xperience.AspNetCore.WebApp": "13.0.5",
+          "MVCCaching.Base.Core": "3.0.2",
+          "Microsoft.AspNetCore.Http.Abstractions": "2.1.0"
+        }
       },
       "XperienceCommunity.PageBuilderUtilities": {
         "type": "Transitive",
@@ -2507,19 +2517,48 @@
           "Kentico.Xperience.AspNetCore.WebApp": "[13.0.0, 13.1.0)"
         }
       },
-      "mvc.libraries": {
+      "core.library": {
         "type": "Project",
         "dependencies": {
-          "AutoMapper": "[10.1.1, )",
-          "AutoMapper.Extensions.Microsoft.DependencyInjection": "[8.1.1, )",
+          "Core.Models": "[1.0.0, )",
+          "Microsoft.AspNetCore.Http.Abstractions": "[2.2.0, )"
+        }
+      },
+      "core.library.kx13": {
+        "type": "Project",
+        "dependencies": {
+          "Core.Library": "[1.0.0, )",
+          "Core.XperienceModels.KX13": "[1.0.0, )",
           "Kentico.Xperience.AspNetCore.WebApp": "[13.0.94, )",
-          "MVCCaching.Base.Core": "[3.0.2, )",
-          "Newtonsoft.Json": "[13.0.2, )",
-          "PartialWidgetPage.Kentico.MVC.Core": "[13.1.0, )",
           "RelationshipsExtended.Base": "[13.0.3, )",
-          "RelationshipsExtended.MVC.Standard": "[13.0.1, )",
-          "TypeMerger": "[2.1.1, )",
+          "XperienceCommunity.MVCCaching": "[13.5.3, )",
+          "XperienceCommunity.PageBuilderTagHelpers": "[1.1.0, )",
+          "XperienceCommunity.PageBuilderUtilities": "[1.1.0, )",
+          "XperienceCommunity.PageTemplateUtilities": "[1.0.0, )",
           "XperienceCommunity.QueryExtensions": "[1.2.0, )"
+        }
+      },
+      "core.models": {
+        "type": "Project",
+        "dependencies": {
+          "CSharpFunctionalExtensions": "[2.37.0, )",
+          "FluentValidation": "[11.5.1, )",
+          "FluentValidation.DependencyInjectionExtensions": "[11.5.1, )",
+          "MVCCaching.Base.Core": "[3.0.2, )"
+        }
+      },
+      "core.rcl": {
+        "type": "Project",
+        "dependencies": {
+          "Core.Library": "[1.0.0, )",
+          "Core.Library.KX13": "[1.0.0, )",
+          "Core.Models": "[1.0.0, )"
+        }
+      },
+      "core.xperiencemodels.kx13": {
+        "type": "Project",
+        "dependencies": {
+          "Kentico.Xperience.Libraries": "[13.0.94, )"
         }
       }
     }

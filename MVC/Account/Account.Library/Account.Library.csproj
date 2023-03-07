@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Account</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Core\Core.Library\Core.Library.csproj" />
+    <ProjectReference Include="..\..\Core\Core.Models\Core.Models.csproj" />
+    <ProjectReference Include="..\Account.Models\Account.Models.csproj" />
+  </ItemGroup>
+
+</Project>

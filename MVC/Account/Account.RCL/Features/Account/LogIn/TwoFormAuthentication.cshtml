@@ -1,0 +1,48 @@
+﻿@model Account.Features.Account.LogIn.TwoFormAuthenticationViewModel
+
+@if (Model.Failure)
+{
+    <h1>Authentication Failure</h1>
+    <p>The given token is invalid.  Please try logging in again.</p>
+}
+else
+{
+    <form asp-controller="LogIn" asp-action="TwoFormAuthentication" method="POST" asp-antiforgery="true">
+
+        <div class="container">
+
+            <h1 class="text-center pt-4 pb-2">Enter Authentication Code</h1>
+            <p>An email has been sent to the address on record.  Please enter the code below to log in.</p>
+            <div asp-validation-summary="All" class="alert alert-danger text-danger col-12" role="alert"></div>
+
+            <input type="hidden" asp-for=RedirectUrl />
+            <input type="hidden" asp-for=UserName />
+            <input type="hidden" asp-for=StayLoggedIn />
+            <div class="row">
+                <div class="col-12 col-sm-6 m-auto">
+                    <div class="form-group">
+                        <label asp-for=TwoFormCode></label>
+                        <input type="text" asp-for=TwoFormCode class="form-control" autocomplete="off" />
+                        <span asp-validation-for=TwoFormCode class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            @* Does not work due to TwoFactorAuthenticatorSignInAsync not working
+                <div class="row">
+                <div class="col-12 col-sm-6 m-auto">
+                    <div class="checkbox">
+                        <input type="checkbox" asp-for=RememberComputer autocomplete="off" />
+                        <label asp-for=RememberComputer></label>
+                        <span asp-validation-for=RememberComputer class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            *@
+            <div class="row">
+                <div class="col-12 col-sm-6 m-auto text-center">
+                    <input type="submit" value="Log in" class="btn btn-primary btn-theme" style="width: 100%;" />
+                </div>
+            </div>
+        </div>
+    </form>
+}

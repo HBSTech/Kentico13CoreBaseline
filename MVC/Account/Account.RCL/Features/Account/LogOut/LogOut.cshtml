@@ -1,0 +1,17 @@
+﻿@model Account.Features.Account.LogOut.LogOutViewModel
+<div class="container">
+    <form asp-controller="LogOut" asp-action="LogOut" method="POST">
+        <page-data-context initialized="false">
+            <h1 class="text-center pt-4 pb-2">Log Out</h1>
+        </page-data-context>
+        <page-data-context initialized="true">
+            <page-data />
+            <editable-area area-identifier="main" />
+        </page-data-context>
+        <div class="row">
+            <div class="col-12 col-sm-6 m-auto">
+                <input type="submit" class="btn btn-primary" value="Log Out" />
+            </div>
+        </div>
+    </form>
+</div>

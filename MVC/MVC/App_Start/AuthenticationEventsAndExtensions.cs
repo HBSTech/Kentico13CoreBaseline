@@ -1,4 +1,4 @@
-﻿using Generic.Features.Account.LogIn;
+﻿using Core.Features.Account.LogIn;
 using Generic.Features.HttpErrors;
 using Generic.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authentication;

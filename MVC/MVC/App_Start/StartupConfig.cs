@@ -34,7 +34,7 @@ using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Threading.Tasks;
 using Generic.Repositories.Interfaces;
-using Generic.Features.Account.LogIn;
+using Core.Features.Account.LogIn;
 using Generic.Repositories.Implementation;
 using System.Collections.Generic;
 using XperienceCommunity.WidgetFilter;

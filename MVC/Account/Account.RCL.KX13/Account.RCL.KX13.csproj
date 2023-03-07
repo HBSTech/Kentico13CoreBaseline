@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>Account</RootNamespace>
+	  <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Account.Library.KX13\Account.Library.KX13.csproj" />
+    <ProjectReference Include="..\Account.RCL\Account.RCL.csproj" />
+  </ItemGroup>
+
+</Project>

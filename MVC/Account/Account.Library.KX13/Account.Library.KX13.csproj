@@ -1,19 +1,25 @@
-<Project Sdk="Microsoft.NET.Sdk.Razor">
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <RootNamespace>Account</RootNamespace>
+	<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
   </PropertyGroup>
 
 	<ItemGroup>
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="XperienceCommunity.Authorization" Version="13.5.0" />
+	</ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Core.Library.KX13\Core.Library.KX13.csproj" />
     <ProjectReference Include="..\..\Core\Core.Library\Core.Library.csproj" />
     <ProjectReference Include="..\..\Core\Core.Models\Core.Models.csproj" />
+    <ProjectReference Include="..\Account.Library\Account.Library.csproj" />
     <ProjectReference Include="..\Account.Models\Account.Models.csproj" />
     <ProjectReference Include="..\Account.XperienceModels.KX13\Account.XperienceModels.KX13.csproj" />
   </ItemGroup>

@@ -11,12 +11,14 @@
     <PackageReference Include="Kentico.Xperience.AspNetCore.WebApp" Version="13.0.94" />
     <PackageReference Include="RelationshipsExtended.Base" Version="13.0.3" />
     <PackageReference Include="XperienceCommunity.MVCCaching" Version="13.5.3" />
+    <PackageReference Include="XperienceCommunity.PageBuilderTagHelpers" Version="1.1.0" />
+    <PackageReference Include="XperienceCommunity.PageBuilderUtilities" Version="1.1.0" />
+    <PackageReference Include="XperienceCommunity.PageTemplateUtilities" Version="1.0.0" />
     <PackageReference Include="XperienceCommunity.QueryExtensions" Version="1.2.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Core.Library\Core.Library.csproj" />
-    <ProjectReference Include="..\Core.Models\Core.Models.csproj" />
     <ProjectReference Include="..\Core.XperienceModels.KX13\Core.XperienceModels.KX13.csproj" />
   </ItemGroup>
 

@@ -1,0 +1,94 @@
+﻿@model Account.Features.Account.LogIn.LogInViewModel
+@if (Model.AlreadyLogedIn)
+{
+    <page-builder-mode exclude="Edit">
+
+        <script type="text/javascript">
+            setTimeout(() => {
+                window.location = '@Model.MyAccountUrl';
+            }, 3000);
+        </script>
+    </page-builder-mode>
+}
+@if (Model.AlreadyLogedIn)
+{
+    <p>Already Loged in, redirecting to account page...</p>
+}
+else if (Model.Result?.Succeeded ?? false)
+{
+    <p>Login Successful!</p>
+}
+else
+{
+    <form asp-controller="LogIn" asp-action="LogIn" method="POST" asp-antiforgery="true">
+
+        <div class="container">
+            <page-data-context initialized="false">
+                <h1 class="text-center pt-4 pb-2">Log in to your account</h1>
+            </page-data-context>
+            <page-data-context initialized="true">
+                <page-data />
+                <editable-area area-identifier="main" />
+            </page-data-context>
+            <div asp-validation-summary="All" class="alert alert-danger text-danger col-12" role="alert"></div>
+
+            <input type="hidden" asp-for=RedirectUrl />
+            <div class="row">
+                <div class="col-12 col-sm-6 m-auto">
+                    <div class="form-group">
+                        <input type="text" asp-for=UserName class="form-control" autocomplete="off" />
+                        <span asp-validation-for=UserName class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-sm-6 m-auto">
+                    <div class="form-group has-feedback">
+                        <input type="password" asp-for=Password class="form-control" autocomplete="off" />
+                        <span asp-validation-for=Password class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-sm-6 m-auto">
+                    <div class="checkbox">
+                        <input type="checkbox" asp-for=StayLogedIn autocomplete="off" />
+                        <label asp-for=StayLogedIn></label>
+                        <span asp-validation-for=StayLogedIn class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-sm-6 m-auto text-center">
+                    <input type="submit" value="Log in" class="btn btn-primary btn-theme" style="width: 100%;" /><br />
+                    Not already a member?  <a href="@Model.RegistrationUrl">Register Here</a>.<br />
+                    <a href="@Model.ForgotPassword">Forgotten password</a>
+                </div>
+            </div>
+        </div>
+    </form>
+    @if (Model.ExternalLoginProviders.Any())
+    {
+        <div class="col-md-4 offset-2">
+            <section>
+                <h4>Use different service for log in:</h4>
+                <hr />
+                @{
+                    <form asp-controller="Login" asp-action="ExternalLogin" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+                        <div>
+                            <p>
+                                @foreach (var provider in Model.ExternalLoginProviders)
+                                {
+                                    <input type="submit" class="btn btn-info" value="@provider.Name" name="provider" />
+                                }
+                            </p>
+                        </div>
+                    </form>
+                }
+            </section>
+        </div>
+    }
+}
+

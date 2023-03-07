@@ -1,0 +1,41 @@
+﻿@model Account.Features.Account.Confirmation.ConfirmationViewModel
+@{
+    ViewBag.Title = $"Confirmation {(Model.Result.Succeeded ? "Successful" : "Failure")}";
+}
+@if (Model.Result.Succeeded || Model.IsEditMode)
+{
+    <page-data-context initialized="false">
+
+        <h1>Confirmation Successful</h1>
+        <p>Congradulations, your account is now activated.  You may now <a href="@Model.LoginUrl">login</a>.</p>
+    </page-data-context>
+    <page-data-context initialized="true">
+        <page-builder-mode include="Edit">
+            <p><strong>Success Message Below</strong></p>
+        </page-builder-mode>
+        <editable-area area-identifier="main" />
+    </page-data-context>
+}
+@if (!Model.Result.Succeeded || Model.IsEditMode)
+{
+    <page-data-context initialized="false">
+        <h1>Confirmation Failure</h1>
+        <p>The following errors occurred:</p>
+    </page-data-context>
+    <page-data-context initialized="true">
+        <page-builder-mode include="Edit">
+            <p><strong>Failure Message Below</strong></p>
+        </page-builder-mode>
+        <editable-area area-identifier="failure" />
+    </page-data-context>
+    @if (Model.Result != null && Model.Result.Errors != null && Model.Result.Errors.Any())
+    {
+        <ul>
+            @foreach (var error in Model.Result.Errors)
+            {
+                <li>Code @(error.Code): @error.Description</li>
+            }
+        </ul>
+    }
+
+}

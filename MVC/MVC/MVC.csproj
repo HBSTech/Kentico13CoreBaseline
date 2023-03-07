@@ -11,8 +11,6 @@
     <PackageReleaseNotes>Node.js + Gulp + Webpack refactoring</PackageReleaseNotes>
   </PropertyGroup>
 <PropertyGroup>
-  <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
-  <RestoreLockedMode>true</RestoreLockedMode>
   <NoWarn>NU1603</NoWarn>
   <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
 </PropertyGroup>
@@ -52,6 +50,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Models\Account\" />
     <Folder Include="Repositories\Implementation\" />
     <Folder Include="Views\Shared\PageTypes\" />
     <Folder Include="wwwroot\js\jquery.unobtrusive.ajax\" />
@@ -60,9 +59,25 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MVC.Libraries\MVC.Libraries.csproj" />
+    <ProjectReference Include="..\Core\Core.Library\Core.Library.csproj" />
+    <ProjectReference Include="..\Core\Core.Models\Core.Models.csproj" />
+    <ProjectReference Include="..\Core\Core.RCL\Core.RCL.csproj" />
   </ItemGroup>
 
+	<!-- If Solution Name is MVC.XbyK, it will use the XbyK Libraries and references, otherwise it will default to the KX13-->
+	<Choose>
+		<When Condition=" '$(SolutionName)' == 'MVC.XbyK' ">
+			<ItemGroup>
+				<ProjectReference Include="..\Core\Core.Library.XbyK\Core.Library.XbyK.csproj" />
+			</ItemGroup>
+		</When>
+		<Otherwise>
+			<ItemGroup>
+				<ProjectReference Include="..\Core\Core.Library.KX13\Core.Library.KX13.csproj" />
+			</ItemGroup>
+		</Otherwise>
+	</Choose>
+	
   <ItemGroup>
     <Content Update="Components\Navigation\MainNavigation\MainNavigationDropdownItem.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
