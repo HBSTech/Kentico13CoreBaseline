@@ -78,25 +78,6 @@
 			</ItemGroup>
 		</Otherwise>
 	</Choose>
-	
-  <ItemGroup>
-    <Content Update="Components\Navigation\MainNavigation\MainNavigationDropdownItem.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Components\Navigation\MainNavigation\MainNavigationItem.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Components\Navigation\SecondaryNavigation\SecondaryNavigationDropdownItem.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-    <Content Update="Components\Navigation\SecondaryNavigation\SecondaryNavigationItem.cshtml">
-      <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </Content>
-  </ItemGroup>
 
 </Project>
 

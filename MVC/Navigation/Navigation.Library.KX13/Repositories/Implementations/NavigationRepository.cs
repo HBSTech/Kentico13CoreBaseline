@@ -44,9 +44,10 @@ namespace Navigation.Repositories.Implementations
         }
 
 
-        public async Task<IEnumerable<NavigationItem>> GetNavItemsAsync(Maybe<string> navPath, Maybe<IEnumerable<string>> navTypes)
+        public async Task<IEnumerable<NavigationItem>> GetNavItemsAsync(Maybe<string> navPath, IEnumerable<string>? navTypes = null)
         {
-            var navigationItems = await GetNavigationItemsAsync(navPath, navTypes);
+
+            var navigationItems = await GetNavigationItemsAsync(navPath, navTypes ?? Array.Empty<string>());
 
             // Convert to a Hierarchy listing
             var hierarchyItems = await NodeListToHierarchyTreeNodesAsync(navigationItems);
@@ -370,23 +371,9 @@ namespace Navigation.Repositories.Implementations
 
         }
 
-        private async Task<IEnumerable<NavigationPageType>> GetNavigationItemsAsync(Maybe<string> navPath, Maybe<IEnumerable<string>> navTypes)
+        private async Task<IEnumerable<NavigationPageType>> GetNavigationItemsAsync(Maybe<string> navPath, IEnumerable<string> navTypes)
         {
             var builder = _cacheDependencyBuilderFactory.Create();
-            if (navPath.TryGetValue(out var path))
-            {
-                if (navTypes.TryGetValue(out var types) && types.Any())
-                {
-                    builder.TreeCategoryByPath(TreePathUtils.EnsureSinglePath(path));
-                }
-            }
-            else
-            {
-                if (navTypes.TryGetValue(out var types) && types.Any())
-                {
-                    builder.TreeCategoryByPageType(NavigationPageType.CLASS_NAME, true);
-                }
-            }
 
             var results = await _pageRetriever.RetrieveAsync<NavigationPageType>(query => query
                     .OrderBy(new string[] { nameof(TreeNode.NodeLevel), nameof(TreeNode.NodeOrder) })
@@ -396,7 +383,7 @@ namespace Navigation.Repositories.Implementations
                         nameof(NavigationPageType.IsDynamic), nameof(NavigationPageType.Path), nameof(NavigationPageType.PageTypes), nameof(NavigationPageType.OrderBy), nameof(NavigationPageType.WhereCondition), nameof(NavigationPageType.MaxLevel), nameof(NavigationPageType.TopNumber), nameof(NavigationPageType.DocumentID), nameof(NavigationPageType.DocumentGUID)
                    })
                    .If(navPath.TryGetValueNonEmpty(out var navPathVal), query => query.Path(navPathVal.Trim('%'), PathTypeEnum.Section))
-                   .If(navTypes.TryGetValueNonEmpty(out var navTypeVal), query => query.TreeCategoryCondition(navTypeVal))
+                   .If(navTypes.Any(), query => query.TreeCategoryCondition(navTypes))
                    ,
                    cacheSettings => cacheSettings.Configure(builder, CacheMinuteTypes.VeryLong.ToDouble(), "GetNavigationItemsAsync", navPath.GetValueOrDefault(string.Empty), navTypes.GetValueOrDefault(Array.Empty<string>()))
             );
@@ -427,9 +414,7 @@ namespace Navigation.Repositories.Implementations
                         // Build NodeIDtoHierarchyTreeNode from the underneath
                         string path = "/" + navItem.Path.Trim('%').Trim('/');
                         builder = _cacheDependencyBuilderFactory.Create()
-                            .PagePath(path, PathTypeEnum.Children)
-                            .RegionsByPath(path);
-
+                            .PagePath(path, PathTypeEnum.Children);
 
                         var dynamicNodes = await _pageRetriever.RetrieveAsync<TreeNode>(query =>
                         {

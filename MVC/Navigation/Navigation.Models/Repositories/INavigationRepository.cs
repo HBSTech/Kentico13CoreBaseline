@@ -10,7 +10,7 @@ namespace Navigation.Repositories
         /// <param name="navPath">The Path to the Navigation items (Usually node alias path for Kentico)</param>
         /// <param name="navTypes">The Navigation Types you wish to grab (usually a list of CategoryNames that the NodeCategories are attached to)</param>
         /// <returns></returns>
-        Task<IEnumerable<NavigationItem>> GetNavItemsAsync(Maybe<string> navPath, Maybe<IEnumerable<string>> navTypes);
+        Task<IEnumerable<NavigationItem>> GetNavItemsAsync(Maybe<string> navPath, IEnumerable<string>? navTypes = null);
 
         /// <summary>
         /// Gets a Secondary Navigation based on the current page's path, the starting level and other settings.

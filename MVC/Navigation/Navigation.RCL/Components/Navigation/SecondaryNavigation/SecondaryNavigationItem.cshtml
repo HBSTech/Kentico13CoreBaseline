@@ -1,0 +1,21 @@
+﻿@model NavigationItem
+@if (Model.Children.Count == 0)
+{
+    <li navitem-class navitem-references navigation-item="Model" class="nav-item">
+        <a class="nav-link" navitem-link navigation-item="Model">@Html.Raw(Model.LinkText)</a>
+    </li>
+}
+else
+{
+    <li navitem-class navitem-references navigation-item="Model" class="nav-item dropdown">
+        <a class="nav-link" navitem-link navigation-item="Model" data-toggle="dropdown">
+            @Html.Raw(Model.LinkText)
+        </a>
+        <ul class="dropdown-menu">
+            @foreach (var ChildItem in Model.Children)
+            {
+                <partial name="/Components/Navigation/SecondaryNavigation/SecondaryNavigationDropdownItem.cshtml" for="@ChildItem" view-data="@ViewData" />
+            }
+        </ul>
+    </li>
+}

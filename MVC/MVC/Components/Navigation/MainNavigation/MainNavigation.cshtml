@@ -1,7 +1,0 @@
-﻿@model Generic.Components.Navigation.NavigationViewModel
-<ul class="navbar-nav @Model.NavWrapperClass">
-    @foreach (var NavItem in Model.NavItems)
-    {
-        <partial name="/Components/Navigation/MainNavigation/MainNavigationItem.cshtml" for="@NavItem" />
-    }
-</ul>

@@ -1,0 +1,13 @@
+﻿@model Navigation.Models.NavigationItem
+<li navitem-class navitem-references navigation-item="Model" class="@Model.LinkCSSClass">
+    <a navitem-link navigation-item="Model">@Html.Raw(Model.LinkText)</a>
+    @if (Model.Children.Count > 0)
+    {
+        <ul>
+            @foreach (var ChildItem in Model.Children)
+            {
+                <partial name="/Components/Navigation/SecondaryNavigation/SecondaryNavigationDropdownItem.cshtml" for="@ChildItem" />
+            }
+        </ul>
+    }
+</li>

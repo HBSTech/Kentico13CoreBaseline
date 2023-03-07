@@ -1,0 +1,19 @@
+﻿@model Navigation.Components.Navigation.Breadcrumbs.BreadcrumbsViewModel
+
+@if (Model.Breadcrumbs.Any())
+{
+    <ol class="breadcrumb">
+        @foreach (var Breadcrumb in Model.Breadcrumbs)
+        {
+            if (!Breadcrumb.IsCurrentPage)
+            {
+                <li><a href="@Breadcrumb.LinkUrl">@Breadcrumb.LinkText</a></li>
+            }
+            else
+            {
+                <li>@Breadcrumb.LinkText</li>
+            }
+        }
+    </ol>
+}
+
