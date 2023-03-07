@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Core.Models\Core.Models.csproj" />
+    <ProjectReference Include="..\Localization.Models\Localization.Models.csproj" />
   </ItemGroup>
 
 </Project>

@@ -50,6 +50,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Library\Validation\" />
     <Folder Include="Models\Account\" />
     <Folder Include="Repositories\Implementation\" />
     <Folder Include="Views\Shared\PageTypes\" />

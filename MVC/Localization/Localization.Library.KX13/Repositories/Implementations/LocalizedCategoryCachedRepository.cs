@@ -198,9 +198,9 @@ where C.CategoryDescription not like '{$%$}'";
                 categoryID: item.CategoryID,
                 categoryName: item.CategoryName,
                 categoryGuid: item.CategoryGuid,
-                categoryParentID: item.CategoryParentID)
+                categoryParentID: item.CategoryParentID,
+                categoryDisplayName: item.CategoryDisplayName)
             {
-                CategoryDisplayName= item.CategoryDisplayName,
                 CategoryDescription= item.CategoryDescription
             };
         }
