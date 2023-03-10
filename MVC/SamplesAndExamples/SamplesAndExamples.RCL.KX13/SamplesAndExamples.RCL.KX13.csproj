@@ -19,6 +19,10 @@
     <ProjectReference Include="..\..\Core\Core.XperienceModels.KX13\Core.XperienceModels.KX13.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="FileContentType\" />
+  </ItemGroup>
+
 
 
 </Project>

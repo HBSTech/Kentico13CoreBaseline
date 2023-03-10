@@ -1,0 +1,11 @@
+﻿@using ImageWidget.Components.Widgets.ImageWidget
+@model ImageWidgetViewModel
+
+@if(Model.ImageUrl.TryGetValue(out var imageUrl))
+{
+    <img src="@Url.Content(imageUrl)" alt="@Model.Alt" class="@Model.CssClass" />
+}
+else
+{
+    <vc:configuration-helper x-instructions="Please configure the widget to select a Media Library Item" x-needs-attention="false" />
+}

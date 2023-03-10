@@ -1,0 +1,6 @@
+﻿@model ComponentViewModel<WidgetizedHeaderFooter.Features.Header.HeaderPageTemplateProperties>
+@inject PartialWidgetPage.IPartialWidgetPageHelper PWPHelper
+@{ 
+    Layout = PWPHelper.LayoutIfEditMode("~/Views/Shared/_Layout-NoHeader.cshtml");
+}
+<vc:header/>

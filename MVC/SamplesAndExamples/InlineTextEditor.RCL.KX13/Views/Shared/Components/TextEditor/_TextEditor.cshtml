@@ -1,0 +1,12 @@
+﻿@model InlineTextEditor.Components.InlineEditors.TextEditor.TextEditorViewModel
+
+@using (Html.Kentico().BeginInlineEditor("text-editor", Model.PropertyName,
+    new
+    {
+        @class = "text-editor",
+        contenteditable = "true",
+        data_placeholder_text = Model.PlaceholderText
+    }))
+{
+    @Model.Text
+}

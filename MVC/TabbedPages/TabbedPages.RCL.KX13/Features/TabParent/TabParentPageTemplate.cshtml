@@ -1,0 +1,8 @@
+﻿@model ComponentViewModel<TabbedPages.Features.TabParent.TabParentPageTemplateProperties>
+@inject IPageIdentityFactory pageIdentityFactory
+
+@{
+    // Convert to identity with our TabParentItem model
+    var identity = Model.Page.ToPageIdentity();
+}
+<vc:tab-parent page="@identity" />

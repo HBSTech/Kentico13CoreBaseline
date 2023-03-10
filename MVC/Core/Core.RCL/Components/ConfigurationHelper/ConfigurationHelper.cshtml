@@ -1,0 +1,32 @@
+﻿@using Core.Components.ConfigurationHelper
+@model ConfigurationHelperViewModel
+
+@{
+    var uniqueID = Guid.NewGuid().ToString().Replace("-", "");
+    var iconClass = Model.NeedsAttention ? "xperience-attention-icon" : "xperience-information-icon";
+    var alertClass = Model.NeedsAttention ? "alert-danger" : "alert-info";
+}
+<div class="xperience-configuration-helper">
+    @{
+        if (Model.Mode == ConfigurationHelperMode.ToolTip)
+        {
+            <a href="#" id="tooltip-@uniqueID" data-toggle="tooltip" data-placement="right" data-html="true" title="@Html.Raw(System.Web.HttpUtility.HtmlAttributeEncode(Model.Instructions))">
+                <span class="@iconClass"></span>
+            </a>
+            <script type="text/javascript">
+                $(function () {
+                    $('#tooltip-@uniqueID').tooltip()
+                })
+            </script>
+        }
+        else if (Model.Mode == ConfigurationHelperMode.Inline)
+        {
+            <div class="alert @alertClass">
+                <span class="@iconClass"></span>
+                @Html.Raw(Model.Instructions)
+            </div>
+        }
+    }
+
+</div>
+

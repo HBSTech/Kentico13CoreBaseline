@@ -1,0 +1,52 @@
+﻿@model Search.Features.Search.SearchViewModel
+<div class="container">
+    <section id="tw-case" class="tw-case">
+        <div class="row">
+            <div class="col">
+                <page-data-context initialized="false">
+                    <h1>Search Results</h1>
+                </page-data-context>
+                <page-data-context initialized="true">
+                    <editable-area area-identifier="main" />
+                </page-data-context>
+                @if (!string.IsNullOrWhiteSpace(Model.SearchValue))
+                {
+                    <h2>For @Model.SearchValue</h2>
+                }
+                <input type="text" id="txtSearch" placeholder="Search..." /> <button type="button" class="btn-primary" onclick="Search();">Search</button>
+                @if (Model.SearchResults.TryGetValue(out var searchResults))
+                {
+                    <p>Showing @searchResults.Items.Count() of @searchResults.TotalPossible </p>
+                    foreach (var searchItem in searchResults.Items)
+                    {<article>
+                            @if (searchItem.IsPage)
+                            {
+                                <a href="@searchItem.PageUrl">@searchItem.Title</a>
+                                <p>@Html.Raw(searchItem.Content)</p>
+                            }
+                            else
+                            {
+                                @searchItem.Title
+                                <p>@searchItem.Content</p>
+                            }
+                        </article>
+                    }
+                }
+            </div>
+
+        </div>
+    </section>
+
+</div>
+<script type="text/javascript">
+    function Search() {
+        window.location = window.location.href.split("?")[0] + "?SearchValue=" + encodeURI(document.getElementById("txtSearch").value);
+    }
+    var searchBox = document.getElementById("txtSearch");
+    searchBox.addEventListener("keydown", function (e) {
+        if (e.keyCode === 13) {  //checks whether the pressed key is "Enter"
+            Search();
+        }
+    });
+</script>
+

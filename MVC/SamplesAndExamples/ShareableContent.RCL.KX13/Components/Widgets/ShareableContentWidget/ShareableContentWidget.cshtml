@@ -1,0 +1,11 @@
+﻿@model ShareableContent.Components.Widgets.ShareableContentWidget.ShareableContentWidgetComponentViewModel
+@if (Model.DocumentID.TryGetValue(out var docId))
+{
+    <inlinewidgetpage documentid="docId">
+        <vc:shareable-content />
+    </inlinewidgetpage>
+}
+else
+{
+    <vc:configuration-helper x-instructions="Please select a Shareable Content Page in the widget dialog" x-needs-attention="false" />
+}

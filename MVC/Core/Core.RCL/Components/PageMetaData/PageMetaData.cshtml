@@ -1,0 +1,22 @@
+﻿@model Core.Components.PageMetaData.PageMetaDataViewModel
+@inject IUrlHelper UrlHelper
+
+@if (Model.Title.TryGetValue(out var title))
+{
+    ViewBag.Title = title; ;
+    <title>@title</title>
+    <meta property="og:title" content="@title" />
+}
+@if (Model.Description.TryGetValue(out var description))
+{
+    <meta name="description" content="@description">
+    <meta property="og:description" content="@description" />
+}
+@if (Model.Keywords.TryGetValue(out var keywords))
+{
+    <meta name="keywords" content="@keywords">
+}
+@if (Model.Thumbnail.TryGetValue(out var thumbnail))
+{
+    <meta property="og:image" content="@UrlHelper.Content(thumbnail)" />
+}

@@ -16,6 +16,7 @@
     <ProjectReference Include="..\..\Core\Core.Library.KX13\Core.Library.KX13.csproj" />
     <ProjectReference Include="..\..\Core\Core.Library\Core.Library.csproj" />
     <ProjectReference Include="..\..\Core\Core.Models\Core.Models.csproj" />
+    <ProjectReference Include="..\TabbedPages.Models\TabbedPages.Models.csproj" />
   </ItemGroup>
 
 

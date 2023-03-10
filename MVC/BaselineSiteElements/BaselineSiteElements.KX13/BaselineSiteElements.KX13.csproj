@@ -12,13 +12,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ImageWidget\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\Core\Core.Library.KX13\Core.Library.KX13.csproj" />
     <ProjectReference Include="..\..\Core\Core.Library\Core.Library.csproj" />
     <ProjectReference Include="..\..\Core\Core.Models\Core.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Features\Home\HomeViewComponent.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
 
 

@@ -1,0 +1,7 @@
+﻿@model ComponentViewModel<StaticTextWidget.Components.Widgets.StaticText.StaticTextProperties>
+@if(Model.Properties.Text.AsNullOrWhitespaceMaybe().TryGetValue(out var text))
+{
+    @Html.Raw(text)
+} else {
+    <vc:configuration-helper x-instructions="Edit the widget and enter your static HTML text."/>
+}

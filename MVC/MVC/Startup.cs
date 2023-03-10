@@ -2,10 +2,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Autofac;
 using MVCCaching.Kentico;
 using System.Reflection;
-using Autofac.Extensions.DependencyInjection;
 using Generic.App_Start;
 using Microsoft.AspNetCore.Mvc.Razor;
 
@@ -34,7 +32,6 @@ namespace Generic
         }
 
         public IConfigurationRoot ConfigurationRoot { get; private set; }
-        public ILifetimeScope AutofacContainer { get; private set; }
 
         // MVC Caching
         public void ConfigureContainer(ContainerBuilder builder)
@@ -73,8 +70,6 @@ namespace Generic
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app)
         {
-            this.AutofacContainer = app.ApplicationServices.GetAutofacRoot();
-
             StartupConfig.RegisterDotNetCoreConfigurationsAndKentico(app, Environment, Configuration);
 
             RouteConfig.RegisterRoutes(app, Environment, Configuration);

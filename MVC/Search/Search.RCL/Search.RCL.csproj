@@ -17,6 +17,7 @@
     <ProjectReference Include="..\..\Core\Core.Library\Core.Library.csproj" />
     <ProjectReference Include="..\..\Core\Core.Models\Core.Models.csproj" />
     <ProjectReference Include="..\..\Core\Core.RCL\Core.RCL.csproj" />
+    <ProjectReference Include="..\Search.Models\Search.Models.csproj" />
   </ItemGroup>
 
 
