@@ -50,8 +50,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Shared\Components\" />
-    <Folder Include="Views\Shared\PageTypes\" />
     <Folder Include="wwwroot\js\jquery.unobtrusive.ajax\" />
     <Folder Include="wwwroot\js\typescript\" />
     <Folder Include="wwwroot\PageBuilder\Admin\InlineEditors\" />

@@ -1,6 +1,2 @@
-﻿@model ComponentViewModel<Generic.Features.BasicPage.BasicPagePageTemplateProperties>
-@section head {
-    <vc:page-meta-data />
-    <vc:breadcrumbs-json include-default-breadcrumb="true" nodeid="-1" />
-}
-<vc:basic-page page=@Model.Page.ToPageIdentity() />
+﻿@model ComponentViewModel<BaselineSiteElements.Features.BasicPage.BasicPagePageTemplateProperties>
+<vc:basic-page x-page=@Model.Page.ToPageIdentity() />

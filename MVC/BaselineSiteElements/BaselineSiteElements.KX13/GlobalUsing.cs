@@ -1,9 +1,3 @@
-﻿// System
-global using System.Linq;
-
-// Extensions
-global using RelationshipsExtended;
-
 /* Here's some various GLobal using that are common amongst libraries */
 global using System;
 global using System.Linq;

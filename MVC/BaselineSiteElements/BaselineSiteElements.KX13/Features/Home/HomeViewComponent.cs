@@ -1,7 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Localization;
-
-namespace Generic.Features.Home
+﻿
+namespace BaselineSiteElements.Features.Home
 {
     [ViewComponent]
     public class HomeViewComponent : ViewComponent
@@ -23,7 +21,7 @@ namespace Generic.Features.Home
             {
                 // Properties here
             };
-            return View("Home", model);
+            return View("/Features/Home/Home.cshtml", model);
         }
     }
 

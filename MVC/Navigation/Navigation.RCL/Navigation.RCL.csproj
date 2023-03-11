@@ -13,6 +13,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="PartialWidgetPage.Kentico.MVC.Core" Version="13.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Core\Core.RCL\Core.RCL.csproj" />
     <ProjectReference Include="..\Navigation.Library\Navigation.Library.csproj" />
   </ItemGroup>

@@ -1,7 +1,4 @@
-﻿using Generic.Models;
-using Microsoft.AspNetCore.Mvc;
-
-namespace Generic.Features.BasicPage
+﻿namespace BaselineSiteElements.Features.BasicPage
 {
     [ViewComponent]
     public class BasicPageViewComponent : ViewComponent
@@ -14,19 +11,23 @@ namespace Generic.Features.BasicPage
         /// Uses the current page context to render meta data
         /// </summary>
         /// <returns></returns>
-        public IViewComponentResult Invoke(PageIdentity page)
+        public IViewComponentResult Invoke(PageIdentity xPage)
         {
             // Any retrieval here
-            var model = new BasicPageViewModel()
-            {
-                Page = page
-            };
-            return View("BasicPage", model);
+            var model = new BasicPageViewModel(
+                page: xPage
+            );
+            return View("/Features/BasicPage/BasicPage.cshtml", model);
         }
     }
 
     public record BasicPageViewModel
     {
         public PageIdentity Page;
+
+        public BasicPageViewModel(PageIdentity page)
+        {
+            Page = page;
+        }
     }
 }

@@ -1,0 +1,30 @@
+@* Below are a list of common _ViewImport.cshtml's used*@
+@* Microsoft Helpers *@
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@* Kentico Items*@
+@using Kentico.Web.Mvc
+@using Kentico.Content.Web.Mvc
+@using Kentico.PageBuilder.Web.Mvc
+@addTagHelper *, Kentico.Web.Mvc
+@addTagHelper *, Kentico.Content.Web.Mvc
+
+@* Core Helpers*@
+@addTagHelper *, Core.RCL
+@addTagHelper *, Core.RCL.KX13
+
+@* Common Tools *@
+@using MVCCaching;
+@inject ICacheDependenciesScope CacheScope
+@inject MVCCaching.ICacheRepositoryContext CacheContext
+@addTagHelper *, PageBuilderContainers.Kentico.MVC.Core
+@addTagHelper *, PartialWidgetPage.Kentico.MVC.Core
+@addTagHelper *, XperienceCommunity.PageBuilderTagHelpers
+@addTagHelper *, XperienceCommunity.WidgetFilter
+
+@* Various other RCLs*@
+@using Navigation.Models;
+@addTagHelper *, Navigation.RCL
+@addTagHelper *, Navigation.RCL.KX13
+
+@addTagHelper *, BaselineSiteElements.KX13

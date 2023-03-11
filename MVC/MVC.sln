@@ -5,12 +5,6 @@ VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MVC", "MVC\MVC.csproj", "{D9E1B6C7-468C-4E8B-A869-502224CACF2F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RepoFiles", "RepoFiles", "{5C40A323-A8AA-4606-AFDD-6D45820EFB27}"
-	ProjectSection(SolutionItems) = preProject
-		..\.gitignore = ..\.gitignore
-		..\README.md = ..\README.md
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{AEA84302-1508-420C-85C3-E0AF8016CBB5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.RCL", "Core\Core.RCL\Core.RCL.csproj", "{EB5B30EC-BA9C-4909-8416-60BF9C6C375C}"
@@ -102,19 +96,27 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InlineTextEditor.RCL.KX13",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ColorPickerInlineEditor.RCL.KX13", "SamplesAndExamples\ColorPickerInlineEditor.RCL.KX13\ColorPickerInlineEditor.RCL.KX13.csproj", "{D5D31F2B-4CE5-448F-9D51-901CA6733129}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StaticTextWidget.RCL.KX13", "SamplesAndExamples\StaticTextWidget.RCL.KX13\StaticTextWidget.RCL.KX13.csproj", "{AE1F9D97-BB6A-42C6-9ECE-B03BE6D7B29F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StaticTextWidget.RCL.KX13", "SamplesAndExamples\StaticTextWidget.RCL.KX13\StaticTextWidget.RCL.KX13.csproj", "{AE1F9D97-BB6A-42C6-9ECE-B03BE6D7B29F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShareableContent.RCL.KX13", "SamplesAndExamples\ShareableContent.RCL.KX13\ShareableContent.RCL.KX13.csproj", "{03B490BD-31C2-4741-8070-5ABADFE24AE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShareableContent.RCL.KX13", "SamplesAndExamples\ShareableContent.RCL.KX13\ShareableContent.RCL.KX13.csproj", "{03B490BD-31C2-4741-8070-5ABADFE24AE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileContentType.RCL.KX13", "SamplesAndExamples\FileContentType.RCL.KX13\FileContentType.RCL.KX13.csproj", "{7FE3FCF2-5E88-4A7F-9A28-B816DEC6F927}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileContentType.RCL.KX13", "SamplesAndExamples\FileContentType.RCL.KX13\FileContentType.RCL.KX13.csproj", "{7FE3FCF2-5E88-4A7F-9A28-B816DEC6F927}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TabbedPages.RCL.KX13", "TabbedPages\TabbedPages.RCL.KX13\TabbedPages.RCL.KX13.csproj", "{30175B16-F49A-42D5-8FA4-9BE9F4A15E68}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TabbedPages.RCL.KX13", "TabbedPages\TabbedPages.RCL.KX13\TabbedPages.RCL.KX13.csproj", "{30175B16-F49A-42D5-8FA4-9BE9F4A15E68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WidgetizedHeaderFooter.RCL.KX13", "SamplesAndExamples\WidgetizedHeaderFooter.RCL.KX13\WidgetizedHeaderFooter.RCL.KX13.csproj", "{CA917CB7-BECF-446C-B2EC-CD3512FD00BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WidgetizedHeaderFooter.RCL.KX13", "SamplesAndExamples\WidgetizedHeaderFooter.RCL.KX13\WidgetizedHeaderFooter.RCL.KX13.csproj", "{CA917CB7-BECF-446C-B2EC-CD3512FD00BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Search.RCL.KX13", "Search\Search.RCL.KX13\Search.RCL.KX13.csproj", "{154ABA8B-1CF4-4845-A532-8562179AF8C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Search.RCL.KX13", "Search\Search.RCL.KX13\Search.RCL.KX13.csproj", "{154ABA8B-1CF4-4845-A532-8562179AF8C5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RichTextWidget.RCL.KX13", "SamplesAndExamples\RichTextWidget.RCL.KX13\RichTextWidget.RCL.KX13.csproj", "{9F8597BF-77A0-4676-8231-CCDC41650EDC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "RepoNotes", "RepoNotes", "{CA588846-ED19-4936-959C-D6BA7B9C05F8}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitignore = ..\.gitignore
+		RepoNotes\GlobalUsing.cs = RepoNotes\GlobalUsing.cs
+		..\README.md = ..\README.md
+		RepoNotes\_ViewImports.cshtml = RepoNotes\_ViewImports.cshtml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

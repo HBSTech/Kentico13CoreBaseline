@@ -1,12 +1,12 @@
 ﻿@model Navigation.Models.NavigationItem
-@if (Model.IsMegaMenu)
+@if (Model.IsMegaMenu && Model.LinkDocumentID.TryGetValue(out var linkDocId))
 {
     <li navitem-class navitem-references navigation-item="Model" class="nav-item dropdown mega-menu">
         <a href="#" class="nav-link dropdown-toggle" title="@Model.LinkAlt" onclick="@Model.LinkOnClick" data-toggle="dropdown">
             @Html.Raw(Model.LinkText)
         </a>
         <div class="dropdown-menu">
-            <inlinewidgetpage documentid="Model.LinkDocumentID" initialize-document-prior="true">
+            <inlinewidgetpage documentid="@linkDocId" initialize-document-prior="true">
                 <vc:partial-navigation />
             </inlinewidgetpage>
         </div>

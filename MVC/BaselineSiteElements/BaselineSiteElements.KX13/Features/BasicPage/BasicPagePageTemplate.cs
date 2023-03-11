@@ -1,4 +1,4 @@
-using Generic.Features.BasicPage;
+using BaselineSiteElements.Features.BasicPage;
 using Kentico.PageBuilder.Web.Mvc.PageTemplates;
 
 [assembly: RegisterPageTemplate(
@@ -8,7 +8,7 @@ using Kentico.PageBuilder.Web.Mvc.PageTemplates;
     typeof(BasicPagePageTemplateProperties),
     "~/Features/BasicPage/BasicPagePageTemplate.cshtml")]
 
-namespace Generic.Features.BasicPage
+namespace BaselineSiteElements.Features.BasicPage
 {
     public class BasicPagePageTemplateFilter : PageTypePageTemplateFilter
     {
