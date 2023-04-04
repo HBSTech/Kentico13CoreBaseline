@@ -1,7 +1,7 @@
 ﻿using CMS.Base;
 using Microsoft.AspNetCore.Http;
 
-namespace Core.Repositories.Implementations
+namespace Core.Repositories.Implementation
 {
     [AutoDependencyInjection]
     public class MetaDataRepository : IMetaDataRepository
@@ -125,13 +125,32 @@ namespace Core.Repositories.Implementations
             }
             */
 
-
             // Document custom data overrides, then site default
-            thumbnail = thumbnail.AsNullOrWhitespaceMaybe().GetValueOrDefault(node.DocumentCustomData.GetValue("MetaData_ThumbnailSmall").GetValueOrDefault(string.Empty).ToString());
-            thumbnailLarge = thumbnailLarge.AsNullOrWhitespaceMaybe().GetValueOrDefault(node.DocumentCustomData.GetValue("MetaData_ThumbnailLarge").GetValueOrDefault(string.Empty).ToString());
-            keywords = keywords.AsNullOrWhitespaceMaybe().GetValueOrDefault(node.DocumentCustomData.GetValue("MetaData_Keywords").GetValueOrDefault(node.DocumentPageKeyWords).ToString()).AsNullOrWhitespaceMaybe().GetValueOrDefault();
-            description = description.AsNullOrWhitespaceMaybe().GetValueOrDefault(node.DocumentCustomData.GetValue("MetaData_Description").GetValueOrDefault(node.DocumentPageDescription).ToString());
-            title = title.AsNullOrWhitespaceMaybe().GetValueOrDefault(node.DocumentCustomData.GetValue("MetaData_Title").GetValueOrDefault(node.DocumentPageTitle).ToString().AsNullOrWhitespaceMaybe().GetValueOrDefault(node.DocumentName));
+            if(thumbnail.AsNullOrWhitespaceMaybe().HasNoValue)
+            {
+                var customDataVal = node.DocumentCustomData.GetValue("MetaData_ThumbnailSmall");
+                thumbnail = customDataVal != null && customDataVal is string thumbSmallVal ? thumbSmallVal : string.Empty;
+            }
+            if (thumbnailLarge.AsNullOrWhitespaceMaybe().HasNoValue)
+            {
+                var customDataVal = node.DocumentCustomData.GetValue("MetaData_ThumbnailLarge");
+                thumbnailLarge = customDataVal != null && customDataVal is string thumbLargVal ? thumbLargVal : string.Empty;
+            }
+            if (keywords.AsNullOrWhitespaceMaybe().HasNoValue)
+            {
+                var customDataVal = node.DocumentCustomData.GetValue("MetaData_Keywords");
+                keywords = customDataVal != null && customDataVal is string keywordVal ? keywordVal : node.DocumentPageKeyWords;
+            }
+            if (description.AsNullOrWhitespaceMaybe().HasNoValue)
+            {
+                var customDataVal = node.DocumentCustomData.GetValue("MetaData_Description");
+                description = customDataVal != null && customDataVal is string descriptionVal ? descriptionVal : node.DocumentPageDescription;
+            }
+            if(title.AsNullOrWhitespaceMaybe().HasNoValue)
+            {
+                var customDataVal = node.DocumentCustomData.GetValue("MetaData_Title");
+                description = customDataVal != null && customDataVal is string titleVal ? titleVal : node.DocumentPageTitle.AsNullOrWhitespaceMaybe().GetValueOrDefault(node.DocumentName);
+            }
 
             PageMetaData metaData = new PageMetaData()
             {

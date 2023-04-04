@@ -3,7 +3,7 @@ using Kentico.Forms.Web.Mvc;
 using Kentico.Components.Web.Mvc.FormComponents;
 using ImageWidget.Components.Widgets.ImageWidget;
 
-[assembly: RegisterWidget(ImageWidgetViewComponent.IDENTIFIER, typeof(ImageWidgetViewComponent), "Image", propertiesType: typeof(ImageWidgetProperties), Description = "Places an image on the page", IconClass = "icon-picture", AllowCache = true)]
+//[assembly: RegisterWidget(ImageWidgetViewComponent.IDENTIFIER, typeof(ImageWidgetViewComponent), "Image", propertiesType: typeof(ImageWidgetProperties), Description = "Places an image on the page", IconClass = "icon-picture", AllowCache = true)]
 namespace ImageWidget.Components.Widgets.ImageWidget
 {
     [ViewComponent]

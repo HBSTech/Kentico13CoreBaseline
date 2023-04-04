@@ -2,7 +2,7 @@
 
 namespace Core.Repositories.Implementation
 {
-    internal class BaselinePageBuilderContext : IBaselinePageBuilderContext
+    public class BaselinePageBuilderContext : IBaselinePageBuilderContext
     {
         private readonly IPageBuilderContext _pageBuilderContext;
 

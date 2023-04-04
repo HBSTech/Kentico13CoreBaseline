@@ -6,7 +6,7 @@ using CMS.DocumentEngine.Routing;
 using Core.Extensions;
 using MVCCaching;
 
-namespace Core.Repositories.Implementations
+namespace Core.Repositories.Implementation
 {
     [AutoDependencyInjection]
     public class PageContextRepository : IPageContextRepository

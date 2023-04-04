@@ -3,7 +3,7 @@ using CMS.DataEngine;
 using CMS.Taxonomy;
 using Core.Comparers;
 
-namespace Generic.Repositories.Implementations
+namespace Generic.Repositories.Implementation
 {
     [AutoDependencyInjection]
     public class PageCategoryRepository : IPageCategoryRepository

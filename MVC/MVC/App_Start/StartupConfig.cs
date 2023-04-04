@@ -6,60 +6,50 @@ using Kentico.Scheduler.Web.Mvc;
 using Kentico.Web.Mvc;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using RelationshipsExtended.Interfaces;
-using RelationshipsExtended;
 using BootstrapLayoutTool;
 using PageBuilderContainers;
 using PageBuilderContainers.Base;
 using PartialWidgetPage;
-using XperienceCommunity.PageBuilderTagHelpers;
 using Kentico.Membership;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Routing;
 using CMS.Helpers;
-using System;
-using Generic.Library;
-using Generic.Repositories.Implementations;
 using System.Reflection;
 using XperienceCommunity.Authorization;
 using XperienceCommunity.Localizer;
 using XperienceCommunity.PageBuilderUtilities;
 using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Authentication.OAuth;
-using Microsoft.AspNetCore.WebUtilities;
-using System.Threading.Tasks;
-using Generic.Repositories.Interfaces;
-using Core.Features.Account.LogIn;
-using Generic.Repositories.Implementation;
-using System.Collections.Generic;
 using XperienceCommunity.WidgetFilter;
-using Microsoft.Extensions.FileProviders;
-using System.IO;
+using Core.Middleware;
+using Core;
 
-namespace Generic.App_Start
+namespace MVC
 {
     public static class StartupConfig
     {
-        private const string AUTHENTICATION_COOKIE_NAME = "identity.authentication";
 
         public static void RegisterInterfaces(IServiceCollection services, IWebHostEnvironment Environment, IConfiguration Configuration)
         {
+            // MVC Caching
+            services.AddMVCCaching();
+            services.AddMVCCachingAutoDependencyInjectionByAttribute();
+
+            // Baseline services
+            services.UseCoreBaseline();
+
             // Relationships Extended
             services.AddSingleton<IRelationshipExtendedHelper, RelationshipsExtendedHelper>();
 
             // Page Builder Container
-            services.AddSingleton<IPageBuilderContainerHelper, PageBuilderContainerHelper>();
+            // services.AddSingleton<IPageBuilderContainerHelper, PageBuilderContainerHelper>();
 
             // Partial Widget Page
-            services.AddSingleton<IPartialWidgetPageHelper, PartialWidgetPageHelper>();
-
-            // Custom PartialWidgetRenderingRetriever
-            services.AddSingleton<IPartialWidgetRenderingRetriever, PartialWidgetRenderingRetriever>();
+            // services.AddSingleton<IPartialWidgetPageHelper, PartialWidgetPageHelper>();
 
             // Admin redirect filter
             services.AddSingleton<IStartupFilter>(new AdminRedirectStartupFilter(Configuration));
@@ -79,14 +69,11 @@ namespace Generic.App_Start
             // Page template filters
             services.AddPageTemplateFilters(Assembly.GetExecutingAssembly());
 
-            // AutoMapper of MVC and MVC.Libraries solutions
-            services.AddAutoMapper(typeof(Startup), typeof(Generic.Libraries.AssemblyInfo));
-
             // Kentico authorization
-            services.AddKenticoAuthorization();
+            // services.AddKenticoAuthorization();
 
             // Fluent Validator
-            services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblies(new Assembly[] { typeof(Startup).Assembly, typeof(Generic.Libraries.AssemblyInfo).Assembly, typeof(Generic.Models.AssemblyInfo).Assembly }));
+            services.AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblies(new Assembly[] { typeof(Startup).Assembly }));
 
             // Widget Filters
             services.AddWidgetFilter();
@@ -159,16 +146,15 @@ namespace Generic.App_Start
 
         internal static void RegisterGzipFileHandling(IServiceCollection services, IWebHostEnvironment environment, IConfiguration Configuration)
         {
-            services.ConfigureOptions<GzipStaticFileOptions>();
+            services.UseGzipAndCacheControlFileHandling();
         }
 
         public static void RegisterLocalizationAndControllerViews(IServiceCollection services, IWebHostEnvironment Environment, IConfiguration Configuration)
         {
-            // From dancing goat, Localizer
-
+            // Localizer
             services.AddLocalization()
                     .AddXperienceLocalizer() // Call after AddLocalization
-                    .AddControllersWithViews(options => options.Filters.AddKenticoAuthorization())
+                    .AddControllersWithViews() // .AddControllersWithViewsAndKenticoAuthorization()
                     .AddViewLocalization()
                     .AddDataAnnotationsLocalization(options =>
                     {
@@ -179,93 +165,7 @@ namespace Generic.App_Start
                     });
         }
 
-        public static void RegisterIdentityHandlers(IServiceCollection services, IWebHostEnvironment Environment, IConfiguration Configuration)
-        {
-            // Required for authentication
-            services.AddScoped<IPasswordHasher<ApplicationUser>, Kentico.Membership.PasswordHasher<ApplicationUser>>();
-            services.AddScoped<IMessageService, MessageService>();
-            services.AddApplicationIdentity<ApplicationUser, ApplicationRole>(options =>
-            {
-                // Note: These settings are effective only when password policies are turned off in the administration settings.
-                options.Password.RequireDigit = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequiredLength = 0;
-                options.Password.RequireUppercase = false;
-                options.Password.RequireLowercase = false;
-                options.Password.RequiredUniqueChars = 0;
-            })
-                    .AddApplicationDefaultTokenProviders()
-                    .AddUserStore<ApplicationUserStore<ApplicationUser>>()
-                    .AddRoleStore<ApplicationRoleStore<ApplicationRole>>()
-                    .AddUserManager<ApplicationUserManager<ApplicationUser>>()
-                    .AddSignInManager<SignInManager<ApplicationUser>>();
-            // Get default 
-
-            services.AddAuthentication()
-                // https://docs.microsoft.com/en-us/aspnet/core/security/authentication/social/?view=aspnetcore-6.0&tabs=visual-studio
-                /*.AddGoogle("Google", opt =>
-                {
-                    var googleAuth = Configuration.GetSection("Authentication:Google");
-
-                    opt.ClientId = googleAuth["ClientId"];
-                    opt.ClientSecret = googleAuth["ClientSecret"];
-                    opt.SignInScheme = IdentityConstants.ExternalScheme;
-                    opt.EventsType = typeof(SiteSettingsOauthAuthenticationEvents);
-                }).AddFacebook("Facebook", opt =>
-                {
-                    var facebookAuth = Configuration.GetSection("Authentication:Facebook");
-
-                    opt.AppId = facebookAuth["AppId"];
-                    opt.AppSecret = facebookAuth["AppSecret"];
-                    opt.SignInScheme = IdentityConstants.ExternalScheme;
-                    opt.EventsType = typeof(SiteSettingsFacebookOauthAuthenticationEvents);
-                }).AddTwitter(opt =>
-                {
-                    var twitterAuth = Configuration.GetSection("Authentication:Twitter");
-
-                    opt.ConsumerKey = twitterAuth["APIKey"];
-                    opt.ConsumerSecret = twitterAuth["APIKeySecret"];
-                    opt.RetrieveUserDetails = true;
-                    opt.EventsType = typeof(SiteSettingsTwitterOauthAuthenticationEvents);
-                }).AddMicrosoftAccount(opt =>
-                {
-                    var microsoftAuth = Configuration.GetSection("Authentication:Microsoft");
-
-                    opt.ClientId = microsoftAuth["ClientId"];
-                    opt.ClientSecret = microsoftAuth["ClientSecret"];
-                    opt.EventsType = typeof(SiteSettingsOauthAuthenticationEvents);
-                })*/
-                // Baseline Configuration of External Authentication
-                .ConfigureAuthentication(config =>
-                {
-                    config.ExistingInternalUserBehavior = Models.Account.ExistingInternalUserBehavior.SetToExternal;
-                    config.FacebookUserRoles.Add("facebook-user");
-                    config.UseTwoFormAuthentication = false;
-                });
-            services.AddAuthorization();
-
-            // Register authentication cookie
-            // Overwrite login logout based on site settings, with fall back to the default controllers
-            services.AddAuthenticationServices();
-
-            // Configures the application's authentication cookie
-            services.ConfigureApplicationCookie(c =>
-            {
-                // These 3 are actually handled on the SiteSettingsOauthAuthenticationEvents
-                // and are overwritten by site settings
-                c.LoginPath = new PathString("/Account/Signin");
-                c.LogoutPath = new PathString("/Account/Signout");
-                c.AccessDeniedPath = new PathString("/Error/403");
-                
-                c.ExpireTimeSpan = TimeSpan.FromDays(14);
-                c.SlidingExpiration = true;
-                c.Cookie.Name = AUTHENTICATION_COOKIE_NAME;
-                c.EventsType = typeof(SiteSettingsCookieAuthenticationEvents);
-            });
-
-
-            CookieHelper.RegisterCookie(AUTHENTICATION_COOKIE_NAME, CookieLevel.Essential);
-        }
+        
 
         public static void RegisterDotNetCoreConfigurationsAndKentico(IApplicationBuilder app, IWebHostEnvironment Environment, IConfiguration Configuration)
         {
@@ -320,7 +220,6 @@ namespace Generic.App_Start
                 });
             */
             app.UseStaticFiles();
-            
 
             app.UseKentico();
 

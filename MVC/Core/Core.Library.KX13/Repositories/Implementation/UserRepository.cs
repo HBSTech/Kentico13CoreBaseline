@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Http;
 using MVCCaching;
 using MVCCaching.Base.Core.Interfaces;
 
-namespace Core.Repositories.Implementations
+namespace Core.Repositories.Implementation
 {
     [AutoDependencyInjection]
     public class UserRepository : IUserRepository

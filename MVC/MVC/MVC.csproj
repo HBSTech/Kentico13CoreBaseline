@@ -7,7 +7,8 @@
     <TargetFramework>net6.0</TargetFramework>
     <RootNamespace>Generic</RootNamespace>
     <AssemblyName>MVC</AssemblyName>
-    <Version>1.4.0</Version>
+	  <Nullable>enable</Nullable>
+	  <Version>1.4.0</Version>
     <PackageReleaseNotes>Node.js + Gulp + Webpack refactoring</PackageReleaseNotes>
   </PropertyGroup>
 <PropertyGroup>
@@ -56,9 +57,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BaselineSiteElements\BaselineSiteElements.KX13\BaselineSiteElements.KX13.csproj" />
     <ProjectReference Include="..\Core\Core.Library\Core.Library.csproj" />
     <ProjectReference Include="..\Core\Core.Models\Core.Models.csproj" />
+    <ProjectReference Include="..\Core\Core.RCL.KX13\Core.RCL.KX13.csproj" />
     <ProjectReference Include="..\Core\Core.RCL\Core.RCL.csproj" />
+    <ProjectReference Include="..\Navigation\Navigation.RCL.KX13\Navigation.RCL.KX13.csproj" />
   </ItemGroup>
 
 	<!-- If Solution Name is MVC.XbyK, it will use the XbyK Libraries and references, otherwise it will default to the KX13-->

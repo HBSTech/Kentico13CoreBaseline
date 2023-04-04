@@ -1,11 +1,6 @@
 ﻿@{
     Layout = null;
 }
-@inject Microsoft.AspNetCore.Http.IHttpContextAccessor Accessor
-@inject PartialWidgetPage.IPartialWidgetPageHelper PWPHelper
-@inject ICacheDependenciesStore CacheStore
-@inject IStringLocalizer<SharedResources> StringLocalizer
-@inject IPageContextRepository pageContextRepository
 <!DOCTYPE html>
 <html lang="@(System.Threading.Thread.CurrentThread.CurrentCulture.Name.Split('-')[0])">
 <head>
@@ -43,52 +38,12 @@
     @* Cache Header*@
 
     <header data-ktc-search-exclude>
-        <!-- ONLY Cache header partial widget page if the widgets / content of the header have no personalization!! -->
-        <cache expires-after="@TimeSpan.FromMinutes(60)" enabled="@CacheContext.CacheEnabled()">
-            @{
-                var headerDoc = await pageContextRepository.GetPageAsync("/MasterPage/Header");
-                <vc:configuration-helper visible=@(headerDoc == null) mode="Inline" instructions="<strong>No Header Page Found</strong>: Please create a folder `MasterPage` at the root, and add a Header page there with the name `Header`." needs-attention="true" />
-                if (headerDoc != null)
-                {
-                    CacheScope.Begin();
-                    CacheStore.Store(new string[] { $"documentid|{headerDoc.DocumentID}" });
-                    <inlinewidgetpage documentid="@headerDoc.DocumentID" initialize-document-prior="true">
-                        <vc:header />
-                    </inlinewidgetpage>
-                    <cache-dependency cache-keys="@CacheScope.End()" />
-                }
-            }
-        </cache>
 
-        @* Cache is on the component itself *@
-        <cache expires-after="@TimeSpan.FromMinutes(60)" enabled="@CacheContext.CacheEnabled()">
-            @{CacheScope.Begin();}
-            @* This View Component uses various IRepository calls that are hooked up with MVCCaching, so all dependencies are added to the Store automatically *@
-            <vc:main-navigation navigation-parent-path="/MasterPage/Navigation" css-class="MainNav" />
-            <cache-dependency cache-keys="@CacheScope.End()" />
-        </cache>
-        @* This adds javascript to highlight the current nav, this way we don't need a Vary-By on the menu and it can be cached for all pages *@
-        <navigation-page-selector parent-class="MainNav" />
     </header>
     @RenderBody()
 
     <footer data-ktc-search-exclude>
-        <!-- ONLY Cache header partial widget page if the widgets / content of the header have no personalization!! -->
-        <cache expires-after="@TimeSpan.FromMinutes(60)" enabled="@CacheContext.CacheEnabled()">
-            @{
-                var footerDoc = await pageContextRepository.GetPageAsync("/MasterPage/Footer");
-                <vc:configuration-helper visible=@(footerDoc == null) mode="Inline" instructions="<strong>No Footer Page Found</strong>: Please create a folder `MasterPage` at the root, and add a Footer page there with the name `Footer`." needs-attention="true" />
-                if (footerDoc != null)
-                {
-                    CacheScope.Begin();
-                    CacheStore.Store(new string[] { $"documentid|{footerDoc.DocumentID}" });
-                    <inlinewidgetpage documentid="@footerDoc.DocumentID" initialize-document-prior="true">
-                        <vc:footer />
-                    </inlinewidgetpage>
-                    <cache-dependency cache-keys="@CacheScope.End()" />
-                }
-            }
-        </cache>
+        
     </footer>
 
     <!-- Includes the jQuery Validator for MVC-->

@@ -6,7 +6,6 @@ global using RelationshipsExtended;
 
 /* Here's some various GLobal using that are common amongst libraries */
 global using System;
-global using System.Linq;
 
 global using Microsoft.AspNetCore.Mvc;
 global using Microsoft.AspNetCore.Http;

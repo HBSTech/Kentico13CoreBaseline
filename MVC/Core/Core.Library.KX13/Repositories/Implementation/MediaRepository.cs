@@ -3,7 +3,7 @@ using CMS.DataEngine;
 using CMS.MediaLibrary;
 using System.Data;
 
-namespace Core.Repositories.Implementations
+namespace Core.Repositories.Implementation
 {
     [AutoDependencyInjection]
     public class MediaRepository : IMediaRepository

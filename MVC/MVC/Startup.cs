@@ -2,17 +2,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MVCCaching.Kentico;
-using System.Reflection;
-using Generic.App_Start;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Core.Middleware;
 
-namespace Generic
+namespace MVC
 {
     public class Startup
     {
-        private const string AUTHENTICATION_COOKIE_NAME = "identity.authentication";
-
         public IWebHostEnvironment Environment { get; }
 
         public IConfiguration Configuration { get; }
@@ -21,23 +17,10 @@ namespace Generic
         {
             Environment = environment;
             Configuration = configuration;
-            // MVC Caching
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(environment.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{environment.EnvironmentName}.json", optional: true)
-                .AddEnvironmentVariables();
-            this.ConfigurationRoot = builder.Build();
-            // END MVC Caching
         }
 
         public IConfigurationRoot ConfigurationRoot { get; private set; }
 
-        // MVC Caching
-        public void ConfigureContainer(ContainerBuilder builder)
-        {
-            DependencyResolverConfig.Register(builder, new Assembly[] { Assembly.GetExecutingAssembly(), typeof(Generic.Models.AssemblyInfo).Assembly, typeof(Generic.Libraries.AssemblyInfo).Assembly });
-        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
@@ -50,8 +33,6 @@ namespace Generic
             StartupConfig.RegisterGzipFileHandling(services, Environment, Configuration);
 
             StartupConfig.RegisterLocalizationAndControllerViews(services, Environment, Configuration);
-
-            StartupConfig.RegisterIdentityHandlers(services, Environment, Configuration);
 
             services.AddHttpContextAccessor();
 

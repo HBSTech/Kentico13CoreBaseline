@@ -13,7 +13,7 @@ namespace Core.Middleware
         /// </summary>
         /// <param name="services"></param>
         /// <returns></returns>
-        public static IServiceCollection UseGzipAndCacheControlFileHandling(IServiceCollection services)
+        public static IServiceCollection UseGzipAndCacheControlFileHandling(this IServiceCollection services)
         {
             return services.ConfigureOptions<GzipStaticFileAndCachingOptions>();
         }

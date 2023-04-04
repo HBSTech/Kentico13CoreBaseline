@@ -2,9 +2,8 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Kentico.Web.Mvc;
-using Navigation.RCL.Configuration;
 
-namespace Generic.App_Start
+namespace MVC
 {
     public class RouteConfig
     {
@@ -22,10 +21,7 @@ namespace Generic.App_Start
                    defaults: new { controller = "HttpErrors", action = "Error" }
                 );
 
-
                 //Site map
-                //endpoints.UseSitemapRoute();
-
                 endpoints.MapControllerRoute(
                     name: "MySiteMap",
                     pattern: "sitemap.xml",
