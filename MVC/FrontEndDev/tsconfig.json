@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "noImplicitAny": false,
+    "noEmitOnError": true,
+    "removeComments": false,
+    "sourceMap": true,
+    "module": "commonjs",
+    "target": "es6",
+    "esModuleInterop": true,
+    "jsx": "react",
+    "strict": true,
+    "lib": [
+      "es2015",
+      "es2015.promise",
+      "es2015.iterable",
+      "es2016",
+      "dom",
+      "dom.iterable"
+    ]
+  },
+  "include": [
+    "typescript/**/*",
+    "react/**/*"
+  ],
+  "compileOnSave": true,
+  "exclude": [
+    "node_modules",
+    "wwwroot"
+  ]
+} 

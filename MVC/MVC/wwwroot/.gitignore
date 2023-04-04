@@ -1,0 +1,8 @@
+# Ignore items generated from FrontEndDev system
+css/individual
+js/individual
+css/bundles
+js/bundles
+images/source
+images/optimized
+images/webp
