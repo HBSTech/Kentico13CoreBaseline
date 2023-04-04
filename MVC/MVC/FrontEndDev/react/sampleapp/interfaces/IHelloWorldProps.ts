@@ -1,3 +1,0 @@
-interface IHelloWorldProps {
-    CustomMessage? : string;
-}
