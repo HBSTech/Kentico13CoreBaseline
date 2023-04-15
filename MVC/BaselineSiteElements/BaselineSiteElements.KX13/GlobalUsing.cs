@@ -1,14 +1,26 @@
-/* Here's some various GLobal using that are common amongst libraries */
+// System
 global using System;
 global using System.Linq;
+global using System.Threading;
+global using CSharpFunctionalExtensions;
 
-global using Microsoft.AspNetCore.Mvc;
-global using Microsoft.AspNetCore.Http;
-
+// Core
 global using Core.Repositories;
 global using Core.Services;
 global using Core.Models;
 global using Core.Extensions;
-
-global using CSharpFunctionalExtensions;
+global using Core.Enums;
+global using Core.Comparers;
+global using Core.Interfaces;
 global using MVCCaching;
+
+// MVC
+global using Core.Attributes;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.AspNetCore.Http;
+
+// Kentico 13 MVC
+global using Kentico.PageBuilder.Web.Mvc;
+global using Kentico.PageBuilder.Web.Mvc.PageTemplates;
+
+// Feature

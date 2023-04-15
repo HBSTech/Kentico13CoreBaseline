@@ -43,16 +43,16 @@
     <header>
         <cache expires-after="@TimeSpan.FromMinutes(60)" enabled="@CacheContext.CacheEnabled()">
             @{
-                var headerDoc = await pageContextRepository.GetPageAsync("/MasterPage/Header");
-                <vc:configuration-helper visible=@(headerDoc == null) mode="Inline" instructions="<strong>No Header Page Found</strong>: Please create a folder `MasterPage` at the root, and add a Header page there with the name `Header`." needs-attention="true" />
-                if (headerDoc != null)
-                {
-                    CacheScope.Begin();
+                var headerDocResult = await pageContextRepository.GetPageAsync("/MasterPage/Header".ToNodeIdentity());
+                if (headerDocResult.TryGetValue(out var headerDoc)){
+                     CacheScope.Begin();
                     CacheStore.Store(new string[] { $"documentid|{headerDoc.DocumentID}" });
                     <inlinewidgetpage documentid="@headerDoc.DocumentID" initialize-document-prior="true">
                         <vc:header />
                     </inlinewidgetpage>
                     <cache-dependency cache-keys="@CacheScope.End()" />
+                } else {
+                    <vc:configuration-helper visible=@(headerDoc == null) mode="Inline" instructions="<strong>No Header Page Found</strong>: Please create a folder `MasterPage` at the root, and add a Header page there with the name `Header`." needs-attention="true" />
                 }
             }
         </cache>

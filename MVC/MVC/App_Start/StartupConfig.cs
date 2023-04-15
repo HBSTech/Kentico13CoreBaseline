@@ -144,6 +144,11 @@ namespace MVC
             });
         }
 
+        public static void AddAuthentication(IServiceCollection services, IConfiguration configuration, string AUTHENTICATION_COOKIE_NAME = "identity.authentication")
+        {
+            // Adds Basic Kentico Authentication, needed for user context and some tools
+            services.AddCoreBaselineKenticoAuthentication(configuration, AUTHENTICATION_COOKIE_NAME);
+        }
         internal static void RegisterGzipFileHandling(IServiceCollection services, IWebHostEnvironment environment, IConfiguration Configuration)
         {
             services.UseGzipAndCacheControlFileHandling();

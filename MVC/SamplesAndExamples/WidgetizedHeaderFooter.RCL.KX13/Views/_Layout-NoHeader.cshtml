@@ -45,17 +45,21 @@
 
     <cache expires-after="@TimeSpan.FromMinutes(60)" enabled="@CacheContext.CacheEnabled()">
         @{
-            var footerDoc = await pageContextRepository.GetPageAsync("/MasterPage/Footer");
-            <vc:configuration-helper visible=@(footerDoc == null) mode="Inline" instructions="<strong>No Footer Page Found</strong>: Please create a folder `MasterPage` at the root, and add a Footer page there with the name `Footer`." needs-attention="true" />
-            if (footerDoc != null)
-            {
-                CacheScope.Begin();
-                CacheStore.Store(new string[] { $"documentid|{footerDoc.DocumentID}" });
-                <inlinewidgetpage documentid="@footerDoc.DocumentID" initialize-document-prior="true">
-                    <vc:footer />
-                </inlinewidgetpage>
-                <cache-dependency cache-keys="@CacheScope.End()" />
+            var footerDocResult = await pageContextRepository.GetPageAsync("/MasterPage/Footer".ToNodeIdentity());
+            if (footerDocResult.TryGetValue(out var footerDoc)){
+                
+                    CacheScope.Begin();
+                    CacheStore.Store(new string[] { $"documentid|{footerDoc.DocumentID}" });
+                    <inlinewidgetpage documentid="@footerDoc.DocumentID" initialize-document-prior="true">
+                        <vc:footer />
+                    </inlinewidgetpage>
+                    <cache-dependency cache-keys="@CacheScope.End()" />
+                
+            } else {
+                
+                <vc:configuration-helper visible=@(footerDoc == null) mode="Inline" instructions="<strong>No Footer Page Found</strong>: Please create a folder `MasterPage` at the root, and add a Footer page there with the name `Footer`." needs-attention="true" />
             }
+            
         }
     </cache>
 

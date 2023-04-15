@@ -1,14 +1,24 @@
-﻿global using System;
-global using Microsoft.AspNetCore.Mvc;
-global using Microsoft.AspNetCore.Http;
+﻿// System
+global using System;
+global using System.Linq;
+global using System.Threading;
+global using CSharpFunctionalExtensions;
 
+// Core
 global using Core.Repositories;
 global using Core.Services;
 global using Core.Models;
-global using Core.Attributes;
+global using Core.Extensions;
+global using Core.Enums;
+global using Core.Comparers;
+global using Core.Interfaces;
+global using MVCCaching;
 
+// MVC
+global using Core.Attributes;
+global using Microsoft.AspNetCore.Mvc;
+global using Microsoft.AspNetCore.Http;
+
+// Feature
 global using Navigation.Repositories;
 global using Navigation.Models;
-global using Navigation.TagHelpers;
-
-global using CSharpFunctionalExtensions;

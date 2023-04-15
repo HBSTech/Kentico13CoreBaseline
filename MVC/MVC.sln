@@ -12,9 +12,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Models", "Core\Core.Models\Core.Models.csproj", "{227F2495-3FD6-44D1-84CC-95643914BCEC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Navigation", "Navigation", "{389F825B-1B60-4DB6-91D7-DD3AEAF4B7CD}"
-	ProjectSection(SolutionItems) = preProject
-		Core\Core.Models\GlobalUsing.cs = Core\Core.Models\GlobalUsing.cs
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Library.KX13", "Core\Core.Library.KX13\Core.Library.KX13.csproj", "{6F16469A-320E-408B-9259-F2DCD1AA7AE6}"
 EndProject

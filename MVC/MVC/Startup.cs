@@ -19,9 +19,6 @@ namespace MVC
             Configuration = configuration;
         }
 
-        public IConfigurationRoot ConfigurationRoot { get; private set; }
-
-
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
@@ -33,6 +30,8 @@ namespace MVC
             StartupConfig.RegisterGzipFileHandling(services, Environment, Configuration);
 
             StartupConfig.RegisterLocalizationAndControllerViews(services, Environment, Configuration);
+
+            StartupConfig.AddAuthentication(services, Configuration);
 
             services.AddHttpContextAccessor();
 
