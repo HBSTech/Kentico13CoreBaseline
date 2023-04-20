@@ -1,0 +1,8 @@
+﻿@model ISection
+@if (Model.GetSectionVideoSection().TryGetValue(out var videoSection))
+{
+    <section class="section section-video theme-@Model.GetTheme().ToStringCss() @Model.GetAdditionalCss().GetValueOrDefault(string.Empty)">
+        <partial name="/Features/Sections/SectionContent.cshtml" model="Model" />
+        <bs-video-element-display x-video-muted=true x-video-autoplay=true x-video-loop=true x-video-section="@videoSection"></bs-video-element-display>
+    </section>
+}

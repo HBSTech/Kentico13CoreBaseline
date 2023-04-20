@@ -2,7 +2,6 @@
 global using System;
 global using System.Linq;
 global using System.Threading;
-global using System.Threading.Task;
 global using System.Collections.Generic;
 global using CSharpFunctionalExtensions;
 
@@ -36,3 +35,7 @@ global using XperienceCommunity.QueryExtensions.Collections;
 
 // Feature
 // Feature global usings here
+global using SectionsSystem.Interfaces;
+global using SectionsSystem.Repositories;
+global using SectionsSystem.Enums;
+global using SectionsSystem.Models;

@@ -1,0 +1,84 @@
+﻿@model SectionsSystem.Features.Sections.SectionTypes.SectionGeneralContentViewModel
+
+@{
+    bool hasImageContent = Model.Item.VisualItems.Any();
+    bool imageFirst = hasImageContent && Model.GeneralContent.TextAlignment == TextAlignment.End;
+    bool textCentered = Model.GeneralContent.TextAlignment == TextAlignment.Center;
+    
+    string textCssClass;
+    string imageCssClass;
+    string rowCssClass;
+
+    if (Model.GeneralContent.TextAlignment == TextAlignment.Center)
+    {
+        textCssClass = "text-center col col-lg-12";
+        imageCssClass = "text-center col col-lg-12";
+        rowCssClass = "justify-content-center";
+    }
+    else {
+        textCssClass = $"{(hasImageContent ? "col-lg-7" : "col")} {(Model.GeneralContent.TextAlignment == TextAlignment.Start ? "text-lg-start" : "text-lg-end")}";
+        imageCssClass = $"{(hasImageContent ? "col-lg-5" : "col")} text-center";
+        rowCssClass = "justify-content-between";
+    }
+
+    if (imageFirst)
+    {
+        imageCssClass += " order-2 order-lg-1";
+        textCssClass += " order-1 order-lg-2";
+    }
+    Maybe<string> linkTitle = Maybe.None;
+}
+
+<div class="container sectionitem-generalcontent @(hasImageContent ? "content-with-image" : "content-without-image")">
+    <div class="row @rowCssClass">
+
+        <div class="section-caption @textCssClass">
+            @if (Model.Item.ContentItems.FirstOrMaybe().TryGetValue(out var content))
+            {
+                @if (content.Header.HasValue || content.SubHeader.HasValue)
+                {
+                    <div>
+                        @if (content.Header.TryGetValue(out var header))
+                        {
+                            linkTitle = header;
+                            <h2>@Html.Raw(header)</h2>
+                        }
+                        @if (content.SubHeader.TryGetValue(out var subHeader))
+                        {
+                            linkTitle = linkTitle.HasValue ? linkTitle.Value : subHeader;
+                            @* double span is so outer can be block while inner can have contrast block*@
+                            <span>
+                                <span>@Html.Raw(subHeader)</span>
+                            </span>
+
+                        }
+                    </div>
+                }
+                @if (content.HtmlContent.TryGetValue(out var htmlContent))
+                {
+                    linkTitle = linkTitle.HasValue ? linkTitle.Value : htmlContent;
+                    @Html.RawWithWrapper(htmlContent, "p")
+                }
+            }
+            @if (Model.Item.LinkItems.Any())
+            {
+                <div>
+                    @foreach (var linkItem in Model.Item.LinkItems)
+                    {
+                        <a href="@linkItem.GetLinkUrl()">@linkItem.GetLinkText().GetValueOrDefault("Go to link")</a>
+                    }
+                </div>
+            }
+
+        </div>
+
+        @if (hasImageContent && Model.Item.VisualItems.First() is ImageItem imageItem)
+        {
+            <div class="@imageCssClass section-image d-flex align-items-center justify-content-center">
+                <img src="@imageItem.ImageUrl" alt="@imageItem.ImageAlt.GetValueOrDefault("Content Image")"/>
+            </div>
+        }
+
+
+    </div>
+</div>

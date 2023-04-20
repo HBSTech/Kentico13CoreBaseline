@@ -1,0 +1,14 @@
+﻿@using SectionsSystem.Models.Sections
+@model ISection
+@if (Model is Section<WidgetSection> widgetSection){
+    <vc:section-widget x-section="widgetSection"/>
+}
+else if(Model is Section<GeneralContentSection> generalContentSection) {
+    <vc:section-general-content x-section="generalContentSection"/>
+}
+else if(Model is Section<FeatureSection> featureSection) {
+    <vc:section-feature x-section="featureSection"/>
+}
+@*
+    Add more as you make more sections
+*@

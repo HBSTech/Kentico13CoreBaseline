@@ -1,0 +1,7 @@
+﻿@{
+    Layout = null;
+}
+@model Core.Features.PageBuilderError.PageBuilderErrorViewModel
+
+@* Error *@
+<vc:configuration-helper x-instructions="@Model.Message" x-mode="@Model.Mode" x-visible=true x-needs-attention=@Model.NeedsAttention/>

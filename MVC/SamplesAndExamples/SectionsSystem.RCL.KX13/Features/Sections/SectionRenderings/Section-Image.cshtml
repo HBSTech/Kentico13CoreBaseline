@@ -1,0 +1,14 @@
+﻿@using SectionsSystem.Models.ImageSections
+@model ISection
+
+@if (Model.GetSectionImageSection().TryGetValue(out var iImageSection) && iImageSection is ImageSection imageSection)
+{
+    <section class="section section-image theme-@Model.GetTheme().ToStringCss() @Model.GetAdditionalCss().GetValueOrDefault(string.Empty)" style="background: url('@imageSection.ImageUrl') top center; background-size: cover; padding: 100px 0;">
+        <partial name="/Features/Sections/SectionContent.cshtml" model="Model" />
+    </section>
+} else {
+    <vc:configuration-helper x-instructions="Section is set to be an Image Section but no Image Found, please check configuration" x-needs-attention="true" />
+    <section class="section section-image theme-@Model.GetTheme().ToStringCss() @Model.GetAdditionalCss().GetValueOrDefault(string.Empty)">
+        <partial name="/Features/Sections/SectionContent.cshtml" model="Model" />
+    </section>
+}

@@ -1,0 +1,14 @@
+﻿@using SectionsSystem.Models.ImageSections
+@model ISection
+
+@if (Model.GetSectionImageSection().TryGetValue(out var iImageSection) && iImageSection is ParallaxImageSection parallaxImageSection)
+{
+    <section class="section section-parallax parallax parallax-bg theme-@Model.GetTheme().ToStringCss() m-0 border-top-0 @Model.GetAdditionalCss().GetValueOrDefault(string.Empty)" data-rellax-speed="2" style="background: url('@parallaxImageSection.ImageUrl') center center; padding: 100px 0;" data-bottom-top="background-position:0px 0px;" data-top-bottom="background-position:0px -200px;">
+        <partial name="/Features/Sections/SectionContent.cshtml" model="Model" />
+    </section>
+} else {
+    <vc:configuration-helper x-instructions="Section is set to be an Image Section but no Image Found, please check configuration" x-needs-attention="true" />
+    <section class="section section-image theme-@Model.GetTheme().ToStringCss() @Model.GetAdditionalCss().GetValueOrDefault(string.Empty)">
+        <partial name="/Features/Sections/SectionContent.cshtml" model="Model" />
+    </section>
+}

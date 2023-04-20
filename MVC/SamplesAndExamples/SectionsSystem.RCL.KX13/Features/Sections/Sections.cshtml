@@ -1,0 +1,29 @@
+﻿@model SectionsSystem.Features.Sections.SectionsViewModel
+@using Core.Middleware
+@using SectionsSystem.Enums
+@{
+    SectionStyleType? previousStyle = null;
+}
+<cache expires-after="CacheMinuteTypes.Long.ToTimeSpan()" vary-by="@Model.ParentPage.NodeGUID" vary-by-header="@CustomVaryByHeaders.CultureVaryBy()">
+@foreach (var sectionItem in Model.Sections)
+    {
+        // Set previous style to be passed next time
+        SectionStyleType? overrideStyle = null;
+
+        var currentStyleType = sectionItem.GetSectionStyleType();
+        if(previousStyle == null) {
+            previousStyle = currentStyleType;
+        } else{
+            if(previousStyle == SectionStyleType.Default && currentStyleType == SectionStyleType.Default) {
+                overrideStyle = SectionStyleType.Default_Alternate;
+                previousStyle = SectionStyleType.Default_Alternate;
+            } else if(previousStyle == SectionStyleType.Default_Alternate && currentStyleType == SectionStyleType.Default) {
+                previousStyle = SectionStyleType.Default;
+            } else {
+                previousStyle = currentStyleType;
+            }
+        }
+        <vc:render-section x-section="@sectionItem" x-override-style-type="@overrideStyle" />
+        }
+    <cache-dependency cache-keys="@Model.DependencyKeys.ToArray()" />
+</cache>

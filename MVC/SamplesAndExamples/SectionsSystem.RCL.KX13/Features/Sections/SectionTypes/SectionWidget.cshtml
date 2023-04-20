@@ -1,0 +1,12 @@
+﻿@model SectionsSystem.Features.Sections.SectionTypes.SectionWidgetViewModel
+@* Render widget zone *@
+<div class="sectionitem-widget @(Model.FullWidth ? "container-fluid" : "container")">
+    <page-builder-mode include="Edit">
+        <editable-area area-identifier="MainZone" />
+    </page-builder-mode>
+    <page-builder-mode exclude="Edit">
+        <inlinewidgetpage documentid="@Model.DocumentID">
+            <editable-area area-identifier="MainZone" />
+        </inlinewidgetpage>
+    </page-builder-mode>
+</div>

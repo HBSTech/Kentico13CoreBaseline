@@ -1,0 +1,9 @@
+﻿@model ISection
+
+<section class="section section-default section-default-alternate @Model.GetAdditionalCss().GetValueOrDefault(string.Empty)">
+    <partial name="/Features/Sections/SectionContent.cshtml" model="Model" />
+</section>
+@if (Model.ShowDivider())
+{
+    <hr/>
+}

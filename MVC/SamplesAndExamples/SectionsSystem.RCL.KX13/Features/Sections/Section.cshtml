@@ -1,0 +1,35 @@
+﻿@model SectionsSystem.Features.Sections.RenderSectionViewModel
+@{
+    var cacheKey = $"{Model.Section.GetSectionPageIdentity().GetValueOrDefault(PageIdentity.Random()).DocumentGUID.ToString()}{Model.OverrideStyleType.GetValueOrDefault(SectionStyleType.Default).ToString()}";
+}
+<cache enabled=@Model.Cache expires-after="CacheMinuteTypes.Long.ToTimeSpan()" vary-by="@cacheKey" vary-by-header="@CustomVaryByHeaders.CultureVaryBy()">
+    @{
+        var styleType = Model.Section.GetSectionStyleType();
+        if (Model.OverrideStyleType.TryGetValue(out var overrideStyleType))
+        {
+            styleType = overrideStyleType;
+        }
+    }
+    @switch (styleType)
+    {
+        case SectionStyleType.Default:
+            <partial name="/Features/Sections/SectionRenderings/Section-Default.cshtml" model="Model.Section" />
+            break;
+        case SectionStyleType.Default_Alternate:
+            <partial name="/Features/Sections/SectionRenderings/Section-Default-Alternate.cshtml" model="Model.Section" />
+            break;
+        case SectionStyleType.Color:
+            <partial name="/Features/Sections/SectionRenderings/Section-Color.cshtml" model="Model.Section" />
+            break;
+        case SectionStyleType.Image:
+            <partial name="/Features/Sections/SectionRenderings/Section-Image.cshtml" model="Model.Section" />
+            break;
+        case SectionStyleType.ParallaxImage:
+            <partial name="/Features/Sections/SectionRenderings/Section-ParallaxImage.cshtml" model="Model.Section" />
+            break;
+        case SectionStyleType.Video:
+            <partial name="/Features/Sections/SectionRenderings/Section-Video.cshtml" model="Model.Section" />
+            break;
+    }
+    <cache-dependency cache-keys="@Model.DependencyKeys.ToArray()" />
+</cache>

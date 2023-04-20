@@ -1,0 +1,54 @@
+﻿@model SectionsSystem.Features.Sections.SectionTypes.SectionFeatureViewModel
+<div class="container">
+@if(Model.FeatureSection.SectionIntro.TryGetValue(out var sectionIntro)) {
+	<div class="heading-block center">
+		@if(sectionIntro.Header.TryGetValue(out var header)) {
+			<h2>@header</h2>
+		}
+		@if(sectionIntro.SubHeader.TryGetValue(out var subHeader)){
+			@Html.RawWithWrapper(subHeader, "span")
+			;
+		}
+	</div>
+}
+@if(Model.Features.Any()) {
+<div class="row justify-content-center">
+		@{
+			string cssClass = Model.Features.Count() switch
+			{
+				1 => "col-sm-12 col-lg-12",
+				2 => "col-sm-6 col-lg-6",
+				3 => "col-sm-4 col-lg-4",
+				4 => "col-sm-6 col-lg-3",
+				8 => "col-sm-6 col-lg-3",
+				_ => "col-sm-4 col-lg-3"
+			};
+		}
+		@foreach(var feature in Model.Features) {
+			<div class="@cssClass feature-item">
+					<div class="feature-box fbox-sm fbox-plain" data-animate="fadeIn">
+						<div class="fbox-icon">
+							@if(feature.VisualItems.FirstOrDefault().AsMaybe().TryGetValue(out var visualItem)) {
+								@* Display Visual item here*@
+							}
+						</div>
+						
+						<div class="fbox-content">
+						@if (feature.ContentItems.FirstOrDefault().AsMaybe().TryGetValue(out var contentItem))
+						{	
+							@if(contentItem.Header.TryGetValue(out var header)){
+								<h3 bl-link-wrapper bl-link-item="feature.GeneralLink.AsNullableValue()" bl-link-wrap-only-if-general=true bl-link-wrap-interior=true>@header</h3>
+							}
+							@if(contentItem.HtmlContent.TryGetValue(out var content)){
+								@Html.RawWithWrapper(content, "p")
+							}
+						}
+						</div>
+					</div>
+				
+			</div>
+		}
+
+</div>
+}
+</div>
