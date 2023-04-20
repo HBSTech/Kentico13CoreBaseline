@@ -1,0 +1,4 @@
+-Add options for Services for things that can be configured
+-Use standard DI after normal usage for overwriting implementation
+-Vary between Overwritting model (inherited) and implementation, or having a generic typed base model (with an exteded property like IPageRepository) depending on what works best
+-Tag Helpers / View Components, prefix "bl-modulename-propertyname" so easy to find values
