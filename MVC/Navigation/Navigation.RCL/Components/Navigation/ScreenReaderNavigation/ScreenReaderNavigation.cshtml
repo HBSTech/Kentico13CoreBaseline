@@ -1,0 +1,52 @@
+﻿@using Navigation.Components.Navigation.ScreenReaderNavigation
+@model ScreenReaderNavigationViewModel
+<nav class="visually-hidden ada-main-navigation" role="navigation" aria-label="Screen Reader Navigation">
+    <a name="navigation" class="visually-hidden"></a>
+    <ul id="@Model.Id">
+        @foreach (var navItem in Model.NavigationItems)
+        {
+            <partial name="/Components/Navigation/ScreenReaderNavigation/ScreenReaderNavigationList.cshtml" model="new ScreenReaderNavigationListViewModel(navItem, 1)" />
+        }
+    </ul>
+</nav>
+<script>
+    // enable left/right/up/down navigation
+    var navLinks = document.querySelectorAll("#@(Model.Id) a");
+    for(var n = 0; n< navLinks.length; n++){
+        navLinks[n].addEventListener("keydown", function(event) {
+            var link = this;
+            var parentLi = link.parentElement;
+            var parentUl = parentLi.parentElement;
+            switch (event.keyCode) {
+                case 37: // left arrow
+                    let prevLink = $(parentLi).prev("li");
+                    if (prevLink) {
+                        $("> a", prevLink).focus();
+                    }
+                    break;
+                case 38: // up arrow
+                    let parentLink = $(parentUl).siblings("a");
+                    if (parentLink) {
+                        $(parentLink).focus();
+                    }
+                    break;
+                case 39: // right arrow
+                    let nextLink = $(parentLi).next("li");
+                    if (nextLink) {
+                        $("> a", nextLink).focus();
+                    }
+                    break;
+                case 40: // down arrow
+                    let childLink = $(link).siblings("ul");
+                    if (childLink) {
+                        $("> li:first-child > a", childLink).focus();
+                    }
+                    break;
+                case 13: // enter
+                case 32: // space
+                    event.preventDefault();
+
+            }
+        });
+    }
+</script>

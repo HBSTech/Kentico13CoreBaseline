@@ -49,7 +49,8 @@ namespace Navigation.Components.Navigation.SecondaryNavigation
                 navWrapperClass: navigationProperties.CssClass,
                 startingPath: ancestorPath,
                 currentPagePath: navigationProperties.Path.GetValueOrDefault("/"),
-                includeCurrentPageSelector: navigationProperties.IncludeSecondaryNavSelector
+                includeCurrentPageSelector: navigationProperties.IncludeSecondaryNavSelector,
+                includeScreenReaderNavigation: navigationProperties.IncludeScreenReaderNav
             );
 
             return View("SecondaryNavigation", model);

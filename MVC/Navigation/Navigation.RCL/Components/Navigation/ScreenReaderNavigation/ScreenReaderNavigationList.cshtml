@@ -1,0 +1,16 @@
+﻿@using Navigation.Components.Navigation.ScreenReaderNavigation
+@model ScreenReaderNavigationListViewModel
+<li navitem-class navitem-references navigation-item="Model.NavItem">
+    <a aria-keyshortcuts="ArrowUp ArrowDown Left Right" navitem-link navigation-item="Model.NavItem">
+        @Html.Raw(Model.NavItem.LinkText)
+    </a>
+    @if (Model.NavItem.Children.Any())
+    {
+        <ul>
+            @foreach (var childNavItem in Model.NavItem.Children)
+            {
+                <partial name="/Components/Header/Elements/Navigation/Navigation-ADAHierarchyList.cshtml" model="new ScreenReaderNavigationListViewModel(childNavItem, Model.Level+1)" />
+            }
+        </ul>
+    }
+</li>

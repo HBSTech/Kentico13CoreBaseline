@@ -5,3 +5,8 @@
         <partial name="/Components/Navigation/MainNavigation/MainNavigationItem.cshtml" for="@NavItem" />
     }
 </ul>
+@{
+    if(Model.IncludeScreenReaderNavigation){
+        <vc:screen-reader-navigation navigation-items="Model.NavItems" navigation-id="Model.NavWrapperClass" />
+    }
+}

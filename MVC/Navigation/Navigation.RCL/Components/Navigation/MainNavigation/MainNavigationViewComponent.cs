@@ -11,27 +11,30 @@ namespace Navigation.Components.Navigation.MainNavigation
         {
             _navigationRepository = navigationRepository;
         }
-        public async Task<IViewComponentResult> InvokeAsync(string NavigationParentPath, string CssClass = "MainNav")
+        public async Task<IViewComponentResult> InvokeAsync(string NavigationParentPath, string CssClass = "MainNav", bool includeScreenReaderNav = true)
         {
             NavigationParentPath = !string.IsNullOrWhiteSpace(NavigationParentPath) ? NavigationParentPath : "/MasterPage/Navigation";
             var NavItems = await _navigationRepository.GetNavItemsAsync(NavigationParentPath);
             var model = new NavigationViewModel(
                 navItems: NavItems.ToList(),
-                navWrapperClass: CssClass
+                navWrapperClass: CssClass,
+                includeScreenReaderNav: includeScreenReaderNav
             );
 
             return View("/Components/MainNavigation/MainNavigation.cshtml", model);
         }
         public record NavigationViewModel
         {
-            public NavigationViewModel(IEnumerable<NavigationItem> navItems, string navWrapperClass)
+            public NavigationViewModel(IEnumerable<NavigationItem> navItems, string navWrapperClass, bool includeScreenReaderNav)
             {
                 NavItems = navItems;
                 NavWrapperClass = navWrapperClass;
+                IncludeScreenReaderNav = includeScreenReaderNav;
             }
 
             public IEnumerable<NavigationItem> NavItems { get; set; } = Array.Empty<NavigationItem>();
             public string NavWrapperClass { get; set; }
+            public bool IncludeScreenReaderNav { get; set; }
         }
     }
 }
