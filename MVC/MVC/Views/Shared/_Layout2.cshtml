@@ -1,0 +1,199 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html dir="ltr" lang="@(System.Threading.Thread.CurrentThread.CurrentCulture.Name.Split('-')[0])">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+   
+    <script>
+        @* All javascript that depends on any library should use window.OnScriptsLoaded(function() { }) so it will run after the javascript is loaded *@
+        @* Add an optional string identifier if you wish to make sure something is only ran once *@
+            window.OnScriptsLoaded = function(fn, identifier) {
+                window.PreloadIdentifiers = window.PreloadIdentifiers || [];
+                var addScript = true;
+                if (typeof identifier !== "undefined" && identifier != null) {
+                    if (window.PreloadIdentifiers.indexOf(identifier) == -1) {
+                        window.PreloadIdentifiers.push(identifier);
+                    } else {
+                        // this script by this identifier is already added
+                        addScript = false;
+                    }
+                }
+                if (addScript) {
+                    if (window.ScriptsLoaded) {
+                        fn();
+                    } else {
+                        window.PreloadQueue = window.PreloadQueue || [];
+                        window.PreloadQueue.push(fn);
+                    }
+                }
+            };
+        // Loading javascript, should be {src: string, header?: boolean, crossorigin?: string, appendAtEnd?: bool}
+        window.LoadScript = function (scriptObj) {
+            window.scriptsToLoad = window.scriptsToLoad || [];
+            window.scriptsToLoad.push(scriptObj);
+        }
+    </script>
+
+    <environment exclude="Development">
+        @* Defined in gulpfile.js headerCss *@
+        <link href="/css/shared/bundles/HeaderStyles.min.css.gz" rel="preload" as="style" asp-append-version="true" />
+    </environment>
+
+    <link rel="stylesheet" href="/css/shared/bootstrap.min.css.gz" asp-append-version="true" />
+
+    <environment exclude="Development">
+        @* Defined in gulpfile.js headerCss *@
+        <link href="/css/shared/bundles/HeaderStyles.min.css.gz" rel="stylesheet" asp-append-version="true" />
+
+        @* start preloading javascript *@
+        <!--<link href="@(Html.AddFileVersionToPath("/js/shared/bundles/bundleJSFooter.min.js.gz"))" rel="preload" as="script" />-->
+    </environment>
+
+    <environment include="Development">
+        <!-- This section is bundled -->
+        <!--<link rel="stylesheet" href="/css/shared/generated/themes.css" type="text/css" />-->
+        
+        <!-- This section is bundled -->
+    </environment>
+
+    
+
+    @RenderSection("head", required: false)
+    @* added after so if there is any manual meta data that below won't trigger even if there is a matching page on the content tree *@
+    <vc:page-meta-data />
+
+    <page-builder-mode include="Edit">
+        <!-- Edit Mode -->
+        <page-builder-styles />
+        <link href="/css/EditMode.css" rel="stylesheet" />
+    </page-builder-mode>
+
+    <vc:breadcrumbs-json include-default-breadcrumb="true" nodeid="-1" />
+
+
+</head>
+<body>
+    <cache expires-after="CacheMinuteTypes.VeryLong.ToTimeSpan()">
+        @{
+            CacheScope.Begin();
+        }
+        <vc:ada-quick-nav />
+        <cache-dependency cache-keys="@CacheScope.End()" />
+    </cache>
+
+
+    <header data-ktc-search-exclude>
+    </header>
+        <vc:breadcrumbs include-default-breadcrumb="true" />
+        @RenderSection("breadcrumb", false)
+
+                @RenderBody()
+
+    <footer data-ktc-search-exclude>
+    </footer>
+
+    <page-builder-mode include="Edit">
+        <!-- Edit mode-->
+        <page-builder-scripts />
+        <script src="/js/shared/scripts/MyComponentsConfiguration.js"></script>
+    </page-builder-mode>
+
+    <page-builder-mode exclude="Edit">
+        @* These will be automatically called in the header in Edit Mode, so only need to be called when not in edit mode *@
+        <script>LoadScript({ src: "@(Html.AddFileVersionToPath("/js/shared/jquery/jquery.min.js.gz"))" })</script>
+        <script>LoadScript({ src: "@(Html.AddFileVersionToPath("/js/shared/jquery.unobtrusive.ajax/jquery.unobtrusive-ajax.min.js.gz"))" })</script>
+        @* These are needed for Forms, edit mode includes these as well so only need when not in edit mode *@
+        <script>LoadScript({ src: "@(Html.AddFileVersionToPath("/js/shared/scripts/updatableFormHelper.min.js.gz"))" })</script>
+        <script>LoadScript({ src: "@(Html.AddFileVersionToPath("/js/shared/scripts/inputmask.min.js.gz"))" })</script>
+    </page-builder-mode>
+
+    <!-- Javascripts File -->
+    <environment exclude="Development">
+        @* Defined in gulpfile.js footerJS *@
+        <script>LoadScript({ src: "@(Html.AddFileVersionToPath("/js/shared/bundles/bundleJSFooter.min.js.gz"))" })</script>
+    </environment>
+    <environment include="Development">
+        @* Defined in gulpfile.js footerJS *@
+        @* Bootstrap js is found in the plugins.min.js *@
+        <!--<script>LoadScript({ src: "/js/shared/generated/plugins.min.js" })</script>-->
+    </environment>
+
+    <!-- Includes the jQuery Validator for MVC-->
+    <script>LoadScript({ src: "@(Html.AddFileVersionToPath("/js/shared/jquery.validate/jquery.validate.min.js.gz"))" })</script>
+    <script type="text/javascript">
+        OnScriptsLoaded(function () {
+            $.validator.setDefaults({ ignore: null });
+        });
+    </script>
+
+    @RenderSection("bottom", required: false)
+
+    <vc:page-html-tags location="Startup" />
+
+    <script>
+        OnScriptsLoaded(function () {
+            GlobalMethods.InitializeOtherTools();
+            GlobalMethods.InitializeAccessability();
+            GlobalMethods.InitializeCanvas();
+            GlobalMethods.InitializeRedirectTabs();
+        });
+    </script>
+
+    <script>
+        @* This will run last after all scripts loaded, and will run the Preload methods *@
+            LoadScript({ src: "@(Html.AddFileVersionToPath("/js/shared/run-queued-scripts.min.js.gz"))", appendAtEnd: true });
+
+        @* This runs after all scripts are loaded (defered as well), and runs any queued items *@
+            window.addEventListener("load", function () {
+        @* This timeout is so this run asyncly *@
+                    setTimeout(function () {
+                        var loadedScripts = [];
+                        // Get all that aren't "appendAtEnd" first, then run others after
+                        for (var i = 0; i < window.scriptsToLoad.length; i++) {
+                            var options = window.scriptsToLoad[i];
+                            if (loadedScripts.indexOf(options.src) == -1) {
+                                if (typeof options.appendAtEnd === "undefined" || options.appendAtEnd == null || options.appendAtEnd == false) {
+                                    loadedScripts.push(options.src);
+                                    var scrpt = document.createElement("script");
+                                    scrpt.async = false;
+                                    scrpt.src = options.src;
+
+                                    scrpt.crossOrigin = options.crossorigin;
+                                    if (options.head) {
+                                        document.head.appendChild(scrpt);
+                                    }
+                                    else {
+                                        document.body.appendChild(scrpt);
+                                    }
+                                }
+                            }
+                        }
+                        // Now re-run those append at end
+                        for (var i = 0; i < window.scriptsToLoad.length; i++) {
+                            var options = window.scriptsToLoad[i];
+                            if (loadedScripts.indexOf(options.src) == -1) {
+                                if (options.appendAtEnd == true) {
+                                    loadedScripts.push(options.src);
+                                    var scrpt = document.createElement("script");
+                                    scrpt.async = false;
+                                    scrpt.src = options.src;
+
+                                    scrpt.crossOrigin = options.crossorigin;
+                                    if (options.head) {
+                                        document.head.appendChild(scrpt);
+                                    }
+                                    else {
+                                        document.body.appendChild(scrpt);
+                                    }
+                                }
+                            }
+                        }
+                    }, 1);
+            });
+    </script>
+</body>
+</html>
