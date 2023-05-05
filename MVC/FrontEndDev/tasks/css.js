@@ -90,6 +90,7 @@ function cssBundleStream(cssConfig) {
 
 function MinifyStream(stream, cssConfig, includeSourceMap, initSourceMap) {
     return stream
+		.pipe(removeSourcemaps()) // Source map links also blow up when minifying
         .pipe(gulpif(includeSourceMap && initSourceMap, sourcemaps.init()))
         .pipe(minify())
         .pipe(rename(function (path) {
