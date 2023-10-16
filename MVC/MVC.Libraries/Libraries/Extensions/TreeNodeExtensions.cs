@@ -85,7 +85,29 @@ namespace Generic.Libraries.Extensions
             return pageIdentity;
         }
 
-
+        /// <summary>
+        /// Retrieves the typed object from the generic PageIdentity
+        /// </summary>
+        /// <typeparam name="TPage"></typeparam>
+        /// <param name="pageIdentity"></param>
+        /// <returns></returns>
+        public static PageIdentity<TPage> AsTyped<TPage>(this PageIdentity pageIdentity) {
+            // Explicitly casting in order to throw error if incorrect type
+            return new PageIdentity<TPage>()
+            {
+                Name = pageIdentity.Name,
+                Alias = pageIdentity.Alias,
+                NodeID = pageIdentity.NodeID,
+                NodeGUID = pageIdentity.NodeGUID,
+                DocumentID = pageIdentity.DocumentID,
+                DocumentGUID = pageIdentity.DocumentGUID,
+                Path = pageIdentity.Path,
+                RelativeUrl = pageIdentity.RelativeUrl,
+                AbsoluteUrl = pageIdentity.AbsoluteUrl,
+                NodeLevel = pageIdentity.NodeLevel,
+                Data = (TPage)pageIdentity.Data
+            };
+        }
 
         /// <summary>
         /// DocumentURLProvider.GetPresentationUrl() does various uncached database calls, this caches that to minimize calls for absolute url
