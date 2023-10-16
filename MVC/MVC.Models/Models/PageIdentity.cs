@@ -2,7 +2,7 @@
 
 namespace Generic.Models
 {
-    public record PageIdentity
+    public record PageIdentityBase
     {
         /// <summary>
         /// The Name of the page
@@ -55,11 +55,37 @@ namespace Generic.Models
         public int NodeLevel { get; init; }
     }
 
-    public record PageIdentity<T> : PageIdentity
+    public record PageIdentity : PageIdentityBase
+    {
+        /// <summary>
+        /// Generic page data
+        /// </summary>
+        public object Data { get; set; }
+    }
+
+    public record PageIdentity<T> : PageIdentityBase
     {
         /// <summary>
         /// Typed page data
         /// </summary>
         public T Data { get; set; }
+
+        public static implicit operator PageIdentity(PageIdentity<T> d)
+        {
+            return new PageIdentity()
+            {
+                Name = d.Name,
+                Alias = d.Alias,
+                NodeID = d.NodeID,
+                NodeGUID = d.NodeGUID,
+                DocumentID = d.DocumentID,
+                DocumentGUID = d.DocumentGUID,
+                Path = d.Path,
+                RelativeUrl = d.RelativeUrl,
+                AbsoluteUrl = d.AbsoluteUrl,
+                NodeLevel = d.NodeLevel,
+                Data = d.Data
+            };
+        }
     }
 }
