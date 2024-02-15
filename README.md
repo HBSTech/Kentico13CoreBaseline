@@ -1,3 +1,11 @@
+# REPOSITORY OBSOLETE
+
+This verison of the baseline was prior to a refactoring, which enabled the pieces of the baseline to be added via NuGet Package.
+
+Please refer to [XperienceCommunity.Baseline Repository](https://github.com/KenticoDevTrev/XperienceCommunity.Baseline) for Version 2 (13.0.131+), or [Version 1](https://github.com/KenticoDevTrev/XperienceCommunity.Baseline/tree/master-v1) for 13.0.5+
+
+-------------------------------------
+
 # Kentico13CoreBaseline
 Our Kentico 13 Baseline for MVC .Net Core 6.0 Site, the perfect starting point for your Kentico Xperience 13 Site to get up and running right away.
 
